@@ -1,52 +1,83 @@
+<script setup>
+const { data } = await useFetch('https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1079324519433678968');
+</script>
+
 <script>
 export default {
     data() {
         return {
             status: 'clear',
-            attentionBlue: false,
-            attentionRed: false,
-            attentionGreen: false,
-            attentionYellow: false,
-
+            rouletteRecipe: [{
+                recipeName: 'あああ',
+                recipeUrl: 'aaa',
+                ingredients: '材料一覧？',
+                colorStatus: false
+                },
+                {
+                recipeName: 'いいい',
+                recipeUrl: 'iii',
+                ingredients: '材料一覧？',
+                colorStatus: false
+                },
+                {
+                recipeName: 'ううう',
+                recipeUrl: 'uuu',
+                ingredients: '材料一覧？',
+                colorStatus: false
+                },
+                {
+                recipeName: 'えええ',
+                recipeUrl: 'eee',
+                ingredients: '材料一覧？',
+                colorStatus: false
+                }
+            ],
+            info: null,   
+            intervalId: 0,
         }
     },
 
+
     methods: {
+
+        // ルーレットを回す。
         start() {
             this.status = 'start';
-            // this.attentionRed = true;
 
-            setTimeout(() => {
-                this.attentionBlue = true}
-                ,100
-            ).then(setTimeout(() => {
-                this.attentionRed = true}
-                ,200
-            ))
+            let attentionIndex = 0
+            
+            //　ルーレットの途中でスタートボタンが押されたら、初めから回し始める。
+            this.rouletteRecipe.forEach(e => {
+                e.colorStatus = false
+            })
 
-            // setTimeoutAsync(0) 
-            // .then(() => {
-            //     this.attentionBlue = true;
-            //     return setTimeoutAsync(100);
-            // })
-            // .then(() => {
-            //     this.attentionRed = true;
-            //     return setTimeoutAsync(100);
-            // })
-            // .then(() => {
-            //     this.attentionGreen = true;
-            //     return setTimeoutAsync(100);
-            // })
-            // .then(() => {
-            //     this.attentionYellow = true;
-            // })
+            this.intervalId = setInterval(() => {
+
+                if(attentionIndex > 3) {
+                    attentionIndex = 0
+                }
+
+                // 配列のインデックスによって、falseを入れる対象を定める。
+                if (attentionIndex !== 0) {
+                    this.rouletteRecipe[attentionIndex - 1].colorStatus = false
+                } else if (attentionIndex === 0) {
+                    this.rouletteRecipe[3].colorStatus = false
+                }
+                this.rouletteRecipe[attentionIndex].colorStatus = true
+
+                attentionIndex++
+                
+            }, 90)
+
         },
-
-        
 
         stop() {
             this.status = "stop"
+            clearInterval(this.intervalId);
         }
+
+
+
     }
 }
 </script>
@@ -71,14 +102,12 @@ export default {
     <main>
         <div class="main_wrap">
             <article class="box media">
-
-            <div class="roulette_cover">
-                <div class="target" :class="{color_blue : attentionBlue}"></div>
-                <div class="target" :class="{color_red : attentionRed}"></div>
-                <div class="target" :class="{color_green : attentionGreen}"></div>
-                <div class="target" :class="{color_yellow : attentionYellow}"></div>
+            <div class="roulette_cover roulette_on">
+                <div class="target" :class="{color_blue : rouletteRecipe[0].colorStatus}">{{ data.result[0].recipeTitle }}</div>
+                <div class="target" :class="{color_red : rouletteRecipe[1].colorStatus}">{{ data.result[1].recipeTitle }}</div>
+                <div class="target" :class="{color_green : rouletteRecipe[2].colorStatus}">{{ data.result[2].recipeTitle }}</div>
+                <div class="target" :class="{color_yellow : rouletteRecipe[3].colorStatus}">{{ data.result[3].recipeTitle }}</div>
             </div>
-
 
             <button class="button is-warning is-rounded is-large is-responsive" v-if="status !== 'start'" @click="start()">スタート</button>
             <button class="button is-warning is-rounded is-large is-responsive" v-else @click="stop()">ストップ</button>
@@ -154,7 +183,6 @@ main {
         max-width: 925px;
         min-height:100vh;
         display: flex;
-        // background-color: blue;
 
         .media {
         margin-top: 20px;
@@ -170,6 +198,9 @@ main {
                 margin: 5px auto;
                 position: relative;
 
+
+
+
                 .target {
                     display: flex;
                     align-items: center;
@@ -177,18 +208,17 @@ main {
                     width: 235px;
                     height: 235px;
 
-
-                    .color_red {
-                    }
-
                     &:first-child {
                         position: absolute;
                         top: 0px;
                         right: 0px;
                         border-radius: 0 100% 0 0;
-                        background-color: blue;
+                        // background-color: blue;
+                        border: solid 0.5em blue;
+                        background-color: #bbdbf3;
 
                         &:not(.color_blue) {
+                            border: none;
                             background-color: #bbdbf3;
                         }
                     }
@@ -198,25 +228,27 @@ main {
                         bottom: 0px;
                         right: 0px;
                         border-radius: 0 0 100% 0;
-                        background-color: red;
+                        // background-color: red;
+                        border: solid 0.5em red;
+                        background-color: #e3acae;
 
                         &:not(.color_red) {
+                            border: none;
                             background-color: #e3acae;
                         }
                     }
-
-
-
-                  
 
                     &:nth-child(3) {
                         position: absolute;
                         bottom: 0px;
                         left: 0px;
                         border-radius: 0 0 0 100%;
-                        background-color: green;
+                        // background-color: green;
+                        border: solid 0.5em green;
+                        background-color: #a3d6ce;
 
                         &:not(.color_green) {
+                            border: none;
                             background-color: #a3d6ce;
                         }
                     }
@@ -225,12 +257,14 @@ main {
                         position: absolute;
                         top: 0px;
                         left: 0px;
-                        background-color: yellow;
                         border-radius: 100% 0 0 0;
+                        border: solid 0.5em yellow;
+                        // background-color: yellow;
+                        background-color: #ffedab;
 
                         &:not(.color_yellow) {
+                            border: none;
                             background-color: #ffedab;
-
                         }
                     }
 

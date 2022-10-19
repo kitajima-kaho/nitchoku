@@ -1,5 +1,18 @@
 <script setup>
-const { data } = await useFetch('https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1079324519433678968');
+// const { data } = await $fetch('https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1079324519433678968');
+// const dataAmerican = useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=American');
+// const dataJapanese = useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=Japanese');
+// const dataFrench = useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=Chinese');
+const[dataAmerican, dataJapanese, dataFrench] = await Promise.all([
+    useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=American'),
+    useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=Japanese'),
+    useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=Chinese'),
+]);
+
+const recipeAmerican = dataAmerican.data.value.meals;
+const recipeJapanese = dataJapanese.data.value.meals;
+const recipeFrench   = dataFrench.data.value.meals;
+
 </script>
 
 <script>
@@ -7,33 +20,40 @@ export default {
     data() {
         return {
             status: 'clear',
-            rouletteRecipe: [{
-                recipeName: 'あああ',
-                recipeUrl: 'aaa',
-                ingredients: '材料一覧？',
-                colorStatus: false
-                },
-                {
-                recipeName: 'いいい',
-                recipeUrl: 'iii',
-                ingredients: '材料一覧？',
-                colorStatus: false
-                },
-                {
-                recipeName: 'ううう',
-                recipeUrl: 'uuu',
-                ingredients: '材料一覧？',
-                colorStatus: false
-                },
-                {
-                recipeName: 'えええ',
-                recipeUrl: 'eee',
-                ingredients: '材料一覧？',
-                colorStatus: false
-                }
+            rouletteRecipe: [
+                // {
+                // recipeName: 'あああ',
+                // recipeImage: 'aaa',
+                // ingredients: '材料一覧？',
+                // colorStatus: false
+                // },
+                // {
+                // recipeName: 'いいい',
+                // recipeImage: 'iii',
+                // ingredients: '材料一覧？',
+                // colorStatus: false
+                // },
+                // {
+                // recipeName: 'ううう',
+                // recipeImage: 'uuu',
+                // ingredients: '材料一覧？',
+                // colorStatus: false
+                // },
+                // {
+                // recipeName: 'えええ',
+                // recipeUrl: 'eee',
+                // ingredients: '材料一覧？',
+                // colorStatus: false
+                // }
             ],
             info: null,   
             intervalId: 0,
+            country: 'not',
+            targetOne: [],
+            targetTwo: [],
+            targetThree: [],
+            targetFour: [],
+            displayRoulette: false,
         }
     },
 
@@ -71,9 +91,103 @@ export default {
 
         },
 
+        // 🌟これ使えない？関数定義
+        // addProperty(obj) {
+        //     obj.colorStatus = false;
+        // },
+
+        set() {
+
+            this.displayRoulette = true;
+
+
+            if (this.country === 'not') {
+                alert('国名を選択してください。')
+
+            } else if (this.country === 'american') {
+
+                // インデックスにランダム関数を使い、レシピを取得する。その後、取得したレシピ以外のレシピ群からレシピを取得を4回行う。
+                // this.targetOne = this.recipeAmerican[Math.floor(Math.random() * this.recipeAmerican.length)]
+
+                // let remainingRecipe = this.recipeAmerican.filter((e) => {
+                //     return e.idMeal !== this.targetOne.idMeal
+                // })
+
+                // this.targetTwo = remainingRecipe[Math.floor(Math.random() * this.recipeAmerican.length)]
+
+                // remainingRecipe = remainingRecipe.filter((e) => {
+                //     return e.idMeal !== this.targetTwo.idMeal
+                // })
+
+                // this.targetThree = remainingRecipe[Math.floor(Math.random() * this.recipeAmerican.length)]
+                // remainingRecipe = remainingRecipe.filter((e) => {
+                //     return e.idMeal !== this.targetThree.idMeal
+                // })
+
+                // this.targetFour = remainingRecipe[Math.floor(Math.random() * this.recipeAmerican.length)]
+                // remainingRecipe = remainingRecipe.filter((e) => {
+                //     return e.idMeal !== this.targetFour.idMeal
+                // })
+
+                // addProperty(obj) {
+                //     obj.colorStatus = false;
+                // }
+
+                
+
+                // this.targetOne.colorStatus = false;
+                // this.targetTwo.colorStatus = false;
+                // this.targetThree.colorStatus = false;
+                // this.targetOne.colorStatus = false;
+                
+
+                this.rouletteRecipe.push(this.recipeAmerican[Math.floor(Math.random() * this.recipeAmerican.length)]);
+
+                // console.log(this.rouletteRecipe)
+
+                let remainingRecipe = this.recipeAmerican.filter((e) => {
+                    return e.idMeal !== this.rouletteRecipe[0].idMeal
+                })
+
+                // console.log(remainingRecipe)
+
+                this.rouletteRecipe.push(remainingRecipe[Math.floor(Math.random() * this.recipeAmerican.length)])
+
+                remainingRecipe = remainingRecipe.filter((e) => {
+                    return e.idMeal !== this.rouletteRecipe[1].idMeal
+                })
+
+                this.rouletteRecipe.push(remainingRecipe[Math.floor(Math.random() * this.recipeAmerican.length)])
+                remainingRecipe = remainingRecipe.filter((e) => {
+                    return e.idMeal !== this.rouletteRecipe[2].idMeal
+                })
+
+                this.rouletteRecipe.push(remainingRecipe[Math.floor(Math.random() * this.recipeAmerican.length)])
+                remainingRecipe = remainingRecipe.filter((e) => {
+                    return e.idMeal !== this.rouletteRecipe[3].idMeal
+                })
+
+                this.rouletteRecipe.forEach((e) => {
+                    e.colorStatus = false;
+                })
+
+
+            } else if (this.country === 'japanese') {
+
+            } else if (this.country === 'french') {
+
+            }
+        },
+
+        // ルーレットとめる
         stop() {
             this.status = "stop"
             clearInterval(this.intervalId);
+            // rouletteRecipe.forEach((e) => {
+            //     res = e.filter(((content) => {
+            //         return content.
+            //     }))
+            // })
         }
 
 
@@ -99,18 +213,35 @@ export default {
             </div>        
         </div>
     </header>
-    <main>
+     <main>
         <div class="main_wrap">
             <article class="box media">
-            <div class="roulette_cover roulette_on">
-                <div class="target" :class="{color_blue : rouletteRecipe[0].colorStatus}">{{ data.result[0].recipeTitle }}</div>
-                <div class="target" :class="{color_red : rouletteRecipe[1].colorStatus}">{{ data.result[1].recipeTitle }}</div>
-                <div class="target" :class="{color_green : rouletteRecipe[2].colorStatus}">{{ data.result[2].recipeTitle }}</div>
-                <div class="target" :class="{color_yellow : rouletteRecipe[3].colorStatus}">{{ data.result[3].recipeTitle }}</div>
-            </div>
+                <div class="click_container">
+                    <div class="select is-warning">
+                        <select v-model="country">
+                            <option value="not">選択してください</option>
+                            <option value="american">アメリカ</option>
+                            <option value="japanese">日本</option>
+                            <option value="french">フランス</option>
+                        </select>
+                    </div>                    
 
-            <button class="button is-warning is-rounded is-large is-responsive" v-if="status !== 'start'" @click="start()">スタート</button>
-            <button class="button is-warning is-rounded is-large is-responsive" v-else @click="stop()">ストップ</button>
+                    <button class="button is-warning is-rounded is-medium is-responsive inline_btn" v-if="status !== 'start'" @click="set()">セット</button>
+                    <button class="button is-warning is-rounded is-medium is-responsive" v-if="status !== 'start'" @click="start()">スタート</button>
+                    <button class="button is-warning is-rounded is-medium is-responsive" v-else @click="stop()">ストップ</button>
+                    
+                </div>
+                
+                <div class="roulette_cover roulette_on">
+                
+                    <div class="target" v-if="displayRoulette" :class="{color_blue : rouletteRecipe[0].colorStatus}">{{ rouletteRecipe[0].strMeal }}</div>
+                    <div class="target" v-if="displayRoulette" :class="{color_red : rouletteRecipe[1].colorStatus}">{{ rouletteRecipe[1].strMeal }}</div>
+                    <div class="target" v-if="displayRoulette" :class="{color_green : rouletteRecipe[2].colorStatus}">{{ rouletteRecipe[2].strMeal }}</div>
+                    <div class="target" v-if="displayRoulette" :class="{color_yellow : rouletteRecipe[3].colorStatus}">{{ rouletteRecipe[3].strMeal }}</div>
+                </div>
+
+              
+
 
             </article>
             <aside class="box side">
@@ -185,21 +316,29 @@ main {
         display: flex;
 
         .media {
-        margin-top: 20px;
-        width: 620px;
-        height: 580px;
-        display: block;
+            margin-top: 20px;
+            width: 620px;
+            height: 590px;
+            display: block;
+        
+        .click_container {
+            display: flex;
+            justify-content: space-between;  
+            margin-bottom: 20px;
+
+
+            .btn_container {
+                display: flex;
+            }
+        }
 
             .roulette_cover {
                 background-color: #FF8A02;
                 width: 470px;
                 height: 470px;
                 border-radius: 50%;
-                margin: 5px auto;
+                margin: auto;
                 position: relative;
-
-
-
 
                 .target {
                     display: flex;
@@ -273,7 +412,7 @@ main {
 
             .button {
                 display: block;
-                margin: 10px auto;
+                // margin: 5px auto;
 
             }
 

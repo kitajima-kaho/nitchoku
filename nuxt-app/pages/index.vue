@@ -20,40 +20,11 @@ export default {
     data() {
         return {
             status: 'clear',
-            rouletteRecipe: [
-                // {
-                // recipeName: 'あああ',
-                // recipeImage: 'aaa',
-                // ingredients: '材料一覧？',
-                // colorStatus: false
-                // },
-                // {
-                // recipeName: 'いいい',
-                // recipeImage: 'iii',
-                // ingredients: '材料一覧？',
-                // colorStatus: false
-                // },
-                // {
-                // recipeName: 'ううう',
-                // recipeImage: 'uuu',
-                // ingredients: '材料一覧？',
-                // colorStatus: false
-                // },
-                // {
-                // recipeName: 'えええ',
-                // recipeUrl: 'eee',
-                // ingredients: '材料一覧？',
-                // colorStatus: false
-                // }
-            ],
-            info: null,   
+            rouletteRecipe: [],
             intervalId: 0,
             country: 'not',
-            targetOne: [],
-            targetTwo: [],
-            targetThree: [],
-            targetFour: [],
             displayRoulette: false,
+            todayMeal: null,
         }
     },
 
@@ -91,90 +62,22 @@ export default {
 
         },
 
-        // 🌟これ使えない？関数定義
-        // addProperty(obj) {
-        //     obj.colorStatus = false;
-        // },
-
+        // ルーレットセットする
         set() {
-
             this.displayRoulette = true;
-
+            this.rouletteRecipe = []
 
             if (this.country === 'not') {
                 alert('国名を選択してください。')
 
-            } else if (this.country === 'american') {
-
-                // インデックスにランダム関数を使い、レシピを取得する。その後、取得したレシピ以外のレシピ群からレシピを取得を4回行う。
-                // this.targetOne = this.recipeAmerican[Math.floor(Math.random() * this.recipeAmerican.length)]
-
-                // let remainingRecipe = this.recipeAmerican.filter((e) => {
-                //     return e.idMeal !== this.targetOne.idMeal
-                // })
-
-                // this.targetTwo = remainingRecipe[Math.floor(Math.random() * this.recipeAmerican.length)]
-
-                // remainingRecipe = remainingRecipe.filter((e) => {
-                //     return e.idMeal !== this.targetTwo.idMeal
-                // })
-
-                // this.targetThree = remainingRecipe[Math.floor(Math.random() * this.recipeAmerican.length)]
-                // remainingRecipe = remainingRecipe.filter((e) => {
-                //     return e.idMeal !== this.targetThree.idMeal
-                // })
-
-                // this.targetFour = remainingRecipe[Math.floor(Math.random() * this.recipeAmerican.length)]
-                // remainingRecipe = remainingRecipe.filter((e) => {
-                //     return e.idMeal !== this.targetFour.idMeal
-                // })
-
-                // addProperty(obj) {
-                //     obj.colorStatus = false;
-                // }
-
-                
-
-                // this.targetOne.colorStatus = false;
-                // this.targetTwo.colorStatus = false;
-                // this.targetThree.colorStatus = false;
-                // this.targetOne.colorStatus = false;
-                
-
-                this.rouletteRecipe.push(this.recipeAmerican[Math.floor(Math.random() * this.recipeAmerican.length)]);
-
-                // console.log(this.rouletteRecipe)
-
-                let remainingRecipe = this.recipeAmerican.filter((e) => {
-                    return e.idMeal !== this.rouletteRecipe[0].idMeal
-                })
-
-                // console.log(remainingRecipe)
-
-                this.rouletteRecipe.push(remainingRecipe[Math.floor(Math.random() * this.recipeAmerican.length)])
-
-                remainingRecipe = remainingRecipe.filter((e) => {
-                    return e.idMeal !== this.rouletteRecipe[1].idMeal
-                })
-
-                this.rouletteRecipe.push(remainingRecipe[Math.floor(Math.random() * this.recipeAmerican.length)])
-                remainingRecipe = remainingRecipe.filter((e) => {
-                    return e.idMeal !== this.rouletteRecipe[2].idMeal
-                })
-
-                this.rouletteRecipe.push(remainingRecipe[Math.floor(Math.random() * this.recipeAmerican.length)])
-                remainingRecipe = remainingRecipe.filter((e) => {
-                    return e.idMeal !== this.rouletteRecipe[3].idMeal
-                })
-
-                this.rouletteRecipe.forEach((e) => {
-                    e.colorStatus = false;
-                })
-
+            } else if (this.country === 'american') {   
+                this.SetRouletteRecipe(this.recipeAmerican);
 
             } else if (this.country === 'japanese') {
+                this.SetRouletteRecipe(this.recipeJapanese);
 
             } else if (this.country === 'french') {
+                this.SetRouletteRecipe(this.recipeFrench);
 
             }
         },
@@ -183,12 +86,56 @@ export default {
         stop() {
             this.status = "stop"
             clearInterval(this.intervalId);
-            // rouletteRecipe.forEach((e) => {
-            //     res = e.filter(((content) => {
-            //         return content.
-            //     }))
-            // })
-        }
+
+            this.rouletteRecipe.forEach((e) => {
+                if (e.colorStatus) {
+                    const shineTodayMeal = setInterval(() => {
+                        e.colorStatus = !e.colorStatus
+                    }, 120)
+
+                    setTimeout(() => {
+                        clearInterval(shineTodayMeal);
+                        e.colorStatus = true
+                    }, 1000)
+                    this.todayMeal = e
+                } 
+            })
+        },
+
+
+
+
+        // ルーレットセットするときに使う関数
+        SetRouletteRecipe(country) {
+            this.rouletteRecipe.push(country[Math.floor(Math.random() * country.length)]);
+            let remainingRecipe = country.filter((e) => {
+                return e.idMeal !== this.rouletteRecipe[0].idMeal
+            })
+
+            this.SetRouletteRecipeHelper(remainingRecipe);
+
+            this.rouletteRecipe.forEach((e) => {
+                e.colorStatus = false;
+            })
+
+        },
+
+        SetRouletteRecipeHelper(helperVariable) {
+            this.rouletteRecipe.push(helperVariable[Math.floor(Math.random() * helperVariable.length)])
+            helperVariable = helperVariable.filter((e) => {
+                return e.idMeal !== this.rouletteRecipe[1].idMeal
+            })
+
+            this.rouletteRecipe.push(helperVariable[Math.floor(Math.random() * helperVariable.length)])
+            helperVariable = helperVariable.filter((e) => {
+                return e.idMeal !== this.rouletteRecipe[2].idMeal
+            })
+
+            this.rouletteRecipe.push(helperVariable[Math.floor(Math.random() * helperVariable.length)])
+            helperVariable = helperVariable.filter((e) => {
+                return e.idMeal !== this.rouletteRecipe[3].idMeal
+            })
+        },
 
 
 
@@ -220,9 +167,14 @@ export default {
                     <div class="select is-warning">
                         <select v-model="country">
                             <option value="not">選択してください</option>
+                            <!-- <option value="american">国名</option> -->
                             <option value="american">アメリカ</option>
                             <option value="japanese">日本</option>
                             <option value="french">フランス</option>
+                            <!-- <option value="american">材料</option>
+                            <option value="american">牛肉</option>
+                            <option value="american">豚肉</option>
+                            <option value="american">魚</option> -->
                         </select>
                     </div>                    
 
@@ -232,16 +184,19 @@ export default {
                     
                 </div>
                 
-                <div class="roulette_cover roulette_on">
-                
+                <div class="roulette_cover roulette_on" v-show="displayRoulette">
                     <div class="target" v-if="displayRoulette" :class="{color_blue : rouletteRecipe[0].colorStatus}">{{ rouletteRecipe[0].strMeal }}</div>
                     <div class="target" v-if="displayRoulette" :class="{color_red : rouletteRecipe[1].colorStatus}">{{ rouletteRecipe[1].strMeal }}</div>
                     <div class="target" v-if="displayRoulette" :class="{color_green : rouletteRecipe[2].colorStatus}">{{ rouletteRecipe[2].strMeal }}</div>
                     <div class="target" v-if="displayRoulette" :class="{color_yellow : rouletteRecipe[3].colorStatus}">{{ rouletteRecipe[3].strMeal }}</div>
                 </div>
 
-              
-
+                <div class="roulette_cover roulette_on" v-show="!displayRoulette">
+                    <div class="target"></div>
+                    <div class="target"></div>
+                    <div class="target"></div>
+                    <div class="target"></div>
+                </div>
 
             </article>
             <aside class="box side">
@@ -352,7 +307,6 @@ main {
                         top: 0px;
                         right: 0px;
                         border-radius: 0 100% 0 0;
-                        // background-color: blue;
                         border: solid 0.5em blue;
                         background-color: #bbdbf3;
 
@@ -367,7 +321,6 @@ main {
                         bottom: 0px;
                         right: 0px;
                         border-radius: 0 0 100% 0;
-                        // background-color: red;
                         border: solid 0.5em red;
                         background-color: #e3acae;
 

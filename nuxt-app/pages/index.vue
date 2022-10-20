@@ -1,5 +1,5 @@
 <script setup>
-// const { data } = await $fetch('https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1079324519433678968');
+const rankingData = await $fetch('https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1079324519433678968');
 // const dataAmerican = useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=American');
 // const dataJapanese = useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=Japanese');
 // const dataFrench = useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=Chinese');
@@ -9,6 +9,7 @@ const[dataAmerican, dataJapanese, dataFrench] = await Promise.all([
     useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=Chinese'),
 ]);
 
+const recipeRanking = rankingData.result;
 const recipeAmerican = dataAmerican.data.value.meals;
 const recipeJapanese = dataJapanese.data.value.meals;
 const recipeFrench   = dataFrench.data.value.meals;
@@ -25,6 +26,15 @@ export default {
             country: 'not',
             displayRoulette: false,
             todayMeal: null,
+            displayTodayMeal: false,
+            todayMealUrl: null,
+            isActive: false,
+            todayRecipe: {
+                recipeTitle: null,
+                recipeUrl: null,
+                recipeId: null,
+                img: null
+            },
         }
     },
 
@@ -34,7 +44,6 @@ export default {
         // ルーレットを回す。
         start() {
             this.status = 'start';
-
             let attentionIndex = 0
             
             //　ルーレットの途中でスタートボタンが押されたら、初めから回し始める。
@@ -43,7 +52,6 @@ export default {
             })
 
             this.intervalId = setInterval(() => {
-
                 if(attentionIndex > 3) {
                     attentionIndex = 0
                 }
@@ -85,23 +93,33 @@ export default {
         // ルーレットとめる
         stop() {
             this.status = "stop"
+            this.displayTodayMeal = true;
             clearInterval(this.intervalId);
 
             this.rouletteRecipe.forEach((e) => {
                 if (e.colorStatus) {
                     const shineTodayMeal = setInterval(() => {
                         e.colorStatus = !e.colorStatus
-                    }, 120)
+                    }, 200)
 
                     setTimeout(() => {
                         clearInterval(shineTodayMeal);
-                        e.colorStatus = true
-                    }, 1000)
-                    this.todayMeal = e
+                        e.colorStatus = true;
+                        this.isActive = true;
+                        
+                    }, 1500)
+
+                    this.todayRecipe.recipeTitle = e.strMeal
+                    this.todayRecipe.recipeUrl = 'https://www.themealdb.com/meal/' + e.idMeal
+                    this.todayRecipe.recipeId = e.idMeal
+                    this.todayRecipe.img = e.strMealThumb
                 } 
             })
         },
 
+        closeResModal() {
+            this.isActive = false;
+        },
 
 
 
@@ -184,24 +202,51 @@ export default {
                     
                 </div>
                 
-                <div class="roulette_cover roulette_on" v-show="displayRoulette">
-                    <div class="target" v-if="displayRoulette" :class="{color_blue : rouletteRecipe[0].colorStatus}">{{ rouletteRecipe[0].strMeal }}</div>
-                    <div class="target" v-if="displayRoulette" :class="{color_red : rouletteRecipe[1].colorStatus}">{{ rouletteRecipe[1].strMeal }}</div>
-                    <div class="target" v-if="displayRoulette" :class="{color_green : rouletteRecipe[2].colorStatus}">{{ rouletteRecipe[2].strMeal }}</div>
-                    <div class="target" v-if="displayRoulette" :class="{color_yellow : rouletteRecipe[3].colorStatus}">{{ rouletteRecipe[3].strMeal }}</div>
+                <div class="roulette_cover roulette_on" v-if="displayRoulette">
+                    <div class="target" :class="{color_blue : rouletteRecipe[0].colorStatus}">{{ rouletteRecipe[0].strMeal }}</div>
+                    <div class="target" :class="{color_red : rouletteRecipe[1].colorStatus}">{{ rouletteRecipe[1].strMeal }}</div>
+                    <div class="target" :class="{color_green : rouletteRecipe[2].colorStatus}">{{ rouletteRecipe[2].strMeal }}</div>
+                    <div class="target" :class="{color_yellow : rouletteRecipe[3].colorStatus}">{{ rouletteRecipe[3].strMeal }}</div>
                 </div>
 
-                <div class="roulette_cover roulette_on" v-show="!displayRoulette">
+                <div class="roulette_cover roulette_on" v-else="displayRoulette">
                     <div class="target"></div>
                     <div class="target"></div>
                     <div class="target"></div>
                     <div class="target"></div>
                 </div>
-
+                <!-- {{ todayMeal.strMeal }}
+                {{ todayMeal.todayMeal.strMealThumb }} -->
             </article>
+            <!-- {{ recipeRanking.foodImageUrl }} -->
+            <!-- <img :src="foodImageUrl" alt="Image"> -->
             <aside class="box side">
+                <div class="box side_box" v-for="item in recipeRanking" :key="recipeRanking">
+                    <article class="media">
+                        <div class="media-left">
+                        <figure class="image is-64x64">
+                            <img :src="item.foodImageUrl" alt="Image">
+                        </figure>
+                        </div>
+                        <div class="media-content">
+                        <div class="content">
+                            <p>
+                            <a target="_blank" :href="item.recipeUrl">{{ item.recipeTitle }}</a>
+                            <br>
+                            {{ item.recipeDescription }}
+                            </p>
+                        </div>
+                        </div>
+                    </article>
+                </div>
             </aside>
-
+            <Modal 
+                :isActive="isActive" 
+                :todayRecipeTitle="todayRecipe.recipeTitle"
+                :todayRecipeUrl="todayRecipe.recipeUrl"
+                :todayRecipeImg="todayRecipe.img"
+                @closeResModal="closeResModal" 
+            ></Modal>
         </div>
     </main>
 </div>
@@ -365,8 +410,6 @@ main {
 
             .button {
                 display: block;
-                // margin: 5px auto;
-
             }
 
 
@@ -377,9 +420,56 @@ main {
             margin: 20px 0px auto 20px;
             width: 300px;
             height: 580px;
+
+            .side_box {
+                height: 150px;
+                padding: 5px;
+                display: flex;
+
+                .media-left {
+                    width:fit-content
+                }
+
+                a {
+                    display: block;
+                }
+                img {
+                    margin-top: 0;
+                }
             }
+        }
  
     }
+
+    .modal {
+        animation-name: fade;
+        animation-duration: 0.5s;
+
+        @keyframes fade {
+            0%{
+                opacity: 0;
+            }
+            100%{
+                opacity: 1;
+            }
+        }
+
+        .modal-card {
+            text-align: center;
+
+
+        .modal_img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            margin: 0 auto;
+            display: block;
+        }
+
+    }
+    }
+   
+    
 }
 
 

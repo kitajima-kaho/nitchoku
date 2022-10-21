@@ -12,8 +12,6 @@ const[rankingData, dataAmerican, dataJapanese, dataChinese, dataFrench, dataChic
     useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood'),
     useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Vegetarian'),
 
-
-
 ]);
 
 const recipeRanking      = rankingData.data.value.result
@@ -195,26 +193,11 @@ export default {
 
 <template>
 <div id="page">
-    <header>
-        <div class="header_container">
-            <div class="header_display is-align-items-center">
-                <div class="logo">
-                    <img src="~/assets/image/logo.png" alt="ロゴ">
-                </div>
-                <div class="other_btns">
-                    <button class="button  first_btn is-rounded other_btn">朝食</button>
-                    <button class="button is-rounded other_btn">サイド</button>
-                    <button class="button is-rounded other_btn">デザート</button>
-                    <button class="button is-rounded other_btn">パスタ</button>
-                    <button class="button is-rounded other_btn">豚肉</button>
-                </div>        
-            </div>
-        </div>
-    </header>
-     <main>
+    <Header></Header>
+    <main>
         <div class="main_wrap">
             <article class="box media">
-                <h2 class="min_title">ルーレットで決める</h2>
+                <h2 class="main_title">ルーレットで決める</h2>
                 <div class="click_container">
                     <div class="select is-warning">
                         <select v-model="country">
@@ -254,28 +237,10 @@ export default {
   
             </article>
 
-            
-            <aside class="box side">
-                <h2>週間楽天レシピランキング</h2>
-                <div class="box side_box" v-for="item in recipeRanking" :key="recipeRanking">
-                    <article class="media">
-                        <div class="media-left">
-                            <figure class="image image_box is-64x64">
-                                <img :src="item.foodImageUrl" alt="Image">
-                            </figure>
-                        </div>
-                        <div class="media-content">
-                            <div class="content">
-                                <p>
-                                {{ item.rank }}位<br>
-                                <a target="_blank" :href="item.recipeUrl">{{ item.recipeTitle }}</a>
-                                <br>
-                                </p>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </aside>
+            <Side
+                :recipeRankingList = "recipeRanking" 
+            ></Side>
+          
             <Modal 
                 :isActive="isActive" 
                 :todayRecipeTitle="todayRecipe.recipeTitle"
@@ -299,48 +264,10 @@ export default {
     max-width: 1425px;
 }
 
-header {
-    .header_container {
-        background: url(~/assets/image/foodiesfeed.com_traditional-korean-meals.jpg) no-repeat center / cover ;
-        height: 150px;
-        background-position: 0 70%;
-        display: flex;
-        background-color: rgba(#FF8A02, 0.3);
-        background-blend-mode: lighten;
-
-        .header_display {
-            display: flex;
-            justify-content: space-around;
-            margin: 0 auto;
-            max-width: 925px;
-
-            .other_btns {
-                display: flex;
-
-                .other_btn {
-                    margin-left: 40px;
-                    display: block;
-                    border-color: #ffdc7d;
-                    box-shadow: 4px 4px 16px #808080;
-                    width: 100px;
-                    max-width: 200px;
-                }
-            }
-
-
-            .logo {
-                width:fit-content;
-            }
-        }
-    }
-
-
-    
-}
-
 main {
     width: 100%;
     background-color: #FCF4EC;
+    height: 100%;
 
 
     .main_wrap {
@@ -356,7 +283,7 @@ main {
             height: 590px;
             display: block;
 
-        .min_title {
+        .main_title {
             text-align: center;
             margin-bottom: 15px;
         }
@@ -379,15 +306,14 @@ main {
                 border-radius: 50%;
                 margin: auto;
                 position: relative;
-
-
+                
 
                 .target {
                     display: flex;
                     align-items: center;
                     width: 225px;
                     height: 225px;
-                    text-align: left;
+                    text-align: center;
 
                     &:first-child {
                         position: absolute;
@@ -444,6 +370,7 @@ main {
                         &:not(.color_yellow) {
                             border: none;
                             background-color: #ffedab;
+                            
                         }
                     }
 
@@ -462,53 +389,53 @@ main {
             padding: 20px;
         }
 
-        .side {
-            margin: 20px 0px auto 10px;
-            width: 300px;
-            height: 590px;
+        // .side {
+        //     margin: 20px 0px auto 10px;
+        //     width: 300px;
+        //     height: 590px;
 
-            h2 {
-                text-align: center;
-            }
+        //     h2 {
+        //         text-align: center;
+        //     }
 
-            .side_box {
-                height: 115px;
-                padding: 0px;
-                margin: 10px auto;
-
-
-                .media {
-                    display: flex;
-                    width:fit-content;
-                    margin-top: 15px;
+        //     .side_box {
+        //         height: 115px;
+        //         padding: 0px;
+        //         margin: 10px auto;
 
 
-                    .media-left {
-                        padding: auto 0;
-                        width: 60px;
-                        height: 125px;
-                        position:relative;
+        //         .media {
+        //             display: flex;
+        //             width:fit-content;
+        //             margin-top: 15px;
 
-                        .image_box {
-                            display: flex;
-                            position:absolute;
-                            top: 20%;
-                            padding-left: 5px;
-                        }
-                    }
-                }
 
-                p {
-                    font-size: 15px;
-                    display: block;
-                    padding: 20px 5px;
-                }
+        //             .media-left {
+        //                 padding: auto 0;
+        //                 width: 60px;
+        //                 height: 125px;
+        //                 position:relative;
 
-                img {
-                    display: block;
-                }
-            }
-        }
+        //                 .image_box {
+        //                     display: flex;
+        //                     position:absolute;
+        //                     top: 20%;
+        //                     padding-left: 5px;
+        //                 }
+        //             }
+        //         }
+
+        //         p {
+        //             font-size: 15px;
+        //             display: block;
+        //             padding: 20px 5px;
+        //         }
+
+        //         img {
+        //             display: block;
+        //         }
+        //     }
+        // }
     }
 
     .modal {

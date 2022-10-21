@@ -1,6 +1,4 @@
 <script setup>
-// const rankingData = await $fetch('https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1079324519433678968');
-
 const[rankingData, dataAmerican, dataJapanese, dataChinese, dataFrench, dataChicken, dataBeef, dataSeafood, dataVegetarian] = await Promise.all([
     useFetch('https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1079324519433678968'),
 
@@ -18,23 +16,16 @@ const[rankingData, dataAmerican, dataJapanese, dataChinese, dataFrench, dataChic
 
 ]);
 
-const recipeRanking = rankingData.data.value.result
+const recipeRanking      = rankingData.data.value.result
+const recipeAmerican     = dataAmerican.data.value.meals;
+const recipeJapanese     = dataJapanese.data.value.meals;
+const recipeChinese      = dataChinese.data.value.meals;
+const recipeFrench       = dataFrench.data.value.meals;
 
-const recipeAmerican = dataAmerican.data.value.meals;
-const recipeJapanese = dataJapanese.data.value.meals;
-const recipeChinese   = dataChinese.data.value.meals;
-const recipeFrench   = dataFrench.data.value.meals;
-
-const recipeChicken   = dataChicken.data.value.meals;
-const recipeBeef   = dataBeef.data.value.meals;
-const recipeSeafood   = dataSeafood.data.value.meals;
+const recipeChicken      = dataChicken.data.value.meals;
+const recipeBeef         = dataBeef.data.value.meals;
+const recipeSeafood      = dataSeafood.data.value.meals;
 const recipeVegetarian   = dataVegetarian.data.value.meals;
-
-console.log(dataChicken)
-console.log(recipeChicken)
-
-
-
 
 </script>
 
@@ -149,9 +140,9 @@ export default {
                     }, 1500)
 
                     this.todayRecipe.recipeTitle = e.strMeal
-                    this.todayRecipe.recipeUrl = 'https://www.themealdb.com/meal/' + e.idMeal
-                    this.todayRecipe.recipeId = e.idMeal
-                    this.todayRecipe.img = e.strMealThumb
+                    this.todayRecipe.recipeUrl   = 'https://www.themealdb.com/meal/' + e.idMeal
+                    this.todayRecipe.recipeId    = e.idMeal
+                    this.todayRecipe.img         = e.strMealThumb
                 } 
             })
         },
@@ -164,6 +155,8 @@ export default {
 
         // ルーレットセットするときに使う関数
         SetRouletteRecipe(country) {
+            // インデックスにランダムに数字を入れて、ランダムにレシピをルーレットに入れる。
+            // 重複がでないように、同じIDのものは配列に入れないようにする。
             this.rouletteRecipe.push(country[Math.floor(Math.random() * country.length)]);
             let remainingRecipe = country.filter((e) => {
                 return e.idMeal !== this.rouletteRecipe[0].idMeal

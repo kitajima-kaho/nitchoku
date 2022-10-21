@@ -1,18 +1,40 @@
 <script setup>
-const rankingData = await $fetch('https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1079324519433678968');
-// const dataAmerican = useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=American');
-// const dataJapanese = useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=Japanese');
-// const dataFrench = useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=Chinese');
-const[dataAmerican, dataJapanese, dataFrench] = await Promise.all([
+// const rankingData = await $fetch('https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1079324519433678968');
+
+const[rankingData, dataAmerican, dataJapanese, dataChinese, dataFrench, dataChicken, dataBeef, dataSeafood, dataVegetarian] = await Promise.all([
+    useFetch('https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1079324519433678968'),
+
     useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=American'),
     useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=Japanese'),
     useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=Chinese'),
+    useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=French'),
+
+    useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Chicken'),
+    useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Beef'),
+    useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood'),
+    useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Vegetarian'),
+
+
+
 ]);
 
-const recipeRanking = rankingData.result;
+const recipeRanking = rankingData.data.value.result
+
 const recipeAmerican = dataAmerican.data.value.meals;
 const recipeJapanese = dataJapanese.data.value.meals;
+const recipeChinese   = dataChinese.data.value.meals;
 const recipeFrench   = dataFrench.data.value.meals;
+
+const recipeChicken   = dataChicken.data.value.meals;
+const recipeBeef   = dataBeef.data.value.meals;
+const recipeSeafood   = dataSeafood.data.value.meals;
+const recipeVegetarian   = dataVegetarian.data.value.meals;
+
+console.log(dataChicken)
+console.log(recipeChicken)
+
+
+
 
 </script>
 
@@ -76,7 +98,7 @@ export default {
             this.rouletteRecipe = []
 
             if (this.country === 'not') {
-                alert('国名を選択してください。')
+                alert('国名か素材名を選択してください。')
 
             } else if (this.country === 'american') {   
                 this.SetRouletteRecipe(this.recipeAmerican);
@@ -84,10 +106,27 @@ export default {
             } else if (this.country === 'japanese') {
                 this.SetRouletteRecipe(this.recipeJapanese);
 
+            } else if (this.country === 'chinese') {
+                this.SetRouletteRecipe(this.recipeChinese);
+
             } else if (this.country === 'french') {
                 this.SetRouletteRecipe(this.recipeFrench);
-
+            
+            } else if (this.country === 'chicken') {
+                this.SetRouletteRecipe(this.recipeChicken);
+            
+            } else if (this.country === 'beef') {
+                this.SetRouletteRecipe(this.recipeBeef);
+            
+            } else if (this.country === 'seafood') {
+                this.SetRouletteRecipe(this.recipeSeafood);
+            
+            } else if (this.country === 'vegetarian') {
+                this.SetRouletteRecipe(this.recipeVegetarian);
+            
             }
+
+
         },
 
         // ルーレットとめる
@@ -164,35 +203,39 @@ export default {
 <template>
 <div id="page">
     <header>
-        <div class="header_container is-align-items-center">
-            <div class="logo">
-                <img src="~/assets/image/logo.png" alt="ロゴ">
+        <div class="header_container">
+            <div class="header_display is-align-items-center">
+                <div class="logo">
+                    <img src="~/assets/image/logo.png" alt="ロゴ">
+                </div>
+                <div class="other_btns">
+                    <button class="button  first_btn is-rounded other_btn">朝食</button>
+                    <button class="button is-rounded other_btn">サイド</button>
+                    <button class="button is-rounded other_btn">デザート</button>
+                    <button class="button is-rounded other_btn">パスタ</button>
+                    <button class="button is-rounded other_btn">豚肉</button>
+                </div>        
             </div>
-            <div class="field search_field">
-                <input class="input" type="text" placeholder="レシピを検索できます。">
-                <button class="button search_btn">検索する</button>
-            </div>
-            <div class="other_btns">
-                <button class="button other_btn">なににする？</button>
-                <button class="button other_btn">なににする？</button>
-            </div>        
         </div>
     </header>
      <main>
         <div class="main_wrap">
             <article class="box media">
+                <h2 class="min_title">ルーレットで決める</h2>
                 <div class="click_container">
                     <div class="select is-warning">
                         <select v-model="country">
                             <option value="not">選択してください</option>
-                            <!-- <option value="american">国名</option> -->
+                            <option value="not">--- 国 ---</option>
                             <option value="american">アメリカ</option>
                             <option value="japanese">日本</option>
+                            <option value="chinese">中国</option>
                             <option value="french">フランス</option>
-                            <!-- <option value="american">材料</option>
-                            <option value="american">牛肉</option>
-                            <option value="american">豚肉</option>
-                            <option value="american">魚</option> -->
+                            <option value="not">--- 素材 ---</option>
+                            <option value="chicken">鶏肉</option>
+                            <option value="beef">牛肉</option>
+                            <option value="seafood">魚介</option>
+                            <option value="vegetarian">野菜</option>
                         </select>
                     </div>                    
 
@@ -215,27 +258,27 @@ export default {
                     <div class="target"></div>
                     <div class="target"></div>
                 </div>
-                <!-- {{ todayMeal.strMeal }}
-                {{ todayMeal.todayMeal.strMealThumb }} -->
+  
             </article>
-            <!-- {{ recipeRanking.foodImageUrl }} -->
-            <!-- <img :src="foodImageUrl" alt="Image"> -->
+
+            
             <aside class="box side">
+                <h2>週間楽天レシピランキング</h2>
                 <div class="box side_box" v-for="item in recipeRanking" :key="recipeRanking">
                     <article class="media">
                         <div class="media-left">
-                        <figure class="image is-64x64">
-                            <img :src="item.foodImageUrl" alt="Image">
-                        </figure>
+                            <figure class="image image_box is-64x64">
+                                <img :src="item.foodImageUrl" alt="Image">
+                            </figure>
                         </div>
                         <div class="media-content">
-                        <div class="content">
-                            <p>
-                            <a target="_blank" :href="item.recipeUrl">{{ item.recipeTitle }}</a>
-                            <br>
-                            {{ item.recipeDescription }}
-                            </p>
-                        </div>
+                            <div class="content">
+                                <p>
+                                {{ item.rank }}位<br>
+                                <a target="_blank" :href="item.recipeUrl">{{ item.recipeTitle }}</a>
+                                <br>
+                                </p>
+                            </div>
                         </div>
                     </article>
                 </div>
@@ -271,36 +314,35 @@ header {
         display: flex;
         background-color: rgba(#FF8A02, 0.3);
         background-blend-mode: lighten;
-    }
 
-    .field:not(:last-child) {
-        margin-bottom: 0px
-    }
+        .header_display {
+            display: flex;
+            justify-content: space-around;
+            margin: 0 auto;
+            max-width: 925px;
 
-    .search_field {
-        margin-left: 180px;
-        width: 500px;
-        display: flex;
+            .other_btns {
+                display: flex;
 
-        .search_btn {
-            margin-left: 40px;
+                .other_btn {
+                    margin-left: 40px;
+                    display: block;
+                    border-color: #ffdc7d;
+                    box-shadow: 4px 4px 16px #808080;
+                    width: 100px;
+                    max-width: 200px;
+                }
+            }
+
+
+            .logo {
+                width:fit-content;
+            }
         }
     }
 
-    .other_btns {
-        display: flex;
 
-        .other_btn {
-            margin-left: 40px;
-            display: block;
-        }
-    }
-
-
-    .logo {
-        width:fit-content;
-        margin-left: 40px;
-    }
+    
 }
 
 main {
@@ -320,6 +362,11 @@ main {
             width: 620px;
             height: 590px;
             display: block;
+
+        .min_title {
+            text-align: center;
+            margin-bottom: 15px;
+        }
         
         .click_container {
             display: flex;
@@ -334,24 +381,27 @@ main {
 
             .roulette_cover {
                 background-color: #FF8A02;
-                width: 470px;
-                height: 470px;
+                width: 450px;
+                height: 450px;
                 border-radius: 50%;
                 margin: auto;
                 position: relative;
 
+
+
                 .target {
                     display: flex;
                     align-items: center;
-                    justify-content: center;
-                    width: 235px;
-                    height: 235px;
+                    width: 225px;
+                    height: 225px;
+                    text-align: left;
 
                     &:first-child {
                         position: absolute;
                         top: 0px;
                         right: 0px;
                         border-radius: 0 100% 0 0;
+                        padding-left: 10px;
                         border: solid 0.5em blue;
                         background-color: #bbdbf3;
 
@@ -366,6 +416,7 @@ main {
                         bottom: 0px;
                         right: 0px;
                         border-radius: 0 0 100% 0;
+                        padding-left: 15px;
                         border: solid 0.5em red;
                         background-color: #e3acae;
 
@@ -380,7 +431,6 @@ main {
                         bottom: 0px;
                         left: 0px;
                         border-radius: 0 0 0 100%;
-                        // background-color: green;
                         border: solid 0.5em green;
                         background-color: #a3d6ce;
 
@@ -396,7 +446,6 @@ main {
                         left: 0px;
                         border-radius: 100% 0 0 0;
                         border: solid 0.5em yellow;
-                        // background-color: yellow;
                         background-color: #ffedab;
 
                         &:not(.color_yellow) {
@@ -416,29 +465,57 @@ main {
 
         }  
 
+        .box {
+            padding: 20px;
+        }
+
         .side {
-            margin: 20px 0px auto 20px;
+            margin: 20px 0px auto 10px;
             width: 300px;
-            height: 580px;
+            height: 590px;
+
+            h2 {
+                text-align: center;
+            }
 
             .side_box {
-                height: 150px;
-                padding: 5px;
-                display: flex;
+                height: 115px;
+                padding: 0px;
+                margin: 10px auto;
 
-                .media-left {
-                    width:fit-content
+
+                .media {
+                    display: flex;
+                    width:fit-content;
+                    margin-top: 15px;
+
+
+                    .media-left {
+                        padding: auto 0;
+                        width: 60px;
+                        height: 125px;
+                        position:relative;
+
+                        .image_box {
+                            display: flex;
+                            position:absolute;
+                            top: 20%;
+                            padding-left: 5px;
+                        }
+                    }
                 }
 
-                a {
+                p {
+                    font-size: 15px;
                     display: block;
+                    padding: 20px 5px;
                 }
+
                 img {
-                    margin-top: 0;
+                    display: block;
                 }
             }
         }
- 
     }
 
     .modal {

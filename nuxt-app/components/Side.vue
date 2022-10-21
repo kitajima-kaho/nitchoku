@@ -26,20 +26,21 @@ export default {
                 </div>
             </article>
         </div>
+        <div class="information">
+            提供：<a href="https://recipe.rakuten.co.jp/">楽天レシピ</a>
+        </div>
     </aside>
 </template>
 <style lang="scss">
 .side {
     margin: 20px 0px auto 10px;
     width: 300px;
-    height: 590px;
 
     h2 {
         text-align: center;
     }
 
     .side_box {
-        height: 100px;
 
         .media {
             display: flex;
@@ -67,6 +68,11 @@ export default {
         img {
             display: block;
         }
+    }
+
+    .information {
+        margin-top: 10px;
+        text-align: center;
     }
 }
 

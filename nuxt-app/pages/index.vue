@@ -240,7 +240,7 @@ export default {
             <Side
                 :recipeRankingList = "recipeRanking" 
             ></Side>
-          
+
             <Modal 
                 :isActive="isActive" 
                 :todayRecipeTitle="todayRecipe.recipeTitle"
@@ -250,6 +250,7 @@ export default {
             ></Modal>
         </div>
     </main>
+    <Footer></Footer>          
 </div>
         
 </template>
@@ -260,27 +261,42 @@ export default {
     padding:0;
 }
 
+html {
+    // height: 75vh;
+    // max-height: 1000px;
+    height: 1000px;
+    max-height: 1000px;
+
+
+    body {
+    }
+
+}
+
+
 .page {
     max-width: 1425px;
+    
 }
 
 main {
     width: 100%;
     background-color: #FCF4EC;
-    height: 100%;
+    height: 100vh;
+    max-height: 800px;
+
 
 
     .main_wrap {
         margin-right: auto;
         margin-left: auto;
         max-width: 925px;
-        min-height:100vh;
+        // min-height:100vh;
         display: flex;
 
         .media {
             margin-top: 20px;
             width: 620px;
-            height: 590px;
             display: block;
 
         .main_title {
@@ -381,61 +397,12 @@ main {
                 display: block;
             }
 
-
-
         }  
 
         .box {
             padding: 20px;
         }
 
-        // .side {
-        //     margin: 20px 0px auto 10px;
-        //     width: 300px;
-        //     height: 590px;
-
-        //     h2 {
-        //         text-align: center;
-        //     }
-
-        //     .side_box {
-        //         height: 115px;
-        //         padding: 0px;
-        //         margin: 10px auto;
-
-
-        //         .media {
-        //             display: flex;
-        //             width:fit-content;
-        //             margin-top: 15px;
-
-
-        //             .media-left {
-        //                 padding: auto 0;
-        //                 width: 60px;
-        //                 height: 125px;
-        //                 position:relative;
-
-        //                 .image_box {
-        //                     display: flex;
-        //                     position:absolute;
-        //                     top: 20%;
-        //                     padding-left: 5px;
-        //                 }
-        //             }
-        //         }
-
-        //         p {
-        //             font-size: 15px;
-        //             display: block;
-        //             padding: 20px 5px;
-        //         }
-
-        //         img {
-        //             display: block;
-        //         }
-        //     }
-        // }
     }
 
     .modal {

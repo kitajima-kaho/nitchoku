@@ -262,13 +262,11 @@ export default {
 }
 
 html {
-    // height: 75vh;
-    // max-height: 1000px;
-    height: 1000px;
-    max-height: 1000px;
-
+    height: 100%;
 
     body {
+        height: 100%;
+
     }
 
 }
@@ -276,23 +274,23 @@ html {
 
 .page {
     max-width: 1425px;
+    height: 100%;
+
     
 }
 
 main {
     width: 100%;
+    
     background-color: #FCF4EC;
-    height: 100vh;
-    max-height: 800px;
-
-
 
     .main_wrap {
         margin-right: auto;
         margin-left: auto;
         max-width: 925px;
-        // min-height:100vh;
         display: flex;
+        max-height: 100vh;
+
 
         .media {
             margin-top: 20px;

@@ -46,11 +46,12 @@ export default {
             display: flex;
             width:fit-content;
             margin-top: 15px;
+            height: 100px;
+
 
 
             .media-left {
-                width: 60px;
-                height: 100px;
+                min-width: 60px;
 
                 .image_box {
                     display: flex;

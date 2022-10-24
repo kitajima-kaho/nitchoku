@@ -32,3 +32,6 @@ CatRecipeList.forEach((e) => {
 
 </div>
 </template>
+<style lang="scss">
+
+</style>

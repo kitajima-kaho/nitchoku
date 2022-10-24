@@ -70,4 +70,58 @@ header {
     }
 }
 
+
+@media screen and ( max-width:479px ) {
+    header {
+        .header_container {
+        background: url(~/assets/image/foodiesfeed.com_traditional-korean-meals.jpg) no-repeat center / cover ;
+        height: 150px;
+        background-blend-mode: lighten;
+
+        .header_display {
+            // display: block !important;
+            display: block;
+
+
+            .logo {
+                margin-bottom: 5px;
+                width: 100%;
+                img {
+                    display: block;
+                    margin: 0 auto;
+                    height: 64px;
+                    width: 100px
+                }
+            }
+
+            .other_btns {
+                flex-flow: wrap;
+                justify-content: center;
+                width: 300px;
+                margin: 0 auto;
+
+
+                .other_btn {
+                box-sizing: border-box;
+                font-size: 13px;
+                margin-left: 40px;
+                margin-top: 10px;
+                padding: 2px 2px;
+                height: 25px;
+                width: 70px;
+                    
+                    &:nth-child(1), &:nth-child(4) {
+                        margin-left: 0px;
+                    }
+                
+                }
+            }
+           
+        }
+    }
+
+}
+    }
+    
+
 </style>

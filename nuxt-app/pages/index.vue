@@ -221,7 +221,7 @@ export default {
 <div id="page" >
     <Header></Header>
 	<Main>
-		<article class="box media">
+		<article class="box media roulette_box">
 			<h2 class="main_title">ルーレットで決める</h2>
 			<div class="click_container">
 				<div class="select is-warning">
@@ -310,6 +310,14 @@ export default {
     pointer-events: none;
 }
 
+
+
+.roulette_box {
+    min-width: 550px;
+    height: 600px;
+
+}
+    
 .roulette_cover {
     background-color: #FF8A02;
     width: 450px;
@@ -433,17 +441,9 @@ export default {
 
 
 
-@media screen and (max-width: 1400px) {
-    #page {
-        width: 98%;
-    }
+@media screen and ( max-width:479px ) {
 
-    contain {
-        width: 70%;
-    }
 
-    #sidebar {
-        width: 30%;
-    }
 }
+
 </style>

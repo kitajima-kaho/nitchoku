@@ -1,3 +1,14 @@
+<script>
+export default {
+    methods: {
+        otherPage(event) {
+            const pageNamePath = "/" + event.target.dataset.cat;
+            this.$router.push(pageNamePath)
+        }
+    }
+}
+</script>
+
 <template>
     <header>
         <div class="header_container">
@@ -6,12 +17,12 @@
                     <a href="/"><img src="~/assets/image/logo.png" alt="ロゴ"></a>
                 </div>
                 <div class="other_btns">
-                    <button class="button  first_btn is-rounded other_btn">朝食</button>
-                    <button class="button is-rounded other_btn">サイド</button>
-                    <button class="button is-rounded other_btn">デザート</button>
-                    <button class="button is-rounded other_btn">パスタ</button>
-                    <button class="button is-rounded other_btn">豚肉</button>
-                </div>        
+                    <button class="button first_btn is-rounded other_btn" @click="otherPage($event)" data-cat="breakfast">朝食</button>
+                    <button class="button is-rounded other_btn" @click="otherPage($event)" data-cat="sideMenu">サイド</button>
+                    <button class="button is-rounded other_btn" @click="otherPage($event)" data-cat="dessert">デザート</button>
+                    <button class="button is-rounded other_btn" @click="otherPage($event)" data-cat="pasta">パスタ</button>
+                    <button class="button is-rounded other_btn" @click="otherPage($event)" data-cat="pork">豚肉</button>
+                </div>    
             </div>
         </div>
     </header>

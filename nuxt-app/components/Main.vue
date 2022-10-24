@@ -6,9 +6,16 @@
     </main>
 </template>
 <style lang="scss">
+html {
+    position: relative;
+    padding-bottom: 50px;
+    min-height: 100vh;
+    box-sizing: border-box;
+    background-color: #FCF4EC;
+}
+
 main {
     width: 100%;
-    background-color: #FCF4EC;
 
     .main_wrap {
         margin-right: auto;

@@ -287,14 +287,10 @@ export default {
     padding:0;
 }
 
-html {
-    height: 100vh;
-    width: 100vw;
-}
+
 
 
 .page {
-    height: 100%;
     overflow: hidden;
     
 }

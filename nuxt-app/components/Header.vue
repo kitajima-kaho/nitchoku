@@ -75,17 +75,18 @@ header {
     header {
         .header_container {
         background: url(~/assets/image/foodiesfeed.com_traditional-korean-meals.jpg) no-repeat center / cover ;
-        height: 150px;
+        height: 155px;
         background-blend-mode: lighten;
 
         .header_display {
-            // display: block !important;
             display: block;
 
 
             .logo {
+                margin-top: 5px;
                 margin-bottom: 5px;
                 width: 100%;
+                
                 img {
                     display: block;
                     margin: 0 auto;
@@ -102,13 +103,13 @@ header {
 
 
                 .other_btn {
-                box-sizing: border-box;
-                font-size: 13px;
-                margin-left: 40px;
-                margin-top: 10px;
-                padding: 2px 2px;
-                height: 25px;
-                width: 70px;
+                    box-sizing: border-box;
+                    font-size: 13px;
+                    margin-left: 30px;
+                    margin-top: 5px;
+                    width: 80px;
+                    text-align: center;
+
                     
                     &:nth-child(1), &:nth-child(4) {
                         margin-left: 0px;

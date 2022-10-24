@@ -26,7 +26,6 @@ main {
 
         .media {
             margin-top: 20px;
-            width: 620px;
             display: block;
 
             .main_title {
@@ -39,7 +38,19 @@ main {
 
 
 @media screen and ( max-width:479px ) {
+    main {
+        width: 100%;
 
+        .main_wrap {
+            display: block;
+
+            .media {
+                margin: 5px;
+
+            }
+   
+        }
+    }
 
 }
 

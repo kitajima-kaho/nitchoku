@@ -33,3 +33,36 @@ props: {
         </div>
     </div>
 </template>
+<style lang="scss">
+.modal {
+    animation-name: fade;
+    animation-duration: 0.5s;
+
+    @keyframes fade {
+        0%{
+            opacity: 0;
+        }
+        100%{
+            opacity: 1;
+        }
+    }
+
+    .modal-card {
+        text-align: center;
+
+
+        .modal_img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            margin: 0 auto;
+            display: block;
+        }
+
+    }
+
+    .button {
+        margin: 0;
+    }
+}
+</style>

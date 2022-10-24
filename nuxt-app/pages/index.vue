@@ -225,7 +225,7 @@ export default {
 			<h2 class="main_title">ルーレットで決める</h2>
 			<div class="click_container">
 				<div class="select is-warning">
-					<select v-model="country">s
+					<select v-model="country">
 						<option value="not">選択してください</option>
 						<option value="not">--- 国 ---</option>
 						<option value="american">アメリカ</option>
@@ -240,9 +240,11 @@ export default {
 					</select>
 				</div>                    
 
-				<button class="button is-warning is-rounded is-medium is-responsive inline_btn" v-if="status !== 'start'" @click="set()">セット</button>
-				<button class="button is-warning is-rounded is-medium is-responsive" v-if="status !== 'start'" :class="{click_none : clickNone, second_click_none : SecondclickNone}" @click="start()">スタート</button>
-				<button class="button is-warning is-rounded is-medium is-responsive" v-else @click="stop()">ストップ</button>
+                <div class="btn_container">
+                    <button class="button is-warning is-rounded is-medium is-responsive inline_btn" v-if="status !== 'start'" @click="set()">セット</button>
+                    <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-if="status !== 'start'" :class="{click_none : clickNone, second_click_none : SecondclickNone}" @click="start()">スタート</button>
+                    <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-else @click="stop()">ストップ</button>
+                </div>
 				
 			</div>
 			
@@ -303,6 +305,13 @@ export default {
 
     .btn_container {
         display: flex;
+        margin-top: 15px;
+
+
+        .btn_right {
+        display: block;
+      
+        }
     }
 }
 
@@ -310,22 +319,20 @@ export default {
     pointer-events: none;
 }
 
-
-
 .roulette_box {
-    min-width: 550px;
-    height: 600px;
-
+    width:fit-content;
+    padding: 20px;
 }
+
+
     
 .roulette_cover {
     background-color: #FF8A02;
     width: 450px;
     height: 450px;
     border-radius: 50%;
-    margin: auto;
+    margin: 20px;
     position: relative;
-    
 
     .target {
         display: flex;
@@ -399,49 +406,54 @@ export default {
 
 .button {
     display: block;
+    margin-left: 10px;
 }
-
-
-
-.box {
-    padding: 20px;
-}
-
-
-
-.modal {
-    animation-name: fade;
-    animation-duration: 0.5s;
-
-    @keyframes fade {
-        0%{
-            opacity: 0;
-        }
-        100%{
-            opacity: 1;
-        }
-    }
-
-    .modal-card {
-        text-align: center;
-
-
-        .modal_img {
-            width: 200px;
-            height: 200px;
-            object-fit: cover;
-            margin: 0 auto;
-            display: block;
-        }
-    }
-}
-   
-    
 
 
 
 @media screen and ( max-width:479px ) {
+    .roulette_box {
+        box-sizing: border-box;
+        min-width: 350px;
+        height: 460px;
 
+
+        .click_container {
+            width: 100%;
+            flex-flow: wrap;
+            justify-content: center;
+
+            .btn_container {
+                display: flex;
+
+                .button {
+                    display: block;
+                    margin-left: 10px;
+                    width: 80px;
+                }
+
+                .btn_right {
+                    margin-left: 30px;
+
+                }
+            }
+        }
+
+    }
+
+    .roulette_cover {
+        width: 270px;
+        height: 270px;
+        margin: 0px auto;        
+
+        .target {
+            display: flex;
+            width: 135px;
+            height: 135px;
+            font-size: 15px;
+            
+        }
+    }
 
 }
 

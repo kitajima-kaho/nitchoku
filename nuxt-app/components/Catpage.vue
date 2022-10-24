@@ -40,12 +40,7 @@ h2 {
 .aricle_box {
 	display: flex;
     cursor: pointer;
-
-	.media-left {
-		width: fit-content
-	}
-	
-	
+    width: 550px;
 		
 	.media-content {
 		margin-left: 20px;
@@ -58,6 +53,12 @@ h2 {
 		
 	}
 
+}
+
+@media screen and ( max-width:479px ) {
+    .aricle_box {
+        width: auto;
+    }
 }
 
 </style>

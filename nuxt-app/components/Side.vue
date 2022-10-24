@@ -33,8 +33,8 @@ export default {
 </template>
 <style lang="scss">
 .side {
-    margin: 20px 0px auto 10px;
-    width: 300px;
+    margin: 20px 0px auto 30px;
+    width: 350px;
 
     h2 {
         text-align: center;
@@ -77,32 +77,15 @@ export default {
     }
 }
 
+@media screen and ( max-width:479px ) {
+    .main_wrap {
 
-    .modal {
-        animation-name: fade;
-        animation-duration: 0.5s;
-
-        @keyframes fade {
-            0%{
-                opacity: 0;
-            }
-            100%{
-                opacity: 1;
-            }
+        .side {
+            box-sizing: border-box;
+            margin: 5px 5px auto 5px;
+            width: fit-content;
+            margin-bottom: 5px;
         }
-
-        .modal-card {
-            text-align: center;
-
-
-        .modal_img {
-            width: 200px;
-            height: 200px;
-            object-fit: cover;
-            margin: 0 auto;
-            display: block;
-        }
-
     }
-    }
+}
 </style>

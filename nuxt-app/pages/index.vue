@@ -14,16 +14,16 @@ const[rankingData, dataAmerican, dataJapanese, dataChinese, dataFrench, dataChic
 
 ]);
 
-const recipeRanking      = rankingData.data.value.result
-const recipeAmerican     = dataAmerican.data.value.meals;
-const recipeJapanese     = dataJapanese.data.value.meals;
-const recipeChinese      = dataChinese.data.value.meals;
-const recipeFrench       = dataFrench.data.value.meals;
+const recipeRanking    = rankingData.data.value.result
+const recipeAmerican   = dataAmerican.data.value.meals;
+const recipeJapanese   = dataJapanese.data.value.meals;
+const recipeChinese    = dataChinese.data.value.meals;
+const recipeFrench     = dataFrench.data.value.meals;
 
-const recipeChicken      = dataChicken.data.value.meals;
-const recipeBeef         = dataBeef.data.value.meals;
-const recipeSeafood      = dataSeafood.data.value.meals;
-const recipeVegetarian   = dataVegetarian.data.value.meals;
+const recipeChicken    = dataChicken.data.value.meals;
+const recipeBeef       = dataBeef.data.value.meals;
+const recipeSeafood    = dataSeafood.data.value.meals;
+const recipeVegetarian = dataVegetarian.data.value.meals;
 
 </script>
 
@@ -53,6 +53,8 @@ export default {
 
 
     methods: {
+
+        
 
         // ルーレットを回す。
         start() {

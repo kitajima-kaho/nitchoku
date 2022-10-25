@@ -34,7 +34,7 @@ export default {
             status: 'clear',
             rouletteRecipe: [],
             intervalId: 0,
-            country: 'not',
+            recipeTarget: 'not',
             displayRoulette: false,
             todayMeal: null,
             displayTodayMeal: false,
@@ -100,38 +100,38 @@ export default {
 
             this.rouletteRecipe  = []
 
-            if (this.country === 'not') {
+            if (this.recipeTarget === 'not') {
                 alert('国名か素材名を選択してください。')
 
-            } else if (this.country === 'american') { 
+            } else if (this.recipeTarget === 'american') { 
 				this.clickNone = false;  
                 this.SetRouletteRecipe(this.recipeAmerican);
 
-            } else if (this.country === 'japanese') {
+            } else if (this.recipeTarget === 'japanese') {
 				this.clickNone = false;  
                 this.SetRouletteRecipe(this.recipeJapanese);
 
-            } else if (this.country === 'chinese') {
+            } else if (this.recipeTarget === 'chinese') {
 				this.clickNone = false;  
                 this.SetRouletteRecipe(this.recipeChinese);
 
-            } else if (this.country === 'french') {
+            } else if (this.recipeTarget === 'french') {
 				this.clickNone = false;  
                 this.SetRouletteRecipe(this.recipeFrench);
             
-            } else if (this.country === 'chicken') {
+            } else if (this.recipeTarget === 'chicken') {
 				this.clickNone = false;  
                 this.SetRouletteRecipe(this.recipeChicken);
             
-            } else if (this.country === 'beef') {
+            } else if (this.recipeTarget === 'beef') {
 				this.clickNone = false;  
                 this.SetRouletteRecipe(this.recipeBeef);
             
-            } else if (this.country === 'seafood') {
+            } else if (this.recipeTarget === 'seafood') {
 				this.clickNone = false;  
                 this.SetRouletteRecipe(this.recipeSeafood);
             
-            } else if (this.country === 'vegetarian') {
+            } else if (this.recipeTarget === 'vegetarian') {
 				this.clickNone = false;  
                 this.SetRouletteRecipe(this.recipeVegetarian);
             
@@ -180,11 +180,11 @@ export default {
 
 
         // ルーレットセットするときに使う関数
-        SetRouletteRecipe(country) {
+        SetRouletteRecipe(recipeTarget) {
             // インデックスにランダムに数字を入れて、ランダムにレシピをルーレットに入れる。
             // 重複がでないように、同じIDのものは配列に入れないようにする。
-            this.rouletteRecipe.push(country[Math.floor(Math.random() * country.length)]);
-            let remainingRecipe = country.filter((e) => {
+            this.rouletteRecipe.push(recipeTarget[Math.floor(Math.random() * recipeTarget.length)]);
+            let remainingRecipe = recipeTarget.filter((e) => {
                 return e.idMeal !== this.rouletteRecipe[0].idMeal
             })
 
@@ -227,7 +227,7 @@ export default {
 			<h2 class="main_title">ルーレットで決める</h2>
 			<div class="click_container">
 				<div class="select is-warning">
-					<select v-model="country">
+					<select v-model="recipeTarget">
 						<option value="not">選択してください</option>
 						<option value="not">--- 国 ---</option>
 						<option value="american">アメリカ</option>

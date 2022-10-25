@@ -25,6 +25,8 @@ const recipeBeef       = dataBeef.data.value.meals;
 const recipeSeafood    = dataSeafood.data.value.meals;
 const recipeVegetarian = dataVegetarian.data.value.meals;
 
+console.log(recipeAmerican)
+
 </script>
 
 <script>
@@ -95,6 +97,8 @@ export default {
 
         // ルーレットセットする
         set() {
+            console.log(this.recipeAmerican)
+
             this.displayRoulette = true;
 			this.SecondclickNone = false;
 
@@ -213,6 +217,11 @@ export default {
             })
         },
 
+        aaotherPage(event) {
+            this.recipeTarget = event.target.dataset.cat;
+            console.log(this.recipeTarget)
+        }
+
 
 
     }
@@ -240,7 +249,11 @@ export default {
 						<option value="seafood">魚介</option>
 						<option value="vegetarian">野菜</option>
 					</select>
-				</div>                    
+				</div>               
+                
+                
+                <button class="button is-rounded other_btn" @click="aaotherPage($event)" data-cat="american">アメリカ</button>
+
 
                 <div class="btn_container">
                     <button class="button is-warning is-rounded is-medium is-responsive inline_btn" v-show="status !== 'start'" @click="set()">ルーレットにレシピをセットする</button>

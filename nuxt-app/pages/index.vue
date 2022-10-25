@@ -243,7 +243,7 @@ export default {
 				</div>                    
 
                 <div class="btn_container">
-                    <button class="button is-warning is-rounded is-medium is-responsive inline_btn" v-if="status !== 'start'" @click="set()">ルーレットにレシピをセットする</button>
+                    <button class="button is-warning is-rounded is-medium is-responsive inline_btn" v-show="status !== 'start'" @click="set()">ルーレットにレシピをセットする</button>
                     <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-if="status !== 'start'" :class="{click_none : clickNone, second_click_none : SecondclickNone}" @click="start()">スタート</button>
                     <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-else @click="stop()">ストップ</button>
                 </div>

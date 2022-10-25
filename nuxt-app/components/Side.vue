@@ -33,8 +33,10 @@ export default {
 </template>
 <style lang="scss">
 .side {
-    margin: 20px 0px auto 30px;
+    // margin: 20px 0px 20px 30px;
+    margin: 20px;
     width: 350px;
+    height: 675px;
 
     h2 {
         text-align: center;
@@ -82,7 +84,7 @@ export default {
 
         .side {
             box-sizing: border-box;
-            margin: 5px;
+            margin: 5px 5px auto 5px;
             width: 99%;
             margin-bottom: 5px;
         }

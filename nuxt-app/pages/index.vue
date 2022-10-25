@@ -271,9 +271,7 @@ export default {
             ></Side>
       
 	</Main>
-    
-</div>
-<Footer></Footer>          
+    <Footer></Footer>          
 <Modal 
                 :isActive="isActive" 
                 :todayRecipeTitle="todayRecipe.recipeTitle"
@@ -282,6 +280,9 @@ export default {
                 @closeResModal="closeResModal"
 				@clickOk="clickOk"
             ></Modal>
+    
+</div>
+
 </template>
 
 <style lang="scss">

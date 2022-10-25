@@ -14,21 +14,21 @@ CatRecipeList.forEach((e) => {
 </script>
 <template>
 <div id="page" >
-<Header></Header>
-<Main>
-	<article class="box media">
-		<Catpage :recipeList="CatRecipeList">
-			<h2>デザートメニューカテゴリーレシピ一覧</h2>
-		</Catpage>
-	</article>
+	<Header></Header>
+	<Main>
+		<article class="box media">
+			<Catpage :recipeList="CatRecipeList">
+				<h2>デザートメニューカテゴリーレシピ一覧</h2>
+			</Catpage>
+		</article>
 
-	<Side
-		:recipeRankingList = "recipeRanking" 
-	></Side>
+		<Side
+			:recipeRankingList = "recipeRanking" 
+		></Side>
 
-	
-</Main>
-<Footer></Footer>
+		
+	</Main>
+	<Footer></Footer>
 
 </div>
 </template>

@@ -54,10 +54,10 @@ export default {
 
     methods: {
 
-        
-
         // ルーレットを回す。
         start() {
+
+            console.log(this.todayMeal)
 
 			if(this.clickNone) {
 				alert('国名かカテゴリーをセットしてください')

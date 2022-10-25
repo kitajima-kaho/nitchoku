@@ -82,8 +82,8 @@ export default {
 
         .side {
             box-sizing: border-box;
-            margin: 5px 5px auto 5px;
-            width: fit-content;
+            margin: 5px;
+            width: 99%;
             margin-bottom: 5px;
         }
     }

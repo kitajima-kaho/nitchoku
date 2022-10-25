@@ -58,7 +58,7 @@ export default {
         start() {
 
 			if(this.clickNone) {
-				alert('国名かカテゴリーをセットしてね')
+				alert('国名かカテゴリーをセットしてください')
 
 			} else {
 			this.status = 'start';
@@ -241,7 +241,7 @@ export default {
 				</div>                    
 
                 <div class="btn_container">
-                    <button class="button is-warning is-rounded is-medium is-responsive inline_btn" v-if="status !== 'start'" @click="set()">セット</button>
+                    <button class="button is-warning is-rounded is-medium is-responsive inline_btn" v-if="status !== 'start'" @click="set()">ルーレットにレシピをセットする</button>
                     <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-if="status !== 'start'" :class="{click_none : clickNone, second_click_none : SecondclickNone}" @click="start()">スタート</button>
                     <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-else @click="stop()">ストップ</button>
                 </div>
@@ -267,8 +267,12 @@ export default {
             <Side
                 :recipeRankingList = "recipeRanking" 
             ></Side>
-
-            <Modal 
+      
+	</Main>
+    
+</div>
+<Footer></Footer>          
+<Modal 
                 :isActive="isActive" 
                 :todayRecipeTitle="todayRecipe.recipeTitle"
                 :todayRecipeUrl="todayRecipe.recipeUrl"
@@ -276,11 +280,6 @@ export default {
                 @closeResModal="closeResModal"
 				@clickOk="clickOk"
             ></Modal>
-	</Main>
-    
-    <Footer></Footer>          
-</div>
-        
 </template>
 
 <style lang="scss">
@@ -298,7 +297,7 @@ export default {
 }
 
 .click_container {
-    display: flex;
+    // display: flex;
     justify-content: space-between;  
     margin-bottom: 20px;
 
@@ -320,7 +319,7 @@ export default {
 }
 
 .roulette_box {
-    width:fit-content;
+    width: fit-content;
     padding: 20px;
 }
 
@@ -414,26 +413,16 @@ export default {
 @media screen and ( max-width:479px ) {
     .roulette_box {
         box-sizing: border-box;
-        min-width: 350px;
+        width: 99%;
         height: 460px;
 
-
         .click_container {
-            width: 100%;
-            flex-flow: wrap;
-            justify-content: center;
 
             .btn_container {
                 display: flex;
 
-                .button {
-                    display: block;
-                    margin-left: 10px;
-                    width: 80px;
-                }
-
                 .btn_right {
-                    margin-left: 30px;
+                    margin-left: 24px;
 
                 }
             }

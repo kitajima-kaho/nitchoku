@@ -1,34 +1,3 @@
-<!-- <script setup>
-const[rankingData, dataAmerican, dataJapanese, dataChinese, dataFrench, dataChicken, dataBeef, dataSeafood, dataVegetarian] = await Promise.all([
-    useFetch('https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1079324519433678968'),
-
-    useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=American'),
-    useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=Japanese'),
-    useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=Chinese'),
-    useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=French'),
-
-    useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Chicken'),
-    useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Beef'),
-    useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood'),
-    useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Vegetarian'),
-
-]);
-
-const recipeRanking    = rankingData.data.value.result
-const recipeAmerican   = dataAmerican.data.value.meals;
-const recipeJapanese   = dataJapanese.data.value.meals;
-const recipeChinese    = dataChinese.data.value.meals;
-const recipeFrench     = dataFrench.data.value.meals;
-
-const recipeChicken    = dataChicken.data.value.meals;
-const recipeBeef       = dataBeef.data.value.meals;
-const recipeSeafood    = dataSeafood.data.value.meals;
-const recipeVegetarian = dataVegetarian.data.value.meals;
-
-console.log(recipeAmerican)
-
-</script> -->
-
 <script>
 export default {
     data() {
@@ -80,7 +49,7 @@ export default {
 
         ]);
 
-        this.recipeRanking     = rankingData.data.value.result
+        this.recipeRanking    = rankingData.data.value.result
         this.recipeAmerican   = dataAmerican.data.value.meals;
         this.recipeJapanese   = dataJapanese.data.value.meals;
         this.recipeChinese    = dataChinese.data.value.meals;
@@ -91,13 +60,6 @@ export default {
         this.recipeSeafood    = dataSeafood.data.value.meals;
         this.recipeVegetarian = dataVegetarian.data.value.meals;
 
-        console.log(this)
-
-        
-        // console.log(this.recipeAmerican)
-
-
-
     },
 
 
@@ -105,11 +67,6 @@ export default {
 
         // ルーレットを回す。
         start() {
-
-            console.log(this.recipeRanking)
-            // console.log(recipeAmerican)
-
-            // console.log(this.todayMeal)
 
 			if(this.clickNone) {
 				alert('国名かカテゴリーをセットしてください')
@@ -232,7 +189,6 @@ export default {
 		},
 
 
-
         // ルーレットセットするときに使う関数
         SetRouletteRecipe(recipeTarget) {
             // インデックスにランダムに数字を入れて、ランダムにレシピをルーレットに入れる。
@@ -301,10 +257,6 @@ export default {
 					</select>
 				</div>               
                 
-                
-                <button class="button is-rounded other_btn" @click="aaotherPage($event)" data-cat="american">アメリカ</button>
-
-
                 <div class="btn_container">
                     <button class="button is-warning is-rounded is-medium is-responsive inline_btn" v-show="status !== 'start'" @click="set()">ルーレットにレシピをセットする</button>
                     <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-if="status !== 'start'" :class="{click_none : clickNone, second_click_none : SecondclickNone}" @click="start()">スタート</button>

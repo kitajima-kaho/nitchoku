@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
 const[rankingData, dataAmerican, dataJapanese, dataChinese, dataFrench, dataChicken, dataBeef, dataSeafood, dataVegetarian] = await Promise.all([
     useFetch('https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1079324519433678968'),
 
@@ -27,7 +27,7 @@ const recipeVegetarian = dataVegetarian.data.value.meals;
 
 console.log(recipeAmerican)
 
-</script>
+</script> -->
 
 <script>
 export default {
@@ -50,7 +50,54 @@ export default {
             },
 			clickNone: true,
 			SecondclickNone: false,
+            recipeRanking: null,
+            recipeAmerican: null,
+            recipeJapanese: null,
+            recipeChinese: null,
+            recipeFrench: null,
+            recipeChicken: null,
+            recipeBeef: null,
+            recipeSeafood: null,
+            recipeVegetarian: null,
+
+
         }
+    },
+
+    async created() {
+        const[rankingData, dataAmerican, dataJapanese, dataChinese, dataFrench, dataChicken, dataBeef, dataSeafood, dataVegetarian] = await Promise.all([
+            useFetch('https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1079324519433678968'),
+
+            useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=American'),
+            useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=Japanese'),
+            useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=Chinese'),
+            useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=French'),
+
+            useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Chicken'),
+            useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Beef'),
+            useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood'),
+            useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Vegetarian'),
+
+        ]);
+
+        this.recipeRanking     = rankingData.data.value.result
+        this.recipeAmerican   = dataAmerican.data.value.meals;
+        this.recipeJapanese   = dataJapanese.data.value.meals;
+        this.recipeChinese    = dataChinese.data.value.meals;
+        this.recipeFrench     = dataFrench.data.value.meals;
+
+        this.recipeChicken    = dataChicken.data.value.meals;
+        this.recipeBeef       = dataBeef.data.value.meals;
+        this.recipeSeafood    = dataSeafood.data.value.meals;
+        this.recipeVegetarian = dataVegetarian.data.value.meals;
+
+        console.log(this)
+
+        
+        // console.log(this.recipeAmerican)
+
+
+
     },
 
 
@@ -59,7 +106,10 @@ export default {
         // ルーレットを回す。
         start() {
 
-            console.log(this.todayMeal)
+            console.log(this.recipeRanking)
+            // console.log(recipeAmerican)
+
+            // console.log(this.todayMeal)
 
 			if(this.clickNone) {
 				alert('国名かカテゴリーをセットしてください')

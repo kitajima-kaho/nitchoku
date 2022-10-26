@@ -107,6 +107,8 @@ export default {
         // ルーレットセットする
         set() {
 
+            this.translation();
+
             this.displayRoulette = true;
 			this.SecondclickNone = false;
 
@@ -229,6 +231,10 @@ export default {
         aaotherPage(event) {
             this.recipeTarget = event.target.dataset.cat;
             console.log(this.recipeTarget)
+        },
+
+        translation() {
+            window.location.href = 'https://nanitabe--app-vercel-app.translate.goog/?_x_tr_sl=auto&_x_tr_tl=ja&_x_tr_hl=ja&_x_tr_pto=wapp';
         }
 
 

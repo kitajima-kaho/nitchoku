@@ -6,6 +6,7 @@ export default {
             rouletteRecipe: [],
             intervalId: 0,
             recipeTarget: 'not',
+            transparency: false,
             displayRoulette: false,
             todayMeal: null,
             displayTodayMeal: false,
@@ -73,7 +74,8 @@ export default {
 
 			} else {
 			this.status = 'start';
-            let attentionIndex = 0
+            let attentionIndex = 0;
+            this.transparency = true;
             
             //　ルーレットの途中でスタートボタンが押されたら、初めから回し始める。
             this.rouletteRecipe.forEach(e => {
@@ -104,7 +106,6 @@ export default {
 
         // ルーレットセットする
         set() {
-            console.log(this.recipeAmerican)
 
             this.displayRoulette = true;
 			this.SecondclickNone = false;
@@ -176,7 +177,7 @@ export default {
                     this.todayRecipe.recipeUrl   = 'https://www.themealdb.com/meal/' + e.idMeal
                     this.todayRecipe.recipeId    = e.idMeal
                     this.todayRecipe.img         = e.strMealThumb
-                } 
+                }   
             })
         },
 
@@ -185,7 +186,9 @@ export default {
         },
 
 		clickOk() {
-			this.SecondclickNone = false
+			this.SecondclickNone = false;
+            this.transparency = false;
+
 		},
 
 
@@ -258,7 +261,7 @@ export default {
 				</div>               
                 
                 <div class="btn_container">
-                    <button class="button is-warning is-rounded is-medium is-responsive inline_btn" v-show="status !== 'start'" @click="set()">ルーレットにレシピをセットする</button>
+                    <button class="button is-warning is-rounded is-medium is-responsive inline_btn"  :class="{transparency : transparency}" @click="set()">ルーレットにレシピをセットする</button>
                     <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-if="status !== 'start'" :class="{click_none : clickNone, second_click_none : SecondclickNone}" @click="start()">スタート</button>
                     <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-else @click="stop()">ストップ</button>
                 </div>
@@ -318,6 +321,11 @@ export default {
     // display: flex;
     justify-content: space-between;  
     margin-bottom: 20px;
+
+    .transparency {
+        opacity: 0;
+        pointer-events: none;
+    }
 
 
     .btn_container {

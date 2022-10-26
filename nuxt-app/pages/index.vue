@@ -61,6 +61,9 @@ export default {
         this.recipeSeafood    = dataSeafood.data.value.meals;
         this.recipeVegetarian = dataVegetarian.data.value.meals;
 
+        this.translation();
+
+
     },
 
 
@@ -106,8 +109,6 @@ export default {
 
         // ルーレットセットする
         set() {
-
-            this.translation();
 
             this.displayRoulette = true;
 			this.SecondclickNone = false;

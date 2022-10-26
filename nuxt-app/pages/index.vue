@@ -16,7 +16,8 @@ export default {
                 recipeTitle: null,
                 recipeUrl: null,
                 recipeId: null,
-                img: null
+                img: null,
+                colorStatus: null
             },
 			clickNone: true,
 			SecondclickNone: false,
@@ -62,7 +63,6 @@ export default {
         this.recipeVegetarian = dataVegetarian.data.value.meals;
 
         // this.translation();
-
 
     },
 
@@ -110,43 +110,52 @@ export default {
         // ルーレットセットする
         set() {
 
-            this.displayRoulette = true;
 			this.SecondclickNone = false;
-
             this.rouletteRecipe  = []
 
             if (this.recipeTarget === 'not') {
                 alert('国名か素材名を選択してください。')
+                this.displayRoulette = false; 
+                return;
 
-            } else if (this.recipeTarget === 'american') { 
+
+            } else if (this.recipeTarget === 'american') {
+                this.displayRoulette = true; 
 				this.clickNone = false;  
                 this.SetRouletteRecipe(this.recipeAmerican);
 
             } else if (this.recipeTarget === 'japanese') {
+                this.displayRoulette = true;
 				this.clickNone = false;  
                 this.SetRouletteRecipe(this.recipeJapanese);
 
             } else if (this.recipeTarget === 'chinese') {
+                this.displayRoulette = true;
 				this.clickNone = false;  
                 this.SetRouletteRecipe(this.recipeChinese);
 
             } else if (this.recipeTarget === 'french') {
+                this.displayRoulette = true;
 				this.clickNone = false;  
                 this.SetRouletteRecipe(this.recipeFrench);
             
             } else if (this.recipeTarget === 'chicken') {
+                this.displayRoulette = true;
 				this.clickNone = false;  
                 this.SetRouletteRecipe(this.recipeChicken);
             
             } else if (this.recipeTarget === 'beef') {
+                this.displayRoulette = true;
 				this.clickNone = false;  
                 this.SetRouletteRecipe(this.recipeBeef);
             
             } else if (this.recipeTarget === 'seafood') {
+                this.displayRoulette = true;
 				this.clickNone = false;  
                 this.SetRouletteRecipe(this.recipeSeafood);
             
             } else if (this.recipeTarget === 'vegetarian') {
+                this.displayRoulette = true;
 				this.clickNone = false;  
                 this.SetRouletteRecipe(this.recipeVegetarian);
             

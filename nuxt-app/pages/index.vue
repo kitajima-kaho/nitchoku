@@ -65,11 +65,11 @@ export default {
 
     },
 
-    mounted() {
+    // mounted() {
 
-        this.translation();
+    //     this.translation();
 
-    },
+    // },
 
     methods: {
 
@@ -286,6 +286,9 @@ export default {
                     <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-else @click="stop()">ストップ</button>
                 </div>
 				
+                <button class="button  is-warning is-rounded is-medium is-responsive" @click="translation()">翻訳</button>
+
+
 			</div>
 			
 			<div class="roulette_cover roulette_on" v-if="displayRoulette">

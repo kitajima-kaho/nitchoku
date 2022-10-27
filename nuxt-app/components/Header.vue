@@ -4,6 +4,10 @@ export default {
         otherPage(event) {
             const pageNamePath = "/" + event.target.dataset.cat;
             this.$router.push(pageNamePath)
+        },
+
+        translation() {
+            window.location.href = 'https://nanitabe--app-vercel-app.translate.goog/?_x_tr_sl=auto&_x_tr_tl=ja&_x_tr_hl=ja&_x_tr_pto=wapp';
         }
     }
 }
@@ -13,7 +17,7 @@ export default {
     <header>
         <div class="header_container">
             <div class="header_display is-align-items-center">
-                <div class="logo" @click="$emit('translation')">
+                <div class="logo" @click="translation()">
                     <img src="~/assets/image/logo.png" alt="ロゴ">
                 </div>
                 <div class="other_btns">
@@ -25,6 +29,7 @@ export default {
                 </div>    
             </div>
         </div>
+        <div class="logo" @click="$emit('translation')">aaa</div>
     </header>
 </template>
 <style lang="scss">

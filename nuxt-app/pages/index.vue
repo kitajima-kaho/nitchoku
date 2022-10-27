@@ -116,6 +116,7 @@ export default {
             if (this.recipeTarget === 'not') {
                 alert('国名か素材名を選択してください。')
                 this.displayRoulette = false; 
+                this.clickNone = true;  
                 return;
 
 
@@ -240,7 +241,6 @@ export default {
 
         aaotherPage(event) {
             this.recipeTarget = event.target.dataset.cat;
-            console.log(this.recipeTarget)
         },
 
         translation() {
@@ -285,10 +285,29 @@ export default {
 			</div>
 			
 			<div class="roulette_cover roulette_on" v-if="displayRoulette">
-				<div class="target" :class="{color_blue : rouletteRecipe[0].colorStatus}">{{ rouletteRecipe[0].strMeal }}</div>
-				<div class="target" :class="{color_red : rouletteRecipe[1].colorStatus}">{{ rouletteRecipe[1].strMeal }}</div>
-				<div class="target" :class="{color_green : rouletteRecipe[2].colorStatus}">{{ rouletteRecipe[2].strMeal }}</div>
-				<div class="target" :class="{color_yellow : rouletteRecipe[3].colorStatus}">{{ rouletteRecipe[3].strMeal }}</div>
+				<div class="target" :class="{color_blue : rouletteRecipe[0].colorStatus}">
+                    {{ rouletteRecipe[0].strMeal }}
+                    <figure class="image image_box is-64x64">
+                        <img :src="rouletteRecipe[0].strMealThumb" alt="Image">
+                    </figure>
+                </div>
+                <div class="target" :class="{color_red : rouletteRecipe[1].colorStatus}">{{ rouletteRecipe[1].strMeal }}
+                <figure class="image image_box is-64x64">
+                    <img :src="rouletteRecipe[1].strMealThumb" alt="Image">
+                </figure>
+                </div>	
+                <div class="target" :class="{color_green : rouletteRecipe[2].colorStatus}">
+                    {{ rouletteRecipe[2].strMeal }}                
+                    <figure class="image image_box is-64x64">
+                        <img :src="rouletteRecipe[2].strMealThumb" alt="Image">
+                    </figure>
+                </div>	
+				<div class="target" :class="{color_yellow : rouletteRecipe[3].colorStatus}">
+                    {{ rouletteRecipe[3].strMeal }}
+                    <figure class="image image_box is-64x64">
+                        <img :src="rouletteRecipe[3].strMealThumb" alt="Image">
+                    </figure>
+                </div>
 			</div>
 
 			<div class="roulette_cover roulette_on" v-else="displayRoulette">
@@ -376,11 +395,18 @@ export default {
     position: relative;
 
     .target {
-        display: flex;
-        align-items: center;
+        padding-top: 60px; 
+        padding-bottom: 60px; 
+        // display: flex;
+        // align-items: center;
         width: 225px;
         height: 225px;
         text-align: center;
+
+        .image {
+            margin-top: 10px;
+            margin-left: 60px;
+        }    
 
         &:first-child {
             position: absolute;

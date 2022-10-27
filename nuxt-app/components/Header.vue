@@ -13,8 +13,8 @@ export default {
     <header>
         <div class="header_container">
             <div class="header_display is-align-items-center">
-                <div class="logo">
-                    <a href="/"><img src="~/assets/image/logo.png" alt="ロゴ"></a>
+                <div class="logo" @click="$emit('translation')">
+                    <img src="~/assets/image/logo.png" alt="ロゴ">
                 </div>
                 <div class="other_btns">
                     <button class="button first_btn is-rounded other_btn" @click="otherPage($event)" data-cat="breakfast">朝食</button>

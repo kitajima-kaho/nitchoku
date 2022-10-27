@@ -65,11 +65,6 @@ export default {
 
     },
 
-    // mounted() {
-
-    //     this.translation();
-
-    // },
 
     methods: {
 
@@ -243,7 +238,7 @@ export default {
             })
         },
 
-        aaotherPage(event) {
+        otherPage(event) {
             this.recipeTarget = event.target.dataset.cat;
         },
 
@@ -259,7 +254,9 @@ export default {
 
 <template>
 <div id="page" >
-    <Header></Header>
+    <Header
+        @translation="translation"
+    ></Header>
 	<Main>
 		<article class="box media roulette_box">
 			<h2 class="main_title">ルーレットで決める</h2>

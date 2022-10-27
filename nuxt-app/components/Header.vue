@@ -26,7 +26,7 @@ export default {
                 <div class="logo" @click="translation()" v-if="onTranslation">
                     <img src="~/assets/image/logo.png" alt="ロゴ">
                 </div>
-                <div class="logo" @click="" v-else="onTranslation">
+                <div class="logo" v-else="onTranslation">
                     <a href="/"><img src="~/assets/image/logo.png" alt="ロゴ"></a>
                 </div>
                 <div class="other_btns">

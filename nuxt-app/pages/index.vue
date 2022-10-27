@@ -62,10 +62,14 @@ export default {
         this.recipeSeafood    = dataSeafood.data.value.meals;
         this.recipeVegetarian = dataVegetarian.data.value.meals;
 
-        this.translation();
 
     },
 
+    mounted() {
+
+        this.translation();
+
+    },
 
     methods: {
 

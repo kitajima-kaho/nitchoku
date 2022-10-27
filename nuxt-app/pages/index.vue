@@ -30,8 +30,6 @@ export default {
             recipeBeef: null,
             recipeSeafood: null,
             recipeVegetarian: null,
-            onTranslation: false,
-
 
         }
     },
@@ -62,7 +60,6 @@ export default {
         this.recipeBeef       = dataBeef.data.value.meals;
         this.recipeSeafood    = dataSeafood.data.value.meals;
         this.recipeVegetarian = dataVegetarian.data.value.meals;
-
 
     },
 
@@ -243,22 +240,13 @@ export default {
             this.recipeTarget = event.target.dataset.cat;
         },
 
-        translation() {
-            window.location.href = 'https://nanitabe--app-vercel-app.translate.goog/?_x_tr_sl=auto&_x_tr_tl=ja&_x_tr_hl=ja&_x_tr_pto=wapp';
-            this.translation = true
-        }
-
-
-
     }
 }
 </script>
 
 <template>
 <div id="page" >
-    <Header
-        :onTranslation="onTranslation"
-    ></Header>
+    <Header></Header>
 	<Main>
 		<article class="box media roulette_box">
 			<h2 class="main_title">ルーレットで決める</h2>
@@ -284,9 +272,6 @@ export default {
                     <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-if="status !== 'start'" :class="{click_none : clickNone, second_click_none : SecondclickNone}" @click="start()">スタート</button>
                     <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-else @click="stop()">ストップ</button>
                 </div>
-				
-                <button class="button  is-warning is-rounded is-medium is-responsive" @click="translation()">翻訳</button>
-
 			</div>
 			
 			<div class="roulette_cover roulette_on" v-if="displayRoulette">

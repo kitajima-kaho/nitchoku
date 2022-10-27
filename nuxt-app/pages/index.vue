@@ -30,6 +30,7 @@ export default {
             recipeBeef: null,
             recipeSeafood: null,
             recipeVegetarian: null,
+            onTranslation: false,
 
 
         }
@@ -244,6 +245,7 @@ export default {
 
         translation() {
             window.location.href = 'https://nanitabe--app-vercel-app.translate.goog/?_x_tr_sl=auto&_x_tr_tl=ja&_x_tr_hl=ja&_x_tr_pto=wapp';
+            this.translation = true
         }
 
 
@@ -255,7 +257,7 @@ export default {
 <template>
 <div id="page" >
     <Header
-        @translation="translation"
+        :onTranslation="onTranslation"
     ></Header>
 	<Main>
 		<article class="box media roulette_box">
@@ -284,7 +286,6 @@ export default {
                 </div>
 				
                 <button class="button  is-warning is-rounded is-medium is-responsive" @click="translation()">翻訳</button>
-
 
 			</div>
 			
@@ -329,7 +330,7 @@ export default {
       
 	</Main>
     <Footer></Footer>          
-<Modal 
+            <Modal 
                 :isActive="isActive" 
                 :todayRecipeTitle="todayRecipe.recipeTitle"
                 :todayRecipeUrl="todayRecipe.recipeUrl"

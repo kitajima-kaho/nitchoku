@@ -1,4 +1,5 @@
 <script>
+
 export default {
     methods: {
         otherPage(event) {
@@ -9,6 +10,11 @@ export default {
         translation() {
             window.location.href = 'https://nanitabe--app-vercel-app.translate.goog/?_x_tr_sl=auto&_x_tr_tl=ja&_x_tr_hl=ja&_x_tr_pto=wapp';
         }
+
+    },
+
+    props: {
+        onTranslation: Boolean,
     }
 }
 </script>
@@ -17,8 +23,11 @@ export default {
     <header>
         <div class="header_container">
             <div class="header_display is-align-items-center">
-                <div class="logo" @click="translation()">
+                <div class="logo" @click="translation()" v-if="onTranslation">
                     <img src="~/assets/image/logo.png" alt="ロゴ">
+                </div>
+                <div class="logo" @click="" v-else="onTranslation">
+                    <a href="/"><img src="~/assets/image/logo.png" alt="ロゴ"></a>
                 </div>
                 <div class="other_btns">
                     <button class="button first_btn is-rounded other_btn" @click="otherPage($event)" data-cat="breakfast">朝食</button>
@@ -29,7 +38,6 @@ export default {
                 </div>    
             </div>
         </div>
-        <div class="logo" @click="$emit('translation')">aaa</div>
     </header>
 </template>
 <style lang="scss">
@@ -69,6 +77,7 @@ header {
 
 
             .logo {
+                z-index: 1;
                 width:fit-content;
             }
         }

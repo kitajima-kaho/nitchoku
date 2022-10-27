@@ -65,6 +65,12 @@ export default {
 
     },
 
+    mounted() {
+
+        this.translation();
+
+    },
+
     methods: {
 
         // ルーレットを回す。

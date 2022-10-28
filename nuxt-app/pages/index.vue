@@ -38,7 +38,18 @@ export default {
         const[rankingData, dataAmerican, dataJapanese, dataChinese, dataFrench, dataChicken, dataBeef, dataSeafood, dataVegetarian] = await Promise.all([
             useFetch('https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1079324519433678968'),
 
-            useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=American'),
+
+            useFetch('https://script.google.com/macros/s/AKfycbwX_Ca1L-AlvlY5ORoUrHRwTTAQGUsSlLAAV0rulw_Hgev5SWeYgTL_A75r6znyPBblFw/exec?initial=a&cate=American'),
+            useFetch('https://script.google.com/macros/s/AKfycbwX_Ca1L-AlvlY5ORoUrHRwTTAQGUsSlLAAV0rulw_Hgev5SWeYgTL_A75r6znyPBblFw/exec?initial=a&cate=Japanese'),
+            useFetch('https://script.google.com/macros/s/AKfycbwX_Ca1L-AlvlY5ORoUrHRwTTAQGUsSlLAAV0rulw_Hgev5SWeYgTL_A75r6znyPBblFw/exec?initial=a&cate=Chinese'),
+            useFetch('https://script.google.com/macros/s/AKfycbwX_Ca1L-AlvlY5ORoUrHRwTTAQGUsSlLAAV0rulw_Hgev5SWeYgTL_A75r6znyPBblFw/exec?initial=a&cate=French'),
+
+            useFetch('https://script.google.com/macros/s/AKfycbwX_Ca1L-AlvlY5ORoUrHRwTTAQGUsSlLAAV0rulw_Hgev5SWeYgTL_A75r6znyPBblFw/exec?initial=c&cate=Chicken'),
+            useFetch('https://script.google.com/macros/s/AKfycbwX_Ca1L-AlvlY5ORoUrHRwTTAQGUsSlLAAV0rulw_Hgev5SWeYgTL_A75r6znyPBblFw/exec?initial=c&cate=Beef'),
+            useFetch('https://script.google.com/macros/s/AKfycbwX_Ca1L-AlvlY5ORoUrHRwTTAQGUsSlLAAV0rulw_Hgev5SWeYgTL_A75r6znyPBblFw/exec?initial=c&cate=Seafood'),
+            useFetch('https://script.google.com/macros/s/AKfycbwX_Ca1L-AlvlY5ORoUrHRwTTAQGUsSlLAAV0rulw_Hgev5SWeYgTL_A75r6znyPBblFw/exec?initial=c&cate=Vegetarian'),
+
+            // useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=American'),
             useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=Japanese'),
             useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=Chinese'),
             useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=French'),
@@ -197,7 +208,6 @@ export default {
 
 		clickOk() {
 			this.SecondclickNone = false;
-            this.transparency = false;
 
 		},
 

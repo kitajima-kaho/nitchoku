@@ -10,17 +10,21 @@ export default {
         };
     },
 
-    async created() {
-		const dataCatRecipe = await useFetch("https://www.themealdb.com/api/json/v1/1/filter.php?c=Dessert");
-        this.catRecipeList = dataCatRecipe.data.value.meals;
+	async created() {
+		const[rankingData, dataCatRecipe] = await Promise.all([
+			useFetch('https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1079324519433678968'),
+			useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Dessert'),
+		]);
 
-        // 日本語に訳す、URLを作成し、オブジェクトのプロパティに追加
-        this.catRecipeList.forEach((e) => {
-            let jpList = this.jsondataList.find(j => j.strMeal === e.strMeal);
-            e.strMeal = jpList.strMealjp;
-            e.recipeUrl = "https://www.themealdb.com/meal/" + e.idMeal;
-        });
-    },
+		this.recipeRanking = rankingData.data.value.result;
+		this.catRecipeList = dataCatRecipe.data.value.meals;
+
+		this.catRecipeList.forEach((e) => {
+			let jpList = this.jsondataList.find(j => j.strMeal === e.strMeal);
+			e.strMeal = jpList.strMealjp;
+			e.recipeUrl = 'https://www.themealdb.com/meal/' + e.idMeal
+		});
+	}
 }
 
 
@@ -28,14 +32,18 @@ export default {
 <template>
 <div id="page" >
 	<Header></Header>
-	<MainSecond>
+	<Main>
 		<article class="box media">
 			<Catpage :recipeList="catRecipeList">
 				<h2>デザートメニューカテゴリーレシピ一覧</h2>
 			</Catpage>
 		</article>		
-	</MainSecond>
-	<Footer></Footer>
 
+		<Side
+			:recipeRankingList = "recipeRanking" 
+		></Side>
+
+	</Main>
+	<Footer></Footer>
 </div>
 </template>

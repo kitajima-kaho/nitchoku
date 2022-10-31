@@ -17,14 +17,6 @@ export default {
 		clickUrl(recipeUrl) {
 			window.open(recipeUrl, '_blank')
 		},
-
-		// aaa() {
-		// 	this.recipeList.forEach((e) => {
-		// 		let jpList = this.jsondataList.find(j => j.strMeal === e.strMeal);
-		// 		e.strMeal = jpList.strMealjp
-		// 	})
-
-		// }
 	}
 
 }
@@ -46,7 +38,6 @@ export default {
 				</div>
 			</div>
 	</div>
-	<!-- <button @click="aaa()" >aaa</button> -->
 
 </div>
 </template>
@@ -59,8 +50,8 @@ h2 {
 .aricle_box {
 	display: flex;
     cursor: pointer;
-    width: 660px;
-		
+    width: 550px;
+			
 	.media-content {
 		margin-left: 20px;
 		display: flex;

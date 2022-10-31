@@ -11,32 +11,7 @@ export default {
 
 	props: {
 		recipeList: Array,
-	},
-
-	// mounted () {
-
-	// 	console.log(this.recipeList)
-	// 	// this.$nextTick(() => {
-	// 		if (Array.isArray(this.recipeList)) {
-	// 			this.recipeList.forEach(element => {
-    // 				console.log(element);	
-  	// 			});
-	// 		} else {
-	// 			console.log('aaa')
-	// 		}
-
-	// 		this.recipeList.forEach((e) => {
-	// 			let jpList = this.jsondataList.find(j => j.strMeal === e.strMeal);
-	// 			console.log(jpList.strMealjp);
-	// 			e.strMeal = jpList.strMealjp;
-	// 		});
-
-	// 	// }) ;
-
-		
-
-	// },
- 
+	}, 
 
 	methods: {
 		clickUrl(recipeUrl) {
@@ -84,7 +59,7 @@ h2 {
 .aricle_box {
 	display: flex;
     cursor: pointer;
-    width: 550px;
+    width: 660px;
 		
 	.media-content {
 		margin-left: 20px;

@@ -4,7 +4,7 @@ export default {
 	data() {
 		return {
 			recipeRanking: null,
-			catRecipeList: null,
+			catRecipeList: [],
 		}
 	},
 

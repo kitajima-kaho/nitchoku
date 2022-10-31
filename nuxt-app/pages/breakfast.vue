@@ -5,9 +5,8 @@ export default {
 
 	data() {
 		return {
-			recipeRanking: null,
+			recipeRanking: [],
 			catRecipeList: [],
-			catRecipeListEn: [],
 			jsondataList: jsondataList,
 
 		}
@@ -25,7 +24,6 @@ export default {
 		// 日本語に訳す、URLを作成し、オブジェクトのプロパティに追加
 		this.catRecipeList.forEach((e) => {
 			let jpList = this.jsondataList.find(j => j.strMeal === e.strMeal);
-			console.log(jpList.strMealjp);
 			e.strMeal = jpList.strMealjp;
 			e.recipeUrl = 'https://www.themealdb.com/meal/' + e.idMeal
 

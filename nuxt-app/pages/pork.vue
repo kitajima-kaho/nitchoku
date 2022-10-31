@@ -1,10 +1,13 @@
 <script>
+import jsondataList from '@/assets/json/jsondata.json'
+
 export default {
 
 	data() {
 		return {
-			recipeRanking: null,
-			catRecipeList: null,
+			recipeRanking: [],
+			catRecipeList: [],
+			jsondataList: jsondataList,
 		}
 	},
 
@@ -17,9 +20,13 @@ export default {
 	this.recipeRanking = rankingData.data.value.result;
 	this.catRecipeList = dataCatRecipe.data.value.meals;
 
+	// 日本語に訳す、URLを作成し、オブジェクトのプロパティに追加
 	this.catRecipeList.forEach((e) => {
-		e.recipeUrl = 'https://www.themealdb.com/meal/' + e.idMeal
-	})
+			let jpList = this.jsondataList.find(j => j.strMeal === e.strMeal);
+			e.strMeal = jpList.strMealjp;
+			e.recipeUrl = 'https://www.themealdb.com/meal/' + e.idMeal
+
+		});
 
     },
 }

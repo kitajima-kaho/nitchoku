@@ -2,15 +2,6 @@
 import jsondataList from '@/assets/json/jsondata.json'
 
 export default {
-
-
-    // asyncData() {
-    // const jsondataList = require(`~/assets/json/jsondata.json`)
-    // return {
-    //     aaa: jsondataList,
-    // }
-    // },
-
     data() {
         return {
             jsondataList: jsondataList,
@@ -49,26 +40,7 @@ export default {
     async created() {
         const[rankingData, dataAmerican, dataJapanese, dataChinese, dataFrench, dataChicken, dataBeef, dataSeafood, dataVegetarian] = await Promise.all([
             useFetch('https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1079324519433678968'),
-
-
-            // useFetch('https://script.google.com/macros/s/AKfycbwCZ3RIpOh1VvTQH-4p_8ld8GkPmHOts805UgZYeWS2bGs2VEKjgZ26GkC3fCce7FJFFw/exec?initial=a&cate=American', {
-            //     headers: {
-            //         'Access-Control-Allow-Origin' : '*',
-            //         'Content-Type' : 'application/json',
-            //     },
-            //     // mode: "no-cors" ,
-
-
-            // }),
-            // useFetch('https://script.google.com/macros/s/AKfycbwCZ3RIpOh1VvTQH-4p_8ld8GkPmHOts805UgZYeWS2bGs2VEKjgZ26GkC3fCce7FJFFw/exec?initial=a&cate=Japanese'),
-            // useFetch('https://script.google.com/macros/s/AKfycbwCZ3RIpOh1VvTQH-4p_8ld8GkPmHOts805UgZYeWS2bGs2VEKjgZ26GkC3fCce7FJFFw/exec?initial=a&cate=Chinese'),
-            // useFetch('https://script.google.com/macros/s/AKfycbwCZ3RIpOh1VvTQH-4p_8ld8GkPmHOts805UgZYeWS2bGs2VEKjgZ26GkC3fCce7FJFFw/exec?initial=a&cate=French'),
-
-            // useFetch('https://script.google.com/macros/s/AKfycbwCZ3RIpOh1VvTQH-4p_8ld8GkPmHOts805UgZYeWS2bGs2VEKjgZ26GkC3fCce7FJFFw/exec?initial=c&cate=Chicken'),
-            // useFetch('https://script.google.com/macros/s/AKfycbwCZ3RIpOh1VvTQH-4p_8ld8GkPmHOts805UgZYeWS2bGs2VEKjgZ26GkC3fCce7FJFFw/exec?initial=c&cate=Beef'),
-            // useFetch('https://script.google.com/macros/s/AKfycbwCZ3RIpOh1VvTQH-4p_8ld8GkPmHOts805UgZYeWS2bGs2VEKjgZ26GkC3fCce7FJFFw/exec?initial=c&cate=Seafood'),
-            // useFetch('https://script.google.com/macros/s/AKfycbwCZ3RIpOh1VvTQH-4p_8ld8GkPmHOts805UgZYeWS2bGs2VEKjgZ26GkC3fCce7FJFFw/exec?initial=c&cate=Vegetarian'),
-
+            
             useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=American'),
             useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=Japanese'),
             useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=Chinese'),

@@ -3,9 +3,11 @@ export default defineNuxtConfig({
 
     css:['assets/scss/index.scss'],
    
-    ssr:false
+    ssr:false,
 
-
+    alias: {
+      pinia: '/node_modules/@pinia/nuxt/node_modules/pinia/dist/pinia.mjs',
+    },
     
 
 

@@ -2,12 +2,7 @@
 import jsondataList from '@/assets/json/jsondata.json'
 
 export default {
-    
-    head: {
-        script: [
-            { src: 'https://unpkg.com/glottologist'},
-        ]
-    },
+
 
     // asyncData() {
     // const jsondataList = require(`~/assets/json/jsondata.json`)

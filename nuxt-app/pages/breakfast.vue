@@ -1,10 +1,15 @@
 <script>
+import jsondataList from '@/assets/json/jsondata.json'
+
 export default {
 
 	data() {
 		return {
 			recipeRanking: null,
 			catRecipeList: [],
+			catRecipeListEn: [],
+			jsondataList: jsondataList,
+
 		}
 	},
 
@@ -14,14 +19,20 @@ export default {
 			useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Breakfast'),
 		]);
 
-	this.recipeRanking = rankingData.data.value.result;
-	this.catRecipeList = dataCatRecipe.data.value.meals;
+		this.recipeRanking = rankingData.data.value.result;
+		this.catRecipeList = dataCatRecipe.data.value.meals;
 
-	this.catRecipeList.forEach((e) => {
-		e.recipeUrl = 'https://www.themealdb.com/meal/' + e.idMeal
-	})
+		// 日本語に訳す、URLを作成し、オブジェクトのプロパティに追加
+		this.catRecipeList.forEach((e) => {
+			let jpList = this.jsondataList.find(j => j.strMeal === e.strMeal);
+			console.log(jpList.strMealjp);
+			e.strMeal = jpList.strMealjp;
+			e.recipeUrl = 'https://www.themealdb.com/meal/' + e.idMeal
 
-    },
+		});
+
+	}
+
 }
 
 

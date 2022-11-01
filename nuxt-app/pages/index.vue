@@ -1,10 +1,13 @@
 <script>
 import jsondataList from '@/assets/json/jsondata.json'
-// import { useRrankingDataFetch } from '@/store/useFetch.js'
+import { useRankingDataFetch } from '~/stores/useFetch'
 
 export default {
+
     data() {
         return {
+            // useRankingDataFetch: useRankingDataFetch,
+            recipeRankingList: [],
             jsondataList: jsondataList,
             status: 'clear',
             rouletteRecipe: [],
@@ -65,6 +68,11 @@ export default {
         this.recipeSeafood    = dataSeafood.data.value.meals;
         this.recipeVegetarian = dataVegetarian.data.value.meals;
 
+        // this.recipeRankingList = useRankingDataFetch.
+
+
+       const recipeRankingLists = useRankingDataFetch()
+        this.recipeRankingList = recipeRankingLists.recipeRanking
     },
 
 
@@ -275,7 +283,13 @@ export default {
 <template>
 <div id="page" >
     <Header></Header>
-	<Main>
+
+        <!-- {{ recipeRankingList }} -->
+        <!-- <h1>{{ useRankingDataFetch().getRankingData }}</h1> -->
+
+    <Main>
+        <!-- <h2>{{ useRankingDataFetch.recipeRanking }}</h2> -->
+
 		<article class="box media roulette_box">
 			<h2 class="main_title">ルーレットで決める</h2>
 			<div class="click_container">
@@ -338,7 +352,7 @@ export default {
 		</article>
 
             <Side
-                :recipeRankingList = "recipeRanking" 
+                :recipeRankingList = "recipeRankingList" 
             ></Side>
       
 	</Main>

@@ -15,7 +15,7 @@ export const useRrankingDataFetch = defineStore('RrankingDataFetch',{
         }
     },
 
-    action: {
+    actions: {
         // データを取得し、stateの変数に入れる。
         async useFetchRanking() {
             const rankingData  = await useFetch('https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1079324519433678968');

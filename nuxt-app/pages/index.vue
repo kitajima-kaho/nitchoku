@@ -210,8 +210,7 @@ export default {
             // インデックスにランダムに数字を入れて、ランダムにレシピをルーレットに入れる。
             // 重複がでないように、同じIDのものは配列に入れないようにする。
             this.rouletteRecipe.push(recipeTarget[Math.floor(Math.random() * recipeTarget.length)]);
-            let jpList = this.jsondataList.find(e => e.strMeal === this.rouletteRecipe[0].strMeal);
-            this.rouletteRecipe[0].strMeal = jpList.strMealjp
+            this.rouletteRecipe[0].strMeal = this.translation(this.rouletteRecipe[0].strMeal)
             let remainingRecipe = recipeTarget.filter((e) => {
                 return e.idMeal !== this.rouletteRecipe[0].idMeal
             })
@@ -226,35 +225,44 @@ export default {
 
         SetRouletteRecipeHelper(helperVariable) {
             this.rouletteRecipe.push(helperVariable[Math.floor(Math.random() * helperVariable.length)])
-            let jpList = this.jsondataList.find(e => e.strMeal === this.rouletteRecipe[1].strMeal);
-            this.rouletteRecipe[1].strMeal = jpList.strMealjp
-            // this.translation(this.rouletteRecipe[1].strMeal)
-            // console.log(this.rouletteRecipe[1].strMeal)
+            this.rouletteRecipe[1].strMeal = this.translation(this.rouletteRecipe[1].strMeal)
             helperVariable = helperVariable.filter((e) => {
                 return e.idMeal !== this.rouletteRecipe[1].idMeal
             })
 
             this.rouletteRecipe.push(helperVariable[Math.floor(Math.random() * helperVariable.length)])
-            jpList = this.jsondataList.find(e => e.strMeal === this.rouletteRecipe[2].strMeal);
-            this.rouletteRecipe[2].strMeal = jpList.strMealjp
+            this.rouletteRecipe[2].strMeal = this.translation(this.rouletteRecipe[2].strMeal)
             helperVariable = helperVariable.filter((e) => {
                 return e.idMeal !== this.rouletteRecipe[2].idMeal
             })
 
             this.rouletteRecipe.push(helperVariable[Math.floor(Math.random() * helperVariable.length)])
-            jpList = this.jsondataList.find(e => e.strMeal === this.rouletteRecipe[3].strMeal);
-            this.rouletteRecipe[3].strMeal = jpList.strMealjp
+            this.rouletteRecipe[3].strMeal = this.translation(this.rouletteRecipe[3].strMeal)
             helperVariable = helperVariable.filter((e) => {
                 return e.idMeal !== this.rouletteRecipe[3].idMeal
             })
         },
 
-        // なぜできない？
-        // translation(rouletteRecipeStrMeal) {
-        //     const jpList = this.jsondataList.find(e => e.strMeal === rouletteRecipeStrMeal);
-        //     return rouletteRecipeStrMeal = jpList.strMealjp
-        //     // console.log(rouletteRecipeStrMeal)
-        // },
+        // レシピ名を日本語訳する。
+        translation(rouletteRecipeStrMeal) {
+            // const jpList = this.jsondataList.find(e => e.strMeal === rouletteRecipeStrMeal);
+            const jpList = this.jsondataList.find(e =>  e.strMeal === 'aaa');
+            const jpUnregistered = rouletteRecipeStrMeal + '(※日本語名が未登録です)'
+            if (jpList !== undefined) {
+                return rouletteRecipeStrMeal = jpList.strMealjp
+            } else if (rouletteRecipeStrMeal !== jpUnregistered) {
+                console.log('aaa')
+                console.log(rouletteRecipeStrMeal)
+                console.log(jpUnregistered)
+
+                // return rouletteRecipeStrMeal = rouletteRecipeStrMeal + '\n(※日本語名が未登録です)';
+                return rouletteRecipeStrMeal = jpUnregistered;
+            } else if (rouletteRecipeStrMeal === jpUnregistered) {
+                console.log('bbb')
+                console.log(rouletteRecipeStrMeal)
+                return rouletteRecipeStrMeal = rouletteRecipeStrMeal;
+            }
+        },
 
         otherPage(event) {
             this.recipeTarget = event.target.dataset.cat;

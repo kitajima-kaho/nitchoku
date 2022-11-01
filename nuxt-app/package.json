@@ -11,14 +11,12 @@
   "devDependencies": {
     "bulma": "^0.9.4",
     "node-sass": "^7.0.3",
-    "nuxt": "3.0.0-rc.11",
+    "nuxt": "3.0.0-rc.12",
     "sass": "^1.55.0"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.2.0",
-    "@fortawesome/free-solid-svg-icons": "^6.2.0",
-    "@fortawesome/vue-fontawesome": "^3.0.0-5",
-    "@pinia/nuxt": "^0.4.3",
+    "@pinia/nuxt": "^0.1.8",
+    "pinia": "^2.0.13",
     "glottologist": "^2.0.3"
   }
 }

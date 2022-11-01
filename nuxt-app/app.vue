@@ -1,5 +1,5 @@
-<!-- <script setup>
-import { useRrankingDataFetch } from '~/store/useFetch'
+<script setup>
+import { useRrankingDataFetch } from '~/stores/useFetch'
 
 
 // ここは実験メッセージが表示できるか
@@ -9,10 +9,10 @@ const displayMassage = useRrankingDataFetch()
   useRrankingDataFetch.useFetchRanking()
   const recipeRanking = useRrankingDataFetch.getRankingData()
 
-</script> -->
+</script>
 <template>
   <div>
-    <!-- <h1>{{ displayMassage.message }}</h1> -->
+    <h1>{{ displayMassage.message }}</h1>
     <NuxtPage />
   </div>
 </template>

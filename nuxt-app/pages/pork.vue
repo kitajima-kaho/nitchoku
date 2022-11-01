@@ -19,7 +19,6 @@ export default {
 		// 日本語に訳す、URLを作成し、オブジェクトのプロパティに追加
 		this.catRecipeList.forEach((e) => {
 			let jpList  = this.jsondataList.find(j => j.strMeal === e.strMeal);
-			console.log(jpList)
 			if (jpList !== undefined) {
 				e.strMeal   = jpList.strMealjp;
 			}

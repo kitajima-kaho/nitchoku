@@ -18,7 +18,10 @@ export default {
 
 		this.catRecipeList.forEach((e) => {
 			let jpList = this.jsondataList.find(j => j.strMeal === e.strMeal);
-			e.strMeal = jpList.strMealjp;
+			if (jpList !== undefined) {
+				e.strMeal   = jpList.strMealjp;
+			}
+			
 			e.recipeUrl = 'https://www.themealdb.com/meal/' + e.idMeal
 		});
 

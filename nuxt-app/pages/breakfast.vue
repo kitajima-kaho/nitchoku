@@ -6,7 +6,6 @@ export default {
     data() {
         return {
 			recipeRankingList: [],
-            recipeRanking: [],
             catRecipeList: [],
             jsondataList: jsondataList,
         };
@@ -27,7 +26,6 @@ export default {
 
 		const recipeRankingLists = useRankingDataFetch()
         this.recipeRankingList = recipeRankingLists.recipeRanking
-
 	}
 
 }

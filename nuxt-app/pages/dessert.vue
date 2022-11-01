@@ -1,22 +1,19 @@
 <script>
 import jsondataList from '@/assets/json/jsondata.json'
+import { useRankingDataFetch } from '~/stores/useFetch'
 
 export default {
     data() {
         return {
-            recipeRanking: [],
+			recipeRankingList: [],
             catRecipeList: [],
             jsondataList: jsondataList,
         };
     },
 
 	async created() {
-		const[rankingData, dataCatRecipe] = await Promise.all([
-			useFetch('https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1079324519433678968'),
-			useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Dessert'),
-		]);
 
-		this.recipeRanking = rankingData.data.value.result;
+		const dataCatRecipe  = await useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Dessert');
 		this.catRecipeList = dataCatRecipe.data.value.meals;
 
 		this.catRecipeList.forEach((e) => {
@@ -24,6 +21,9 @@ export default {
 			e.strMeal = jpList.strMealjp;
 			e.recipeUrl = 'https://www.themealdb.com/meal/' + e.idMeal
 		});
+
+		const recipeRankingLists = useRankingDataFetch()
+        this.recipeRankingList = recipeRankingLists.recipeRanking
 	}
 }
 
@@ -40,7 +40,7 @@ export default {
 		</article>		
 
 		<Side
-			:recipeRankingList = "recipeRanking" 
+			:recipeRankingList = "recipeRankingList" 
 		></Side>
 
 	</Main>

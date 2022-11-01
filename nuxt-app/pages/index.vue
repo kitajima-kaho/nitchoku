@@ -1,6 +1,6 @@
 <script>
 import jsondataList from '@/assets/json/jsondata.json'
-import { useRrankingDataFetch } from '@/store/useFetch.js'
+// import { useRrankingDataFetch } from '@/store/useFetch.js'
 
 export default {
     data() {
@@ -170,6 +170,7 @@ export default {
             this.status           = "stop"
             this.displayTodayMeal = true;
 			this.SecondclickNone  = true;
+            this.transparency     =  false;
 
             clearInterval(this.intervalId);
 

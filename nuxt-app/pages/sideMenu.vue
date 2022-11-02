@@ -25,8 +25,6 @@ export default {
 			e.recipeUrl = 'https://www.themealdb.com/meal/' + e.idMeal
 		})
 
-		// console.log(this.catRecipeList)
-
 		const recipeRankingLists = useRankingDataFetch()
         this.recipeRankingList = recipeRankingLists.recipeRanking
     },

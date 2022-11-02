@@ -59,6 +59,20 @@ export default {
 
         // this.recipeRanking    = rankingData.data.value.result
         this.recipeAmerican   = dataAmerican.data.value.meals;
+        this.canTranslateRecipeAmerican = this.recipeAmerican.filter((recipe) => {
+            const data = jsondataList.find(jsondata => {
+                return recipe.strMeal === jsondata.strMeal
+            })
+            return data? true : false
+        })
+
+        this.canTranslateRecipeAmerican.forEach((recipe) =>{
+            const transLateList = jsondataList.find(jsondata => {
+                return recipe.strMeal === jsondata.strMeal
+            })
+            recipe.strMeal = transLateList.strMealjp
+        })        
+
         this.recipeJapanese   = dataJapanese.data.value.meals;
         this.recipeChinese    = dataChinese.data.value.meals;
         this.recipeFrench     = dataFrench.data.value.meals;
@@ -77,6 +91,10 @@ export default {
 
 
     methods: {
+
+        alert() {
+            alert('aaaa')
+        },
 
         // ルーレットを回す。
         start() {
@@ -195,7 +213,7 @@ export default {
                         
                     }, 1500)
 
-                    this.todayRecipe.recipeTitle = e.strMeal
+                    this.todayRecipe.recipeTitle = e.jpStrMeal
                     this.todayRecipe.recipeUrl   = 'https://www.themealdb.com/meal/' + e.idMeal
                     this.todayRecipe.recipeId    = e.idMeal
                     this.todayRecipe.img         = e.strMealThumb
@@ -209,7 +227,6 @@ export default {
 
 		clickOk() {
 			this.SecondclickNone = false;
-
 		},
 
 
@@ -218,7 +235,6 @@ export default {
             // インデックスにランダムに数字を入れて、ランダムにレシピをルーレットに入れる。
             // 重複がでないように、同じIDのものは配列に入れないようにする。
             this.rouletteRecipe.push(recipeTarget[Math.floor(Math.random() * recipeTarget.length)]);
-            this.rouletteRecipe[0].strMeal = this.translation(this.rouletteRecipe[0].strMeal)
             let remainingRecipe = recipeTarget.filter((e) => {
                 return e.idMeal !== this.rouletteRecipe[0].idMeal
             })
@@ -233,44 +249,21 @@ export default {
 
         SetRouletteRecipeHelper(helperVariable) {
             this.rouletteRecipe.push(helperVariable[Math.floor(Math.random() * helperVariable.length)])
-            this.rouletteRecipe[1].strMeal = this.translation(this.rouletteRecipe[1].strMeal)
             helperVariable = helperVariable.filter((e) => {
                 return e.idMeal !== this.rouletteRecipe[1].idMeal
             })
 
             this.rouletteRecipe.push(helperVariable[Math.floor(Math.random() * helperVariable.length)])
-            this.rouletteRecipe[2].strMeal = this.translation(this.rouletteRecipe[2].strMeal)
             helperVariable = helperVariable.filter((e) => {
                 return e.idMeal !== this.rouletteRecipe[2].idMeal
             })
 
             this.rouletteRecipe.push(helperVariable[Math.floor(Math.random() * helperVariable.length)])
-            this.rouletteRecipe[3].strMeal = this.translation(this.rouletteRecipe[3].strMeal)
             helperVariable = helperVariable.filter((e) => {
                 return e.idMeal !== this.rouletteRecipe[3].idMeal
             })
         },
 
-        // レシピ名を日本語訳する。
-        translation(rouletteRecipeStrMeal) {
-            // const jpList = this.jsondataList.find(e => e.strMeal === rouletteRecipeStrMeal);
-            const jpList = this.jsondataList.find(e =>  e.strMeal === 'aaa');
-            const jpUnregistered = rouletteRecipeStrMeal + '(※日本語名が未登録です)'
-            if (jpList !== undefined) {
-                return rouletteRecipeStrMeal = jpList.strMealjp
-            } else if (rouletteRecipeStrMeal !== jpUnregistered) {
-                console.log('aaa')
-                console.log(rouletteRecipeStrMeal)
-                console.log(jpUnregistered)
-
-                // return rouletteRecipeStrMeal = rouletteRecipeStrMeal + '\n(※日本語名が未登録です)';
-                return rouletteRecipeStrMeal = jpUnregistered;
-            } else if (rouletteRecipeStrMeal === jpUnregistered) {
-                console.log('bbb')
-                console.log(rouletteRecipeStrMeal)
-                return rouletteRecipeStrMeal = rouletteRecipeStrMeal;
-            }
-        },
 
         otherPage(event) {
             this.recipeTarget = event.target.dataset.cat;
@@ -283,13 +276,7 @@ export default {
 <template>
 <div id="page" >
     <Header></Header>
-
-        <!-- {{ recipeRankingList }} -->
-        <!-- <h1>{{ useRankingDataFetch().getRankingData }}</h1> -->
-
     <Main>
-        <!-- <h2>{{ useRankingDataFetch.recipeRanking }}</h2> -->
-
 		<article class="box media roulette_box">
 			<h2 class="main_title">ルーレットで決める</h2>
 			<div class="click_container">
@@ -323,8 +310,9 @@ export default {
                         <img :src="rouletteRecipe[0].strMealThumb" alt="Image">
                     </figure>
                 </div>
-                <div class="target" :class="{color_red : rouletteRecipe[1].colorStatus}">{{ rouletteRecipe[1].strMeal }}
-                <figure class="image image_box is-64x64">
+                <div class="target" :class="{color_red : rouletteRecipe[1].colorStatus}">
+                    {{ rouletteRecipe[1].strMeal }}
+                    <figure class="image image_box is-64x64">
                     <img :src="rouletteRecipe[1].strMealThumb" alt="Image">
                 </figure>
                 </div>	

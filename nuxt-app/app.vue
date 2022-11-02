@@ -2,7 +2,6 @@
 import { useRankingDataFetch } from '~/stores/useFetch'
 
 useRankingDataFetch().useFetchRanking()
-console.log('aaaaa')
 
 </script>
 <template>

@@ -57,43 +57,56 @@ export default {
 
         ]);
 
-        // this.recipeRanking    = rankingData.data.value.result
-        this.recipeAmerican   = dataAmerican.data.value.meals;
-        this.canTranslateRecipeAmerican = this.recipeAmerican.filter((recipe) => {
-            const data = jsondataList.find(jsondata => {
-                return recipe.strMeal === jsondata.strMeal
-            })
-            return data? true : false
-        })
+        this.recipeAmerican  = this.filterAPIdata(dataAmerican.data.value.meals) 
+        this.translateTitle(this.recipeAmerican)
 
-        this.canTranslateRecipeAmerican.forEach((recipe) =>{
-            const transLateList = jsondataList.find(jsondata => {
-                return recipe.strMeal === jsondata.strMeal
-            })
-            recipe.strMeal = transLateList.strMealjp
-        })        
+        this.recipeJapanese  = this.filterAPIdata(dataJapanese.data.value.meals)
+        this.translateTitle(this.recipeJapanese)
 
-        this.recipeJapanese   = dataJapanese.data.value.meals;
-        this.recipeChinese    = dataChinese.data.value.meals;
-        this.recipeFrench     = dataFrench.data.value.meals;
+        this.recipeChinese   = this.filterAPIdata(dataChinese.data.value.meals) 
+        this.translateTitle(this.recipeChinese)
 
-        this.recipeChicken    = dataChicken.data.value.meals;
-        this.recipeBeef       = dataBeef.data.value.meals;
-        this.recipeSeafood    = dataSeafood.data.value.meals;
-        this.recipeVegetarian = dataVegetarian.data.value.meals;
+        this.recipeFrench    = this.filterAPIdata(dataFrench.data.value.meals) 
+        this.translateTitle(this.recipeFrench)
 
-        // this.recipeRankingList = useRankingDataFetch.
+        this.recipeChicken    = this.filterAPIdata(dataChicken.data.value.meals) 
+        this.translateTitle(this.recipeChicken)
 
+        this.recipeBeef         = this.filterAPIdata(dataBeef.data.value.meals) 
+        this.translateTitle(this.recipeBeef)
 
-       const recipeRankingLists = useRankingDataFetch()
+        this.recipeSeafood    = this.filterAPIdata(dataSeafood.data.value.meals)
+        this.translateTitle(this.recipeSeafood) 
+
+        this.recipeVegetarian = this.filterAPIdata(dataVegetarian.data.value.meals)
+        this.translateTitle(this.recipeVegetarian)       
+
+        const recipeRankingLists = useRankingDataFetch()
         this.recipeRankingList = recipeRankingLists.recipeRanking
     },
 
 
     methods: {
 
-        alert() {
-            alert('aaaa')
+        // 日本語訳が準備されているかされていないかを判断する。
+        filterAPIdata(recipeDataList) {
+            const filteredRecipeList = recipeDataList.filter((recipe) => {
+                const data = jsondataList.find(jsondata => {
+                    return recipe.strMeal === jsondata.strMeal
+                })
+                return data? true : false
+            })
+            return filteredRecipeList
+        },
+
+        // 日本語レシピタイトルをレシピタイトルに反映させる。
+        translateTitle(filteredRecipeList) {
+            filteredRecipeList.forEach((recipe) => {
+                const translateList = jsondataList.find(jsondata => {
+                return recipe.strMeal === jsondata.strMeal
+            })
+                recipe.strMeal = translateList.strMealjp
+            })
         },
 
         // ルーレットを回す。
@@ -213,7 +226,7 @@ export default {
                         
                     }, 1500)
 
-                    this.todayRecipe.recipeTitle = e.jpStrMeal
+                    this.todayRecipe.recipeTitle = e.strMeal
                     this.todayRecipe.recipeUrl   = 'https://www.themealdb.com/meal/' + e.idMeal
                     this.todayRecipe.recipeId    = e.idMeal
                     this.todayRecipe.img         = e.strMealThumb
@@ -263,7 +276,6 @@ export default {
                 return e.idMeal !== this.rouletteRecipe[3].idMeal
             })
         },
-
 
         otherPage(event) {
             this.recipeTarget = event.target.dataset.cat;

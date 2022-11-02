@@ -33,7 +33,7 @@ export default {
 			<div class="media-content">
 				<div class="content">
 					<p>
-					{{ item.strMeal }}
+					{{ item.jpStrMeal }}
 					</p>
 				</div>
 			</div>

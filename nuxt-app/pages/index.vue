@@ -503,12 +503,37 @@ export default {
 
 @media only screen and (min-width:640px) and (max-width:1023px) {
     html {
-        width: 130vw;
+        width: 100%;
 
         .header_container {
             width: 100%;
         }
 
+        .main_wrap {
+            margin: 20px auto;
+
+
+
+            .media {
+            width: 60%;
+
+            .roulette_cover {
+                width: 300px;
+                height: 300px;
+                margin: 0 auto;
+
+                .target {
+                    width: 150px;
+                    height: 150px;
+                }
+            }
+
+        }
+
+
+        }
+
+       
 
     }
     .logo {

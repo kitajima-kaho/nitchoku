@@ -78,12 +78,25 @@ header {
 
 @media only screen and (min-width:640px) and (max-width:1023px) {
     html {
-        width: 120vw;
+        header {
 
-        .other_btn {
-            margin-left: 20px;
-            margin-right: 20px;
+            .header_container {
+
+                .header_display {
+                    
+                    .other_btns {
+
+                        .other_btn {
+                            margin-left: 5px;
+                            margin-right: 5px;
+                        }
+
+                    }
+                }
+            }
         }
+
+    
   }
         
 }

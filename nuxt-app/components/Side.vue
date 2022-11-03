@@ -34,6 +34,7 @@ export default {
 <style lang="scss">
 .side {
     margin: 20px;
+    margin-right: 0;
     width: 350px;
     min-width: 240px;
     height: 675px;

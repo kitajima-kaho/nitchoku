@@ -217,7 +217,7 @@ export default {
                 if (e.colorStatus) {
                     const shineTodayMeal = setInterval(() => {
                         e.colorStatus = !e.colorStatus
-                    }, 200)
+                    }, 150)
 
                     setTimeout(() => {
                         clearInterval(shineTodayMeal);

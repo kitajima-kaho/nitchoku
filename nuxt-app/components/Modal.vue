@@ -36,7 +36,7 @@ props: {
 <style lang="scss">
 .modal {
     animation-name: fade;
-    animation-duration: 0.5s;
+    animation-duration: 0.3s;
 
     @keyframes fade {
         0%{

@@ -317,25 +317,25 @@ export default {
 			
 			<div class="roulette_cover roulette_on" v-if="displayRoulette">
 				<div class="target" :class="{color_blue : rouletteRecipe[0].colorStatus}">
-                    {{ rouletteRecipe[0].strMeal }}
+                    <span>{{ rouletteRecipe[0].strMeal }}</span>
                     <figure class="image image_box is-64x64">
                         <img :src="rouletteRecipe[0].strMealThumb" alt="Image">
                     </figure>
                 </div>
                 <div class="target" :class="{color_red : rouletteRecipe[1].colorStatus}">
-                    {{ rouletteRecipe[1].strMeal }}
+                    <span>{{ rouletteRecipe[1].strMeal }}</span>
                     <figure class="image image_box is-64x64">
                     <img :src="rouletteRecipe[1].strMealThumb" alt="Image">
                 </figure>
                 </div>	
                 <div class="target" :class="{color_green : rouletteRecipe[2].colorStatus}">
-                    {{ rouletteRecipe[2].strMeal }}                
+                    <span>{{ rouletteRecipe[2].strMeal }}</span>          
                     <figure class="image image_box is-64x64">
                         <img :src="rouletteRecipe[2].strMealThumb" alt="Image">
                     </figure>
                 </div>	
 				<div class="target" :class="{color_yellow : rouletteRecipe[3].colorStatus}">
-                    {{ rouletteRecipe[3].strMeal }}
+                    <span>{{ rouletteRecipe[3].strMeal }}</span>
                     <figure class="image image_box is-64x64">
                         <img :src="rouletteRecipe[3].strMealThumb" alt="Image">
                     </figure>
@@ -429,8 +429,6 @@ export default {
     .target {
         padding-top: 60px; 
         padding-bottom: 60px; 
-        // display: flex;
-        // align-items: center;
         width: 225px;
         height: 225px;
         text-align: center;
@@ -523,7 +521,6 @@ export default {
 
                 .btn_right {
                     margin-left: 24px;
-
                 }
             }
         }
@@ -536,11 +533,39 @@ export default {
         margin: 0px auto;        
 
         .target {
-            display: flex;
+            // display: flex;
             width: 135px;
             height: 135px;
             font-size: 15px;
+            padding-top: 50px;
+            padding-left: 30px;
+
+            &:first-child {
+                margin-left: 20px;
+                padding-left: 0;
+            }
+
+            &:nth-child(2) {
+                padding-top: 20px;
+                margin-left: 20px;
+                padding-left: 0;
+            }
+
+            &:nth-child(3) {
+                padding-top: 20px;
+                
+            }
+
+
+
+            span {
+                display: none;
+            }
             
+            .image {
+                margin-top: 0;
+                margin-left: 20px;
+            }
         }
     }
 

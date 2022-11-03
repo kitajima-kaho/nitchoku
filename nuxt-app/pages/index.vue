@@ -376,9 +376,6 @@ export default {
     padding:0;
 }
 
-
-
-
 .page {
     overflow: hidden;
     
@@ -499,19 +496,30 @@ export default {
 
 }
 
-
-
 .button {
     display: block;
     margin-left: 10px;
 }
 
+@media only screen and (min-width:640px) and (max-width:1023px) {
+    html {
+        width: 130vw;
+
+        .header_container {
+            width: 100%;
+        }
 
 
-@media screen and ( max-width:479px ) {
+    }
+    .logo {
+        min-width: 150px;
+    }
+}
+
+@media screen and ( max-width:639px ) {
     .roulette_box {
         box-sizing: border-box;
-        width: 99%;
+        width: 97%;
         height: 460px;
 
         .click_container {

@@ -65,8 +65,8 @@ h2 {
 
 }
 
-@media screen and ( max-width:479px ) {
-    .aricle_box {
+@media screen and (max-width:639px) {    
+	.aricle_box {
         width: auto;
     }
 }

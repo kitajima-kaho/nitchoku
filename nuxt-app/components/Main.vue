@@ -12,6 +12,8 @@ html {
     min-height: 100vh;
     box-sizing: border-box;
     background-color: #FCF4EC;
+    width: 100vw;
+
 }
 
 main {
@@ -37,7 +39,7 @@ main {
 }
 
 
-@media screen and ( max-width:479px ) {
+@media screen and (max-width:639px) {    
     main {
         width: 100%;
 
@@ -46,7 +48,6 @@ main {
 
             .media {
                 margin: 5px;
-
             }
    
         }

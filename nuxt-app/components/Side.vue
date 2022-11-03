@@ -33,9 +33,9 @@ export default {
 </template>
 <style lang="scss">
 .side {
-    // margin: 20px 0px 20px 30px;
     margin: 20px;
     width: 350px;
+    min-width: 240px;
     height: 675px;
 
     h2 {
@@ -79,13 +79,13 @@ export default {
     }
 }
 
-@media screen and ( max-width:479px ) {
+@media screen and (max-width:639px) {    
     .main_wrap {
 
         .side {
             box-sizing: border-box;
             margin: 5px;
-            width: 99%;
+            width: 97%;
             height: 100%;
             
         }

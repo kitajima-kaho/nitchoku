@@ -116,7 +116,8 @@ export default {
         set() {
 
 			this.SecondclickNone = false;
-            this.rouletteRecipe  = []
+            this.rouletteRecipe  = new Array();
+            // console.log(this.rouletteRecipe)
 
             if (this.recipeTarget === 'not') {
                 alert('国名か素材名を選択してください。')
@@ -134,6 +135,7 @@ export default {
                 this.displayRoulette = true;
 				this.clickNone = false;  
                 this.SetRouletteRecipe(this.recipeJapanese);
+
 
             } else if (this.recipeTarget === 'chinese') {
                 this.displayRoulette = true;
@@ -170,6 +172,7 @@ export default {
             this.translateAPI(this.rouletteRecipe)
 
 
+
         },
 
         // ルーレットとめる
@@ -177,7 +180,7 @@ export default {
             this.status           = "stop"
             this.displayTodayMeal = true;
 			this.SecondclickNone  = true;
-            this.transparency     =  false;
+            this.transparency     = false;
 
             clearInterval(this.intervalId);
 
@@ -252,21 +255,37 @@ export default {
         // 翻訳する
         async translateAPI(beforeTranslateData) {
 
-            const recipes = beforeTranslateData[0].strMeal + '/' + beforeTranslateData[1].strMeal + '/' + beforeTranslateData[2].strMeal + '/' + beforeTranslateData[3].strMeal
+            let recipes = beforeTranslateData[0].strMeal + '/' + beforeTranslateData[1].strMeal + '/' + beforeTranslateData[2].strMeal + '/' + beforeTranslateData[3].strMeal
+            
+                console.log(recipes)
 
             const API_KEY = '3c240d34-7d9e-4c33-fc65-2934e5a213a4:fx'
             const API_URL = 'https://api-free.deepl.com/v2/translate'
 
             let content = encodeURI('auth_key=' + API_KEY + '&text=' + recipes + '&source_lang=EN&target_lang=JA');
             let url     = API_URL + '?' + content;
-            
             let translatedTitle = await useFetch(url);
 
-            // 翻訳データ（/で区切ってあるものを分割して）を配列にいれる。
-            const translationsRecipeTitles = translatedTitle.data.value.translations[0].text.split('/');
+            // alert(recipes)
 
-            translationsRecipeTitles.forEach((e, i) => {
-                this.rouletteRecipe[i].strMeal = e
+                
+                console.log(url)
+
+                console.log(translatedTitle)
+
+            // 翻訳データ（/で区切ってあるものを分割して）を配列にいれる。
+            let translationsRecipeTitles = translatedTitle.data.value.translations[0].text.split('/');
+
+                console.log(translationsRecipeTitles)
+
+            // translationsRecipeTitles.forEach((e, i) => {
+            //     console.log(this)
+
+            //     this.rouletteRecipe[i].strMeal = e
+            // })
+
+            this.rouletteRecipe.forEach((recipe, index) => {
+                recipe.strMeal = translationsRecipeTitles[index]
             })
 
         }

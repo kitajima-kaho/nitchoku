@@ -57,32 +57,51 @@ export default {
 
         ]);
 
-        this.recipeAmerican  = this.filterAPIdata(dataAmerican.data.value.meals) 
-        this.translateTitle(this.recipeAmerican)
+        const API_KEY = '3c240d34-7d9e-4c33-fc65-2934e5a213a4:fx'
+        const API_URL = 'https://api-free.deepl.com/v2/translate'
 
-        this.recipeJapanese  = this.filterAPIdata(dataJapanese.data.value.meals)
-        this.translateTitle(this.recipeJapanese)
+        const data = 'hallo'
+        translateAPI(data)
 
-        this.recipeChinese   = this.filterAPIdata(dataChinese.data.value.meals) 
-        this.translateTitle(this.recipeChinese)
+        async function translateAPI(beforeTranslateTitle) {
+            let content = encodeURI('auth_key=' + API_KEY + '&text=' + beforeTranslateTitle + '&source_lang=EN&target_lang=JA');
+            let url     = API_URL + '?' + content;
+            
+            let translatedTitle = await useFetch(url);
+            // let translatedTitleJson =  translatedTitle.json();
+            console.log(url)
+            console.log(translatedTitle.data.value.translations[0].text)
+        } 
 
-        this.recipeFrench    = this.filterAPIdata(dataFrench.data.value.meals) 
-        this.translateTitle(this.recipeFrench)
 
-        this.recipeChicken    = this.filterAPIdata(dataChicken.data.value.meals) 
-        this.translateTitle(this.recipeChicken)
 
-        this.recipeBeef         = this.filterAPIdata(dataBeef.data.value.meals) 
-        this.translateTitle(this.recipeBeef)
 
-        this.recipeSeafood    = this.filterAPIdata(dataSeafood.data.value.meals)
-        this.translateTitle(this.recipeSeafood) 
+        // this.recipeAmerican  = this.filterAPIdata(dataAmerican.data.value.meals) 
+        // this.translateTitle(this.recipeAmerican)
 
-        this.recipeVegetarian = this.filterAPIdata(dataVegetarian.data.value.meals)
-        this.translateTitle(this.recipeVegetarian)       
+        // this.recipeJapanese  = this.filterAPIdata(dataJapanese.data.value.meals)
+        // this.translateTitle(this.recipeJapanese)
 
-        const recipeRankingLists = useRankingDataFetch()
-        this.recipeRankingList = recipeRankingLists.recipeRanking
+        // this.recipeChinese   = this.filterAPIdata(dataChinese.data.value.meals) 
+        // this.translateTitle(this.recipeChinese)
+
+        // this.recipeFrench    = this.filterAPIdata(dataFrench.data.value.meals) 
+        // this.translateTitle(this.recipeFrench)
+
+        // this.recipeChicken    = this.filterAPIdata(dataChicken.data.value.meals) 
+        // this.translateTitle(this.recipeChicken)
+
+        // this.recipeBeef         = this.filterAPIdata(dataBeef.data.value.meals) 
+        // this.translateTitle(this.recipeBeef)
+
+        // this.recipeSeafood    = this.filterAPIdata(dataSeafood.data.value.meals)
+        // this.translateTitle(this.recipeSeafood) 
+
+        // this.recipeVegetarian = this.filterAPIdata(dataVegetarian.data.value.meals)
+        // this.translateTitle(this.recipeVegetarian)       
+
+        // const recipeRankingLists = useRankingDataFetch()
+        // this.recipeRankingList = recipeRankingLists.recipeRanking
     },
 
 

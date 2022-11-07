@@ -58,29 +58,15 @@ export default {
         ]);
 
 
-        this.recipeAmerican  = this.filterAPIdata(dataAmerican.data.value.meals) 
-        // this.translateTitle(this.recipeAmerican)
+        this.recipeAmerican   = dataAmerican.data.value.meals
+        this.recipeJapanese   = dataJapanese.data.value.meals
+        this.recipeChinese    = dataChinese.data.value.meals
+        this.recipeFrench     = dataFrench.data.value.meals
 
-        this.recipeJapanese  = this.filterAPIdata(dataJapanese.data.value.meals)
-        // this.translateTitle(this.recipeJapanese)
-
-        this.recipeChinese   = this.filterAPIdata(dataChinese.data.value.meals) 
-        // this.translateTitle(this.recipeChinese)
-
-        this.recipeFrench    = this.filterAPIdata(dataFrench.data.value.meals) 
-        // this.translateTitle(this.recipeFrench)
-
-        this.recipeChicken    = this.filterAPIdata(dataChicken.data.value.meals) 
-        // this.translateTitle(this.recipeChicken)
-
-        this.recipeBeef         = this.filterAPIdata(dataBeef.data.value.meals) 
-        // this.translateTitle(this.recipeBeef)
-
-        this.recipeSeafood    = this.filterAPIdata(dataSeafood.data.value.meals)
-        // this.translateTitle(this.recipeSeafood) 
-
-        this.recipeVegetarian = this.filterAPIdata(dataVegetarian.data.value.meals)
-        // this.translateTitle(this.recipeVegetarian)       
+        this.recipeChicken    = dataChicken.data.value.meals
+        this.recipeBeef       = dataBeef.data.value.meals
+        this.recipeSeafood    = dataSeafood.data.value.meals
+        this.recipeVegetarian = dataVegetarian.data.value.meals
 
         const recipeRankingLists = useRankingDataFetch()
         this.recipeRankingList = recipeRankingLists.recipeRanking
@@ -88,27 +74,6 @@ export default {
 
 
     methods: {
-
-        // 日本語訳が準備されているかされていないかを判断する。
-        filterAPIdata(recipeDataList) {
-            const filteredRecipeList = recipeDataList.filter((recipe) => {
-                const data = jsondataList.find(jsondata => {
-                    return recipe.strMeal === jsondata.strMeal
-                })
-                return data? true : false
-            })
-            return filteredRecipeList
-        },
-
-        // 日本語レシピタイトルをレシピタイトルに反映させる。
-        translateTitle(filteredRecipeList) {
-            filteredRecipeList.forEach((recipe) => {
-                const translateList = jsondataList.find(jsondata => {
-                return recipe.strMeal === jsondata.strMeal
-            })
-                recipe.strMeal = translateList.strMealjp
-            })
-        },
 
         // ルーレットを回す。
         start() {
@@ -299,7 +264,6 @@ export default {
 
             // 翻訳データ（/で区切ってあるものを分割して）を配列にいれる。
             const translationsRecipeTitles = translatedTitle.data.value.translations[0].text.split('/');
-            console.log(translationsRecipeTitles)
 
             translationsRecipeTitles.forEach((e, i) => {
                 this.rouletteRecipe[i].strMeal = e

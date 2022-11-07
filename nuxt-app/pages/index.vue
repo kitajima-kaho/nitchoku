@@ -57,51 +57,33 @@ export default {
 
         ]);
 
-        const API_KEY = '3c240d34-7d9e-4c33-fc65-2934e5a213a4:fx'
-        const API_URL = 'https://api-free.deepl.com/v2/translate'
 
-        const data = 'hallo'
-        translateAPI(data)
-
-        async function translateAPI(beforeTranslateTitle) {
-            let content = encodeURI('auth_key=' + API_KEY + '&text=' + beforeTranslateTitle + '&source_lang=EN&target_lang=JA');
-            let url     = API_URL + '?' + content;
-            
-            let translatedTitle = await useFetch(url);
-            // let translatedTitleJson =  translatedTitle.json();
-            console.log(url)
-            console.log(translatedTitle.data.value.translations[0].text)
-        } 
-
-
-
-
-        // this.recipeAmerican  = this.filterAPIdata(dataAmerican.data.value.meals) 
+        this.recipeAmerican  = this.filterAPIdata(dataAmerican.data.value.meals) 
         // this.translateTitle(this.recipeAmerican)
 
-        // this.recipeJapanese  = this.filterAPIdata(dataJapanese.data.value.meals)
+        this.recipeJapanese  = this.filterAPIdata(dataJapanese.data.value.meals)
         // this.translateTitle(this.recipeJapanese)
 
-        // this.recipeChinese   = this.filterAPIdata(dataChinese.data.value.meals) 
+        this.recipeChinese   = this.filterAPIdata(dataChinese.data.value.meals) 
         // this.translateTitle(this.recipeChinese)
 
-        // this.recipeFrench    = this.filterAPIdata(dataFrench.data.value.meals) 
+        this.recipeFrench    = this.filterAPIdata(dataFrench.data.value.meals) 
         // this.translateTitle(this.recipeFrench)
 
-        // this.recipeChicken    = this.filterAPIdata(dataChicken.data.value.meals) 
+        this.recipeChicken    = this.filterAPIdata(dataChicken.data.value.meals) 
         // this.translateTitle(this.recipeChicken)
 
-        // this.recipeBeef         = this.filterAPIdata(dataBeef.data.value.meals) 
+        this.recipeBeef         = this.filterAPIdata(dataBeef.data.value.meals) 
         // this.translateTitle(this.recipeBeef)
 
-        // this.recipeSeafood    = this.filterAPIdata(dataSeafood.data.value.meals)
+        this.recipeSeafood    = this.filterAPIdata(dataSeafood.data.value.meals)
         // this.translateTitle(this.recipeSeafood) 
 
-        // this.recipeVegetarian = this.filterAPIdata(dataVegetarian.data.value.meals)
+        this.recipeVegetarian = this.filterAPIdata(dataVegetarian.data.value.meals)
         // this.translateTitle(this.recipeVegetarian)       
 
-        // const recipeRankingLists = useRankingDataFetch()
-        // this.recipeRankingList = recipeRankingLists.recipeRanking
+        const recipeRankingLists = useRankingDataFetch()
+        this.recipeRankingList = recipeRankingLists.recipeRanking
     },
 
 
@@ -220,6 +202,8 @@ export default {
             
             }
 
+            this.translateAPI(this.rouletteRecipe)
+
 
         },
 
@@ -299,6 +283,29 @@ export default {
         otherPage(event) {
             this.recipeTarget = event.target.dataset.cat;
         },
+
+        // 翻訳する
+        async translateAPI(beforeTranslateData) {
+
+            const recipes = beforeTranslateData[0].strMeal + '/' + beforeTranslateData[1].strMeal + '/' + beforeTranslateData[2].strMeal + '/' + beforeTranslateData[3].strMeal
+
+            const API_KEY = '3c240d34-7d9e-4c33-fc65-2934e5a213a4:fx'
+            const API_URL = 'https://api-free.deepl.com/v2/translate'
+
+            let content = encodeURI('auth_key=' + API_KEY + '&text=' + recipes + '&source_lang=EN&target_lang=JA');
+            let url     = API_URL + '?' + content;
+            
+            let translatedTitle = await useFetch(url);
+
+            // 翻訳データ（/で区切ってあるものを分割して）を配列にいれる。
+            const translationsRecipeTitles = translatedTitle.data.value.translations[0].text.split('/');
+            console.log(translationsRecipeTitles)
+
+            translationsRecipeTitles.forEach((e, i) => {
+                this.rouletteRecipe[i].strMeal = e
+            })
+
+        }
 
     }
 }

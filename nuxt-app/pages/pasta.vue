@@ -1,5 +1,4 @@
 <script>
-import jsondataList from '@/assets/json/jsondata.json'
 import { useRankingDataFetch } from '~/stores/useFetch'
 
 export default {
@@ -7,51 +6,91 @@ export default {
         return {
 			recipeRankingList: [],
             catRecipeList: [],
-            jsondataList: jsondataList,
+			translationsRecipeTitles: [],
         };
     },
 
 	async created() {
 
+		// 楽天レシピ
+		const recipeRankingLists = useRankingDataFetch()
+		this.recipeRankingList   = recipeRankingLists.recipeRanking
+
+		// カテゴリーの方のデータを取得
 		const dataCatRecipe  = await useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Pasta');
-		this.catRecipeList = dataCatRecipe.data.value.meals;
+		this.catRecipeList   = dataCatRecipe.data.value.meals
 
-		// 取得したデータから日本語訳があるものをfilterし、翻訳されたものをタイトルとする。
-		this.catRecipeList = this.filterAPIdata(dataCatRecipe.data.value.meals)
-		this.translateTitle(this.catRecipeList)
+		// console.log(this.catRecipeList)
 
-		// れしぴのURLをレシピObjに追加する。
-		this.catRecipeList.forEach((e) => {
-			e.recipeUrl = 'https://www.themealdb.com/meal/' + e.idMeal
+
+		// 「＆」は翻訳に影響するため、「&」を含むタイトルは除外する。
+		this.catRecipeList = this.catRecipeList.filter((recipe) => {
+			return !recipe.strMeal.includes("&");
 		})
 
-		const recipeRankingLists = useRankingDataFetch()
-        this.recipeRankingList = recipeRankingLists.recipeRanking
-    },
+
+		// 表示するレシピを最大20個までにする。
+		// カテゴリーによっては、60以上レシピがあり、重くなってしまうため。
+		if (this.catRecipeList.length > 20) {
+			const deleteElementCount = this.catRecipeList.length - 20;
+			this.catRecipeList.splice(20, deleteElementCount)
+		} 
+
+		// 翻訳する
+		await this.translateAPI(this.catRecipeList)
+
+		// 英語タイトルを翻訳しタイトルに置き換える。レシピのURLをレシピObjに追加する。
+		this.catRecipeList.forEach((e, i) => {
+			e.strMeal   = this.translationsRecipeTitles[i]
+			e.recipeUrl = 'https://www.themealdb.com/meal/' + e.idMeal
+			// console.log(e)
+		})
+	},
 
 	methods: {
-		// 日本語訳が準備されているかされていないかを判断する。
-		filterAPIdata(recipeDataList) {
-            const filteredRecipeList = recipeDataList.filter((recipe) => {
-                const data = jsondataList.find(jsondata => {
-                    return recipe.strMeal === jsondata.strMeal
-                })
-                return data? true : false
-            })
-            return filteredRecipeList
-        },
+		
+		async translateAPI(beforeTranslateDataList) {
 
-        // 日本語レシピタイトルをレシピタイトルに反映させる。
-        translateTitle(filteredRecipeList) {
-            filteredRecipeList.forEach((recipe) => {
-                const translateList = jsondataList.find(jsondata => {
-                return recipe.strMeal === jsondata.strMeal
-            })
-                recipe.jpStrMeal = translateList.strMealjp
-            })
-        },
+			// 翻訳したいタイトルをひとつの文字列にする。
+			  // まずタイトルだけの配列を作る。
+			const beforeTranslateTitles = [];
+			beforeTranslateDataList.forEach(e => {
+				beforeTranslateTitles.push(e.strMeal)
+			}) 
+
+			// console.log('beforeTranslateTitles↓')
+			// console.log(beforeTranslateTitles)
+
+			  // 「/」がついていないかチェック※スラッシュがついていると、区切られてしまい、翻訳がおかしくなってしまうため。
+			const needTranslateTitles = beforeTranslateTitles.filter((title) => {
+				return !title.includes("/")
+			})
+
+			  // 「/」区切りの文字列を作る
+			const needTranslateTitleString = needTranslateTitles.join("/")
+
+			// console.log('needTranslateTitleString↓')
+			// console.log(needTranslateTitleString)
+
+			// 翻訳する
+			const API_KEY = '3c240d34-7d9e-4c33-fc65-2934e5a213a4:fx'
+			const API_URL = 'https://api-free.deepl.com/v2/translate'
+
+			let content = encodeURI('auth_key=' + API_KEY + '&text=' + needTranslateTitleString + '&source_lang=EN&target_lang=JA');
+			let url     = API_URL + '?' + content;
+
+			let translatedTitle = await $fetch(url);
+
+			console.log(url)
+			console.log(translatedTitle)
+
+
+			// 翻訳データ（/で区切ってあるものを分割して）を配列にいれる。
+			this.translationsRecipeTitles = translatedTitle.translations[0].text.split('/');
+		},
 	}
 }
+
 
 
 </script>

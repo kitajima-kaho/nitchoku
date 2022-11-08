@@ -197,7 +197,7 @@ export default {
                         
                     }, 1500)
 
-                    this.todayRecipe.recipeTitle = e.strMeal
+                    this.todayRecipe.recipeTitle = e.jpStrMeal
                     this.todayRecipe.recipeUrl   = 'https://www.themealdb.com/meal/' + e.idMeal
                     this.todayRecipe.recipeId    = e.idMeal
                     this.todayRecipe.img         = e.strMealThumb
@@ -255,28 +255,47 @@ export default {
         // 翻訳する
         async translateAPI(beforeTranslateData) {
 
-            let recipes = beforeTranslateData[0].strMeal + '/' + beforeTranslateData[1].strMeal + '/' + beforeTranslateData[2].strMeal + '/' + beforeTranslateData[3].strMeal
+
+
+            // let recipes = beforeTranslateData[0].strMeal + '・' + beforeTranslateData[1].strMeal + '・' + beforeTranslateData[2].strMeal + '・' + beforeTranslateData[3].strMeal 
             
-                console.log(recipes)
+            //     console.log('元々のtext=に入れているもの:' + recipes)
 
             const API_KEY = '3c240d34-7d9e-4c33-fc65-2934e5a213a4:fx'
             const API_URL = 'https://api-free.deepl.com/v2/translate'
 
-            let content = encodeURI('auth_key=' + API_KEY + '&text=' + recipes + '&source_lang=EN&target_lang=JA');
-            let url     = API_URL + '?' + content;
-            let translatedTitle = await useFetch(url);
+            // let content = encodeURI('auth_key=' + API_KEY + '&text=' + recipes + '&source_lang=EN&target_lang=JA');
+            // let url     = API_URL + '?' + content;
+            // let translatedTitle = await $fetch(url);
+
+            const response = await Promise.all([
+                $fetch(API_URL + '?' + encodeURI('auth_key=' + API_KEY + '&text=' + beforeTranslateData[0].strMeal + '&source_lang=EN&target_lang=JA')),
+                $fetch(API_URL + '?' + encodeURI('auth_key=' + API_KEY + '&text=' + beforeTranslateData[1].strMeal + '&source_lang=EN&target_lang=JA')),
+                $fetch(API_URL + '?' + encodeURI('auth_key=' + API_KEY + '&text=' + beforeTranslateData[2].strMeal + '&source_lang=EN&target_lang=JA')),
+                $fetch(API_URL + '?' + encodeURI('auth_key=' + API_KEY + '&text=' + beforeTranslateData[3].strMeal + '&source_lang=EN&target_lang=JA')),
+
+            ])
+
+            this.rouletteRecipe.forEach((recipe, index) => {
+                recipe.jpStrMeal = response[index].translations[0].text
+            })
+            
 
             // alert(recipes)
 
                 
-                console.log(url)
+                // console.log('URL:' + url)
 
-                console.log(translatedTitle)
+                // console.log('fetchしてきたもの↓')
+                // console.log(translatedTitle)
+
 
             // 翻訳データ（/で区切ってあるものを分割して）を配列にいれる。
-            let translationsRecipeTitles = translatedTitle.data.value.translations[0].text.split('/');
+            // let translationsRecipeTitles = translatedTitle.translations[0].text.split('・');
 
-                console.log(translationsRecipeTitles)
+            //     console.log('分割して配列に入れたもの配列:' + translationsRecipeTitles)
+            //     console.log('分割して配列に入れたもの一個め:' + translationsRecipeTitles[0])
+
 
             // translationsRecipeTitles.forEach((e, i) => {
             //     console.log(this)
@@ -284,9 +303,9 @@ export default {
             //     this.rouletteRecipe[i].strMeal = e
             // })
 
-            this.rouletteRecipe.forEach((recipe, index) => {
-                recipe.strMeal = translationsRecipeTitles[index]
-            })
+            // this.rouletteRecipe.forEach((recipe, index) => {
+            //     recipe.jpStrMeal = translationsRecipeTitles[index]
+            // })
 
         }
 
@@ -326,25 +345,25 @@ export default {
 			
 			<div class="roulette_cover roulette_on" v-if="displayRoulette">
 				<div class="target" :class="{color_blue : rouletteRecipe[0].colorStatus}">
-                    <span>{{ rouletteRecipe[0].strMeal }}</span>
+                    <span>{{ rouletteRecipe[0].jpStrMeal }}</span>
                     <figure class="image image_box is-64x64">
                         <img :src="rouletteRecipe[0].strMealThumb" alt="Image">
                     </figure>
                 </div>
                 <div class="target" :class="{color_red : rouletteRecipe[1].colorStatus}">
-                    <span>{{ rouletteRecipe[1].strMeal }}</span>
+                    <span>{{ rouletteRecipe[1].jpStrMeal }}</span>
                     <figure class="image image_box is-64x64">
                     <img :src="rouletteRecipe[1].strMealThumb" alt="Image">
                 </figure>
                 </div>	
                 <div class="target" :class="{color_green : rouletteRecipe[2].colorStatus}">
-                    <span>{{ rouletteRecipe[2].strMeal }}</span>          
+                    <span>{{ rouletteRecipe[2].jpStrMeal }}</span>          
                     <figure class="image image_box is-64x64">
                         <img :src="rouletteRecipe[2].strMealThumb" alt="Image">
                     </figure>
                 </div>	
 				<div class="target" :class="{color_yellow : rouletteRecipe[3].colorStatus}">
-                    <span>{{ rouletteRecipe[3].strMeal }}</span>
+                    <span>{{ rouletteRecipe[3].jpStrMeal }}</span>
                     <figure class="image image_box is-64x64">
                         <img :src="rouletteRecipe[3].strMealThumb" alt="Image">
                     </figure>
@@ -433,25 +452,38 @@ export default {
     position: relative;
 
     .target {
-        padding-top: 60px; 
-        padding-bottom: 60px; 
+        // padding-top: 60px; 
+        // padding-bottom: 60px; 
         width: 225px;
         height: 225px;
-        text-align: center;
+        // text-align: center; 
 
-        .image {
-            margin-top: 10px;
-            margin-left: 60px;
-        }    
+        span {
+            box-sizing: content-box; 
+            display: block;
+            width: 140px;
+        }
 
         &:first-child {
             position: absolute;
             top: 0px;
             right: 0px;
             border-radius: 0 100% 0 0;
-            padding-left: 10px;
+            padding-top: 50px;
+
             border: solid 0.5em blue;
             background-color: #bbdbf3;
+
+            span {
+                display: block;
+                padding-left: 20px;
+            }
+
+            .image {
+                display: block;
+                margin-top: 10px;
+                margin-left: 40px;
+            }   
 
             &:not(.color_blue) {
                 border: none;
@@ -464,9 +496,19 @@ export default {
             bottom: 0px;
             right: 0px;
             border-radius: 0 0 100% 0;
-            padding-left: 15px;
+            padding-top: 35px;
             border: solid 0.5em red;
             background-color: #e3acae;
+
+            span {
+                padding-left: 20px;
+            }
+
+            .image {
+                display: block;
+                margin-top: 5px;
+                margin-left: 40px;
+            }   
 
             &:not(.color_red) {
                 border: none;
@@ -481,6 +523,20 @@ export default {
             border-radius: 0 0 0 100%;
             border: solid 0.5em green;
             background-color: #a3d6ce;
+            padding-top: 35px;
+
+            span {
+                display: block;
+                padding-left: 70px;
+            }
+
+            .image {
+                display: block;
+                margin-top: 5px;
+                margin-left: 120px;
+            }   
+
+
 
             &:not(.color_green) {
                 border: none;
@@ -489,12 +545,22 @@ export default {
         }
 
         &:last-child {
-            position: absolute;
+            padding-top: 50px;
             top: 0px;
             left: 0px;
             border-radius: 100% 0 0 0;
             border: solid 0.5em yellow;
             background-color: #ffedab;
+
+            span {
+                padding-left: 70px;
+            }
+
+            .image {
+                display: block;
+                margin-top: 10px;
+                margin-left: 120px;
+            }   
 
             &:not(.color_yellow) {
                 border: none;
@@ -521,8 +587,6 @@ export default {
         .main_wrap {
             margin: 20px auto;
 
-
-
             .media {
             width: 60%;
 
@@ -532,8 +596,36 @@ export default {
                 margin: 0 auto;
 
                 .target {
+                    // display: flex;
                     width: 150px;
                     height: 150px;
+                    font-size: 15px;
+                    padding-top: 50px;
+                    padding-left: 45px;
+
+                    &:first-child {
+                        margin-left: 20px;
+                        padding-left: 0;
+                    }
+
+                    &:nth-child(2) {
+                        padding-top: 20px;
+                        padding-left: 0;
+                    }
+
+                    &:nth-child(3) {
+                        padding-top: 20px;
+                        
+                    }
+
+                    span {
+                        display: none;
+                    }
+                    
+                    .image {
+                        margin-top: 0;
+                        margin-left: 20px;
+                    }
                 }
             }
 
@@ -585,6 +677,10 @@ export default {
             &:first-child {
                 margin-left: 20px;
                 padding-left: 0;
+
+                .image {
+                    margin-top: 0;
+                }
             }
 
             &:nth-child(2) {

@@ -604,6 +604,7 @@ export default {
                     padding-left: 45px;
 
                     &:first-child {
+                        padding-top: 60px;
                         margin-left: 20px;
                         padding-left: 0;
                     }
@@ -616,6 +617,11 @@ export default {
                     &:nth-child(3) {
                         padding-top: 20px;
                         
+                    }
+                    
+                    &:last-child {
+                        padding-top: 60px;
+
                     }
 
                     span {
@@ -671,42 +677,66 @@ export default {
             width: 135px;
             height: 135px;
             font-size: 15px;
-            padding-top: 50px;
-            padding-left: 30px;
+            // padding-top: 50px;
+            // padding-left: 30px;
 
             &:first-child {
-                margin-left: 20px;
+                // margin-left: 20px;
                 padding-left: 0;
+                padding-top: 40px;
+
+                span {
+                    display: none;
+                }
 
                 .image {
-                    margin-top: 0;
+                    margin-top: 10px;
+                    margin-left: 20px;
                 }
             }
 
             &:nth-child(2) {
                 padding-top: 20px;
-                margin-left: 20px;
-                padding-left: 0;
+
+                .image {
+                    margin: 0;
+                    margin-left: 20px;
+
+                }
+
+                span {
+                    display: none;
+                }
             }
 
             &:nth-child(3) {
                 padding-top: 20px;
+
+                .image {
+                    margin: 0;
+                    margin-left: 50px;
+
+                }
+                
+                span {
+                    display: none;
+                }
                 
             }
 
+            &:last-child {
 
-
-            span {
-                display: none;
-            }
-            
-            .image {
-                margin-top: 0;
-                margin-left: 20px;
+                .image {
+                    margin: 0;
+                    margin-left: 50px;
+                }
+                
+                span {
+                    display: none;
+                }
             }
         }
     }
-
 }
 
 </style>

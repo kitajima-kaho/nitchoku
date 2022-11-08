@@ -27,7 +27,7 @@ export default {
 		})
 
 		// 表示するレシピを最大20個までにする。
-		// デザートカテゴリーでは60以上レシピがあったため、重くなってしまうため。
+		// カテゴリーによっては、60以上レシピがあり、重くなってしまうため。
 		if (this.catRecipeList.length > 20) {
 			const deleteElementCount = this.catRecipeList.length - 20;
 			this.catRecipeList.splice(20, deleteElementCount)
@@ -41,11 +41,11 @@ export default {
 			e.strMeal   = this.translationsRecipeTitles[i]
 			e.recipeUrl = 'https://www.themealdb.com/meal/' + e.idMeal
 		})
-
 	},
 
 
 	methods: {
+		
 		async translateAPI(beforeTranslateDataList) {
 
 			// 翻訳したいタイトルをひとつの文字列にする。

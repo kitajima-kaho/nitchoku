@@ -12,12 +12,25 @@ export default {
 
 	async created() {
 
-		const dataCatRecipe  = await useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Breakfast');
+		// 楽天レシピ
+		const recipeRankingLists = useRankingDataFetch()
+		this.recipeRankingList = recipeRankingLists.recipeRanking
 
+		// 朝食の方のデータを取得
+		const dataCatRecipe  = await useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Breakfast');
 		this.catRecipeList = dataCatRecipe.data.value.meals
 
-		const recipeRankingLists = useRankingDataFetch()
-        this.recipeRankingList = recipeRankingLists.recipeRanking
+		// 「＆」は翻訳に影響するため、「&」を含むタイトルは除外する。
+		this.catRecipeList = this.catRecipeList.filter((recipe) => {
+		return !recipe.strMeal.includes("&");
+		})
+
+		// 表示するレシピを最大20個までにする。
+		// カテゴリーによっては、60以上レシピがあり、重くなってしまうため。
+		if (this.catRecipeList.length > 20) {
+			const deleteElementCount = this.catRecipeList.length - 20;
+			this.catRecipeList.splice(20, deleteElementCount)
+		} 
 		
 		// 翻訳する
 		await this.translateAPI(this.catRecipeList)
@@ -27,13 +40,11 @@ export default {
 			e.strMeal   = this.translationsRecipeTitles[i]
 			e.recipeUrl = 'https://www.themealdb.com/meal/' + e.idMeal
 		})
-
 	},
 
 	methods: {
 
 		async translateAPI(beforeTranslateDataList) {
-
 
 			// 翻訳したいタイトルをひとつの文字列にする。
 			  // まずタイトルだけの配列を作る。
@@ -62,9 +73,7 @@ export default {
 			  // 翻訳データ（/で区切ってあるものを分割して）を配列にいれる。
 			this.translationsRecipeTitles = translatedTitle.data.value.translations[0].text.split('/');
 		},
-
 	}
-
 }
 
 

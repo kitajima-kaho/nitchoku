@@ -1,5 +1,4 @@
 <script>
-import jsondataList from '@/assets/json/jsondata.json'
 import { useRankingDataFetch } from '~/stores/useFetch'
 
 export default {
@@ -7,7 +6,6 @@ export default {
         return {
 			recipeRankingList: [],
             catRecipeList: [],
-            jsondataList: jsondataList,
 			translationsRecipeTitles: [],
         };
     },
@@ -17,7 +15,9 @@ export default {
 		const dataCatRecipe  = await useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Breakfast');
 
 		this.catRecipeList = dataCatRecipe.data.value.meals
-		// this.translateTitle(this.catRecipeList)
+
+		const recipeRankingLists = useRankingDataFetch()
+        this.recipeRankingList = recipeRankingLists.recipeRanking
 		
 		// 翻訳する
 		await this.translateAPI(this.catRecipeList)
@@ -28,8 +28,6 @@ export default {
 			e.recipeUrl = 'https://www.themealdb.com/meal/' + e.idMeal
 		})
 
-		const recipeRankingLists = useRankingDataFetch()
-        this.recipeRankingList = recipeRankingLists.recipeRanking
 	},
 
 	methods: {
@@ -65,26 +63,6 @@ export default {
 			this.translationsRecipeTitles = translatedTitle.data.value.translations[0].text.split('/');
 		},
 
-		// // 日本語訳が準備されているかされていないかを判断する。
-		// filterAPIdata(recipeDataList) {
-        //     const filteredRecipeList = recipeDataList.filter((recipe) => {
-        //         const data = jsondataList.find(jsondata => {
-        //             return recipe.strMeal === jsondata.strMeal
-        //         })
-        //         return data? true : false
-        //     })
-        //     return filteredRecipeList
-        // },
-
-        // // 日本語レシピタイトルをレシピタイトルに反映させる。
-        // translateTitle(filteredRecipeList) {
-        //     filteredRecipeList.forEach((recipe) => {
-        //         const translateList = jsondataList.find(jsondata => {
-        //         return recipe.strMeal === jsondata.strMeal
-        //     })
-        //         recipe.jpStrMeal = translateList.strMealjp
-        //     })
-        // },
 	}
 
 }

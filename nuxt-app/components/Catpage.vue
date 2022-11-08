@@ -1,13 +1,5 @@
 <script>
-import jsondataList from '@/assets/json/jsondata.json'
-
 export default {
-
-	data () {
-		return {
-			jsondataList: jsondataList,
-		}
-	},
 
 	props: {
 		recipeList: Array,
@@ -17,6 +9,14 @@ export default {
 		clickUrl(recipeUrl) {
 			window.open(recipeUrl, '_blank')
 		},
+	},
+
+	computed: {
+
+		// // 最大表示するレシピの数を20までにする。
+		// limitRecipe() {
+		// 	return this.recipeList.slice(0, 20)
+		// }
 	}
 
 }

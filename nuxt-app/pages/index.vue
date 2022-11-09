@@ -13,7 +13,6 @@ export default {
             transparency: false,
             displayRoulette: false,
             todayMeal: null,
-            // displayTodayMeal: false,
             todayMealUrl: null,
             isActive: false,
             todayRecipe: {
@@ -29,7 +28,7 @@ export default {
 
             // ルーレットが一度回って止めた後、すぐにルーレットを回さないようにするもの。
             // TODO：否定系はよくないかも。true/false分からなくなる。
-			SecondclickNone: false,
+			SecondClickNone: false,
 
             recipeRanking: null,
             recipeAmerican: null,
@@ -125,7 +124,7 @@ export default {
         set() {
             // ルーレットが一度回って止めた後、すぐにルーレットを回さないようにするもの。
             // この時は、何回も押しても良いのでfalse
-			this.SecondclickNone = false;
+			this.SecondClickNone = false;
             this.rouletteRecipe  = new Array();
 
             if (this.recipeTarget === 'not') {
@@ -190,9 +189,8 @@ export default {
             // 「ストップ」ボタンから「スタート」ボタンになる
             this.status           = "stop"
 
-            // this.displayTodayMeal = true;
             // モーダルを閉じるまでは、「スタート」ボタンや「セット」ボタンを押せないようにする
-			this.SecondclickNone  = true;
+			this.SecondClickNone  = true;
             this.transparency     = false;
 
             // ルーレットを回さないようにする。
@@ -229,7 +227,7 @@ export default {
 
         // モーダルを閉じたときに、スタートボタンを押せるようにする。（emit）
 		clickOk() {
-			this.SecondclickNone = false;
+			this.SecondClickNone = false;
 		},
 
 
@@ -320,7 +318,7 @@ export default {
                 
                 <div class="btn_container">
                     <button class="button is-warning is-rounded is-medium is-responsive inline_btn"  :class="{transparency : transparency}" @click="set()">ルーレットにレシピをセットする</button>
-                    <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-if="status !== 'start'" :class="{click_none : clickNone, second_click_none : SecondclickNone}" @click="start()">スタート</button>
+                    <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-if="status !== 'start'" :class="{click_none : clickNone, second_click_none : SecondClickNone}" @click="start()">スタート</button>
                     <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-else @click="stop()">ストップ</button>
                 </div>
 			</div>
@@ -391,7 +389,6 @@ export default {
 }
 
 .click_container {
-    // display: flex;
     justify-content: space-between;  
     margin-bottom: 20px;
 

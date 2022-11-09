@@ -1,14 +1,12 @@
 <script>
 
 export default {
-props: {
-    isActive: Boolean,
-    todayRecipeTitle: String,
-    todayRecipeUrl: String,
-    todayRecipeImg: String,
-
-}
-
+    props: {
+        isActive: Boolean,
+        todayRecipeTitle: String,
+        todayRecipeUrl: String,
+        todayRecipeImg: String,
+    }
 }
 </script>
 <template>
@@ -58,7 +56,6 @@ props: {
             margin: 0 auto;
             display: block;
         }
-
     }
 
     .button {

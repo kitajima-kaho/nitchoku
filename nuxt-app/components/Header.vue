@@ -1,7 +1,4 @@
 <script>
-import { routerKey } from 'vue-router';
-
-
 export default {
     methods: {
         otherPage(event) {
@@ -99,9 +96,7 @@ header {
                 }
             }
         }
-
-    
-  }
+    }
         
 }
 
@@ -115,53 +110,48 @@ header {
         height: 155px;
         background-blend-mode: lighten;
 
-        .header_display {
-            display: block;
+            .header_display {
+                display: block;
 
 
-            .logo {
-                margin-top: 5px;
-                margin-bottom: 5px;
-                width: 100%;
-                min-width: 85px;
-                
-                img {
-                    display: block;
-                    margin: 0 auto;
-                    height: 64px;
-                    width: 100px;
-                    min-width: 85px;
-
-                }
-            }
-
-            .other_btns {
-                flex-flow: wrap;
-                justify-content: center;
-                width: 100%;
-                min-width: 300px;
-                margin: 0 auto;
-
-
-                .other_btn {
-                    box-sizing: border-box;
-                    font-size: 13px;
-                    margin-right: 15px;
-                    margin-left: 15px;
+                .logo {
                     margin-top: 5px;
-                    width: 80px;
-                    text-align: center;
+                    margin-bottom: 5px;
+                    width: 100%;
+                    min-width: 85px;
+                    
+                    img {
+                        display: block;
+                        margin: 0 auto;
+                        height: 64px;
+                        width: 100px;
+                        min-width: 85px;
+
+                    }
+                }
+
+                .other_btns {
+                    flex-flow: wrap;
+                    justify-content: center;
+                    width: 100%;
+                    min-width: 300px;
+                    margin: 0 auto;
 
 
-                
+                    .other_btn {
+                        box-sizing: border-box;
+                        font-size: 13px;
+                        margin-right: 15px;
+                        margin-left: 15px;
+                        margin-top: 5px;
+                        width: 80px;
+                        text-align: center;
+                    }
                 }
             }
-           
         }
     }
-
 }
-    }
     
 
 </style>

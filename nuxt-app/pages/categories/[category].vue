@@ -1,5 +1,5 @@
 <script>
-import { useRankingDataFetch } from '~/stores/useFetch'
+import { useRankingDataFetch } from '~~/stores/useFetch'
 
 export default {
     data() {
@@ -14,20 +14,20 @@ export default {
 
 		// 楽天レシピ
 		const recipeRankingLists = useRankingDataFetch()
-		this.recipeRankingList   = recipeRankingLists.recipeRanking
+        // console.log(recipeRankingLists.recipeRanking)
 
-		// カテゴリーの方のデータを取得
-		const dataCatRecipe  = await useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Pasta');
-		this.catRecipeList   = dataCatRecipe.data.value.meals
+		this.recipeRankingList = recipeRankingLists.recipeRanking
+        console.log(recipeRankingLists)
 
-		// console.log(this.catRecipeList)
 
+		// 朝食の方のデータを取得
+		const dataCatRecipe  = await useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Breakfast');
+		this.catRecipeList = dataCatRecipe.data.value.meals
 
 		// 「＆」は翻訳に影響するため、「&」を含むタイトルは除外する。
 		this.catRecipeList = this.catRecipeList.filter((recipe) => {
-			return !recipe.strMeal.includes("&");
+		return !recipe.strMeal.includes("&");
 		})
-
 
 		// 表示するレシピを最大20個までにする。
 		// カテゴリーによっては、60以上レシピがあり、重くなってしまうため。
@@ -35,7 +35,7 @@ export default {
 			const deleteElementCount = this.catRecipeList.length - 20;
 			this.catRecipeList.splice(20, deleteElementCount)
 		} 
-
+		
 		// 翻訳する
 		await this.translateAPI(this.catRecipeList)
 
@@ -43,12 +43,12 @@ export default {
 		this.catRecipeList.forEach((e, i) => {
 			e.strMeal   = this.translationsRecipeTitles[i]
 			e.recipeUrl = 'https://www.themealdb.com/meal/' + e.idMeal
-			// console.log(e)
 		})
+
 	},
 
 	methods: {
-		
+
 		async translateAPI(beforeTranslateDataList) {
 
 			// 翻訳したいタイトルをひとつの文字列にする。
@@ -58,19 +58,13 @@ export default {
 				beforeTranslateTitles.push(e.strMeal)
 			}) 
 
-			// console.log('beforeTranslateTitles↓')
-			// console.log(beforeTranslateTitles)
-
-			  // 「・」がついていないかチェック※スラッシュがついていると、区切られてしまい、翻訳がおかしくなってしまうため。
+			  // 「/」がついていないかチェック※スラッシュがついていると、区切られてしまい、翻訳がおかしくなってしまうため。
 			const needTranslateTitles = beforeTranslateTitles.filter((title) => {
-				return !title.includes("・")
+				return !title.includes("/")
 			})
 
-			  // 「・」区切りの文字列を作る
-			const needTranslateTitleString = needTranslateTitles.join("・")
-
-			// console.log('needTranslateTitleString↓')
-			// console.log(needTranslateTitleString)
+			  // 「/」区切りの文字列を作る
+			const needTranslateTitleString = needTranslateTitles.join("/")
 
 			// 翻訳する
 			const API_KEY = '3c240d34-7d9e-4c33-fc65-2934e5a213a4:fx'
@@ -79,34 +73,28 @@ export default {
 			let content = encodeURI('auth_key=' + API_KEY + '&text=' + needTranslateTitleString + '&source_lang=EN&target_lang=JA');
 			let url     = API_URL + '?' + content;
 
-			let translatedTitle = await $fetch(url);
+			let translatedTitle = await useFetch(url);
 
-			console.log(url)
-			console.log(translatedTitle)
-
-
-			// 翻訳データ（/で区切ってあるものを分割して）を配列にいれる。
-			this.translationsRecipeTitles = translatedTitle.translations[0].text.split('・');
+			  // 翻訳データ（/で区切ってあるものを分割して）を配列にいれる。
+			this.translationsRecipeTitles = translatedTitle.data.value.translations[0].text.split('/');
 		},
 	}
 }
 
 
-
 </script>
-
 <template>
 <div id="page" >
 	<Header></Header>
 	<Main>
 		<article class="box media">
 			<Catpage :recipeList="catRecipeList">
-				<h2>パスタカテゴリーレシピ一覧</h2>
+				<h2>朝食カテゴリーレシピ一覧</h2>
 			</Catpage>
-		</article>
+		</article>		
 
 		<Side
-			:recipeRankingList = "recipeRankingList" 
+		:recipeRankingList = "recipeRankingList" 
 		></Side>
 
 	</Main>

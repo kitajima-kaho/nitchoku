@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 import { useRankingDataFetch } from '~/stores/useFetch'
 
 export default {
@@ -95,4 +95,4 @@ export default {
 	</Main>
 	<Footer></Footer>
 </div>
-</template>
+</template> -->

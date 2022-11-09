@@ -11,13 +11,6 @@ export default {
 		},
 	},
 
-	computed: {
-
-		// // 最大表示するレシピの数を20までにする。
-		// limitRecipe() {
-		// 	return this.recipeList.slice(0, 20)
-		// }
-	}
 
 }
 </script>
@@ -63,6 +56,13 @@ h2 {
 		
 	}
 
+}
+
+@media only screen and (min-width:640px) and (max-width:1023px) {
+	.aricle_box {
+		width: auto;
+
+	}
 }
 
 @media screen and (max-width:639px) {    

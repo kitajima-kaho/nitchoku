@@ -1,10 +1,13 @@
 <script>
+import { routerKey } from 'vue-router';
+
 
 export default {
     methods: {
         otherPage(event) {
             const pageNamePath = "/" + event.target.dataset.cat;
-            this.$router.push(pageNamePath)
+            alert(pageNamePath)
+
         },
     },
 
@@ -22,7 +25,7 @@ export default {
                     <a href="/"><img src="~/assets/image/logo.png" alt="ロゴ"></a>
                 </div>
                 <div class="other_btns">
-                    <button class="button first_btn is-rounded other_btn" @click="otherPage($event)" data-cat="breakfast">朝食</button>
+                    <button class="button first_btn is-rounded other_btn" @click="$router.push('/categories/breakfast')" data-cat="breakfast">朝食</button>
                     <button class="button is-rounded other_btn" @click="otherPage($event)" data-cat="sideMenu">サイド</button>
                     <button class="button is-rounded other_btn" @click="otherPage($event)" data-cat="dessert">デザート</button>
                     <button class="button is-rounded other_btn" @click="otherPage($event)" data-cat="pasta">パスタ</button>

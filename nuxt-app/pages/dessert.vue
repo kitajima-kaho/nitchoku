@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 import { useRankingDataFetch } from '~/stores/useFetch'
 
 export default {
@@ -45,7 +45,7 @@ export default {
 
 
 	methods: {
-		
+
 		async translateAPI(beforeTranslateDataList) {
 
 			// 翻訳したいタイトルをひとつの文字列にする。
@@ -97,4 +97,4 @@ export default {
 	</Main>
 	<Footer></Footer>
 </div>
-</template>
+</template> -->

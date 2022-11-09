@@ -6,7 +6,8 @@ export default {
     methods: {
         otherPage(event) {
             const pageNamePath = "/" + event.target.dataset.cat;
-            alert(pageNamePath)
+            // alert(pageNamePath)
+            this.$router.push(pageNamePath)
 
         },
     },
@@ -25,11 +26,11 @@ export default {
                     <a href="/"><img src="~/assets/image/logo.png" alt="ロゴ"></a>
                 </div>
                 <div class="other_btns">
-                    <button class="button first_btn is-rounded other_btn" @click="$router.push('/categories/breakfast')" data-cat="breakfast">朝食</button>
-                    <button class="button is-rounded other_btn" @click="otherPage($event)" data-cat="sideMenu">サイド</button>
-                    <button class="button is-rounded other_btn" @click="otherPage($event)" data-cat="dessert">デザート</button>
-                    <button class="button is-rounded other_btn" @click="otherPage($event)" data-cat="pasta">パスタ</button>
-                    <button class="button is-rounded other_btn" @click="otherPage($event)" data-cat="pork">豚肉</button>
+                    <button class="button first_btn is-rounded other_btn" @click="$router.push('/categories/breakfast')">朝食</button>
+                    <button class="button is-rounded other_btn" @click="$router.push('/categories/sideMenu')">サイド</button>
+                    <button class="button is-rounded other_btn" @click="$router.push('/categories/dessert')">デザート</button>
+                    <button class="button is-rounded other_btn" @click="$router.push('/categories/pasta')">パスタ</button>
+                    <button class="button is-rounded other_btn" @click="$router.push('/categories/pork')">豚肉</button>
                 </div>    
             </div>
         </div>

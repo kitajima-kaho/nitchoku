@@ -7,6 +7,7 @@ export default {
 			recipeRankingList: [],
             catRecipeList: [],
 			translationsRecipeTitles: [],
+            categoryMainTitle: null,
         };
     },
 
@@ -17,24 +18,47 @@ export default {
         // console.log(recipeRankingLists.recipeRanking)
 
 		this.recipeRankingList = recipeRankingLists.recipeRanking
+        console.log('recipeRankingLists↓')
         console.log(recipeRankingLists)
 
+        // パラメータ取得
+        const category      = this.$route.params.category
+        let dataCatRecipe = null
+        
+        // console.log('パラメータ：' + category)
+        if (category === 'breakfast') {
+            this.categoryMainTitle = '朝食';
+            dataCatRecipe  = await $fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Breakfast');
+        } else if(category === 'dessert') {
+            this.categoryMainTitle = 'デザート';
+            dataCatRecipe  = await $fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Dessert');
+        } else if(category === 'dessert') {
+            this.categoryMainTitle = 'デザート';
+            dataCatRecipe  = await $fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Dessert');
+        } else if(category === 'dessert') {
+            this.categoryMainTitle = 'デザート';
+            dataCatRecipe  = await $fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Dessert');
+        } else if(category === 'dessert') {
+            this.categoryMainTitle = 'デザート';
+            dataCatRecipe  = await $fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Dessert');
+        }
 
-		// 朝食の方のデータを取得
-		const dataCatRecipe  = await useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Breakfast');
-		this.catRecipeList = dataCatRecipe.data.value.meals
+		this.catRecipeList = dataCatRecipe.meals
 
-		// 「＆」は翻訳に影響するため、「&」を含むタイトルは除外する。
-		this.catRecipeList = this.catRecipeList.filter((recipe) => {
-		return !recipe.strMeal.includes("&");
-		})
-
+        
 		// 表示するレシピを最大20個までにする。
 		// カテゴリーによっては、60以上レシピがあり、重くなってしまうため。
 		if (this.catRecipeList.length > 20) {
 			const deleteElementCount = this.catRecipeList.length - 20;
 			this.catRecipeList.splice(20, deleteElementCount)
 		} 
+
+		// 「＆」は翻訳に影響するため、「&」を含むタイトルは除外する。
+		this.catRecipeList = this.catRecipeList.filter((recipe) => {
+		return !recipe.strMeal.includes("&");
+		})
+
+
 		
 		// 翻訳する
 		await this.translateAPI(this.catRecipeList)
@@ -73,10 +97,10 @@ export default {
 			let content = encodeURI('auth_key=' + API_KEY + '&text=' + needTranslateTitleString + '&source_lang=EN&target_lang=JA');
 			let url     = API_URL + '?' + content;
 
-			let translatedTitle = await useFetch(url);
+			let translatedTitle = await $fetch(url);
 
 			  // 翻訳データ（/で区切ってあるものを分割して）を配列にいれる。
-			this.translationsRecipeTitles = translatedTitle.data.value.translations[0].text.split('/');
+			this.translationsRecipeTitles = translatedTitle.translations[0].text.split('/');
 		},
 	}
 }
@@ -89,7 +113,7 @@ export default {
 	<Main>
 		<article class="box media">
 			<Catpage :recipeList="catRecipeList">
-				<h2>朝食カテゴリーレシピ一覧</h2>
+				<h2>{{ categoryMainTitle }}カテゴリーレシピ一覧</h2>
 			</Catpage>
 		</article>		
 

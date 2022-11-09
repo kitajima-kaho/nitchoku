@@ -1,7 +1,7 @@
 <script setup>
 import { useRankingDataFetch } from '~/stores/useFetch'
 
-useRankingDataFetch().useFetchRanking()
+// useRankingDataFetch().useFetchRanking()
 
 </script>
 <template>

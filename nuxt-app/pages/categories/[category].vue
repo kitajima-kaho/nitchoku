@@ -1,5 +1,5 @@
 <script>
-import { useRankingDataFetch } from '~~/stores/useFetch'
+import RakutenServise from '~~/service/rakutenService'
 
 export default {
     data() {
@@ -14,33 +14,36 @@ export default {
 	async created() {
 
 		// 楽天レシピ
-		const recipeRankingLists = useRankingDataFetch()
+        const rakutenResponse = await RakutenServise.fetchRecipeRanking();
+
+        console.log(rakutenResponse)
+
+		// const recipeRankingLists = useRankingDataFetch()
         // console.log(recipeRankingLists.recipeRanking)
 
-		this.recipeRankingList = recipeRankingLists.recipeRanking
-        console.log('recipeRankingLists↓')
-        console.log(recipeRankingLists)
+		this.recipeRankingList = rakutenResponse
+        
 
         // パラメータ取得
         const category      = this.$route.params.category
         let dataCatRecipe = null
         
-        // console.log('パラメータ：' + category)
+        // パラメータによってfetchするデータを変える。タイトルもだし変える。
         if (category === 'breakfast') {
             this.categoryMainTitle = '朝食';
             dataCatRecipe  = await $fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Breakfast');
+        } else if(category === 'sideMenu') {
+            this.categoryMainTitle = 'サイドメニュー';
+            dataCatRecipe  = await $fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Side');
         } else if(category === 'dessert') {
             this.categoryMainTitle = 'デザート';
             dataCatRecipe  = await $fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Dessert');
-        } else if(category === 'dessert') {
-            this.categoryMainTitle = 'デザート';
-            dataCatRecipe  = await $fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Dessert');
-        } else if(category === 'dessert') {
-            this.categoryMainTitle = 'デザート';
-            dataCatRecipe  = await $fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Dessert');
-        } else if(category === 'dessert') {
-            this.categoryMainTitle = 'デザート';
-            dataCatRecipe  = await $fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Dessert');
+        } else if(category === 'pasta') {
+            this.categoryMainTitle = 'パスタ';
+            dataCatRecipe  = await $fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Pasta');
+        } else if(category === 'pork') {
+            this.categoryMainTitle = '豚肉';
+            dataCatRecipe  = await $fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Pork');
         }
 
 		this.catRecipeList = dataCatRecipe.meals
@@ -53,13 +56,19 @@ export default {
 			this.catRecipeList.splice(20, deleteElementCount)
 		} 
 
-		// 「＆」は翻訳に影響するため、「&」を含むタイトルは除外する。
+		// 翻訳に影響するものを含むタイトルは除外する。
 		this.catRecipeList = this.catRecipeList.filter((recipe) => {
-		return !recipe.strMeal.includes("&");
+		return !recipe.strMeal.includes("&"); // 全角の「＆」はバグらない。
 		})
 
+        this.catRecipeList = this.catRecipeList.filter((recipe) => {
+		return !recipe.strMeal.includes("(");
+		})
 
-		
+        this.catRecipeList = this.catRecipeList.filter((recipe) => {
+		return !recipe.strMeal.includes("Boxty");
+		})
+
 		// 翻訳する
 		await this.translateAPI(this.catRecipeList)
 
@@ -73,6 +82,20 @@ export default {
 
 	methods: {
 
+        // // 一旦ランダムに並び替えてみる、それで翻訳が機能するか確かめる
+        // // 結果連続していなければ、翻訳できそう。ただランダムでは、よくない。
+        // shuffle (array) {
+        //     // 配列の数分回す
+        //     for (let i = array.length - 1; i >= 0; i--) {
+        //         // （自分メモ）Math.floorMath.floorで引数に与えられた数値以下の整数を返す
+        //         // Math.random()は０以上１未満の乱数を返す
+        //         const j = Math.floor(Math.random() * (i + 1));
+        //         [array[i], array[j]] = [array[j], array[i]];
+        //     }
+        //     return array;
+        // },
+
+
 		async translateAPI(beforeTranslateDataList) {
 
 			// 翻訳したいタイトルをひとつの文字列にする。
@@ -84,11 +107,11 @@ export default {
 
 			  // 「/」がついていないかチェック※スラッシュがついていると、区切られてしまい、翻訳がおかしくなってしまうため。
 			const needTranslateTitles = beforeTranslateTitles.filter((title) => {
-				return !title.includes("/")
+				return !title.includes("\n")
 			})
 
 			  // 「/」区切りの文字列を作る
-			const needTranslateTitleString = needTranslateTitles.join("/")
+			const needTranslateTitleString = needTranslateTitles.join("\n")
 
 			// 翻訳する
 			const API_KEY = '3c240d34-7d9e-4c33-fc65-2934e5a213a4:fx'
@@ -100,7 +123,7 @@ export default {
 			let translatedTitle = await $fetch(url);
 
 			  // 翻訳データ（/で区切ってあるものを分割して）を配列にいれる。
-			this.translationsRecipeTitles = translatedTitle.translations[0].text.split('/');
+			this.translationsRecipeTitles = translatedTitle.translations[0].text.split("\n");
 		},
 	}
 }

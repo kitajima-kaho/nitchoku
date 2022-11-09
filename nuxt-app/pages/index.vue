@@ -1,14 +1,11 @@
 <script>
-import jsondataList from '@/assets/json/jsondata.json'
-import { useRankingDataFetch } from '~/stores/useFetch'
+import RakutenServise from '~/service/rakutenService'
 
 export default {
 
     data() {
         return {
-            // useRankingDataFetch: useRankingDataFetch,
             recipeRankingList: [],
-            jsondataList: jsondataList,
             status: 'clear',
             rouletteRecipe: [],
             intervalId: 0,
@@ -16,7 +13,7 @@ export default {
             transparency: false,
             displayRoulette: false,
             todayMeal: null,
-            displayTodayMeal: false,
+            // displayTodayMeal: false,
             todayMealUrl: null,
             isActive: false,
             todayRecipe: {
@@ -26,8 +23,14 @@ export default {
                 img: null,
                 colorStatus: null
             },
+
+            // セットする前にスタートボタンが押されないようにするもの。
 			clickNone: true,
+
+            // ルーレットが一度回って止めた後、すぐにルーレットを回さないようにするもの。
+            // TODO：否定系はよくないかも。true/false分からなくなる。
 			SecondclickNone: false,
+
             recipeRanking: null,
             recipeAmerican: null,
             recipeJapanese: null,
@@ -43,7 +46,6 @@ export default {
 
     async created() {
         const[dataAmerican, dataJapanese, dataChinese, dataFrench, dataChicken, dataBeef, dataSeafood, dataVegetarian] = await Promise.all([
-            // useFetch('https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1079324519433678968'),
             
             useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=American'),
             useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=Japanese'),
@@ -57,7 +59,6 @@ export default {
 
         ]);
 
-
         this.recipeAmerican   = dataAmerican.data.value.meals
         this.recipeJapanese   = dataJapanese.data.value.meals
         this.recipeChinese    = dataChinese.data.value.meals
@@ -68,30 +69,38 @@ export default {
         this.recipeSeafood    = dataSeafood.data.value.meals
         this.recipeVegetarian = dataVegetarian.data.value.meals
 
-        const recipeRankingLists = useRankingDataFetch()
-        this.recipeRankingList = recipeRankingLists.recipeRanking
+        // 楽天レシピのデータ表示
+        const rakutenResponse = await RakutenServise.fetchRecipeRanking();
+		this.recipeRankingList = rakutenResponse
     },
-
 
     methods: {
 
         // ルーレットを回す。
         start() {
 
+            // セットする前にスタートボタンが押された時
 			if(this.clickNone) {
 				alert('国名かカテゴリーをセットしてください')
 
 			} else {
 			this.status = 'start';
             let attentionIndex = 0;
+
+            // ルーレットが回っている間は「セット」ボタンを押せないようにする。
             this.transparency = true;
             
             //　ルーレットの途中でスタートボタンが押されたら、初めから回し始める。
+            // colorStatusがtrueの場合は、枠が色づけされ、回っているように見せる。
             this.rouletteRecipe.forEach(e => {
                 e.colorStatus = false
             })
 
+            // ルーレットを回しているように見せる枠の色をtrue/falseで、色づけするしないを判断している。
+            // 4つあるマスのうち一個ずつtrueを入れる。その前のマスをfalseにして、色付けを止めるようにする。
             this.intervalId = setInterval(() => {
+
+                // ますは4つのため、また0スタートのため、3以上になったら、0に戻す。（このコメントは不要か？）
                 if(attentionIndex > 3) {
                     attentionIndex = 0
                 }
@@ -114,20 +123,24 @@ export default {
 
         // ルーレットセットする
         set() {
-
+            // ルーレットが一度回って止めた後、すぐにルーレットを回さないようにするもの。
+            // この時は、何回も押しても良いのでfalse
 			this.SecondclickNone = false;
             this.rouletteRecipe  = new Array();
-            // console.log(this.rouletteRecipe)
 
             if (this.recipeTarget === 'not') {
                 alert('国名か素材名を選択してください。')
-                this.displayRoulette = false; 
+                // ここではまだルーレットを出さない。（タイトルと写真を表示するもの）
+                this.displayRoulette = false;
+                // スタートボタンを押してもアラートが出る
                 this.clickNone = true;  
                 return;
 
-
             } else if (this.recipeTarget === 'american') {
+                // タイトルと写真が入ったルーレットが表示される。
                 this.displayRoulette = true; 
+
+                // スタートボタンを押せるようにする。
 				this.clickNone = false;  
                 this.SetRouletteRecipe(this.recipeAmerican);
 
@@ -170,20 +183,22 @@ export default {
             }
 
             this.translateAPI(this.rouletteRecipe)
-
-
-
         },
 
         // ルーレットとめる
         stop() {
+            // 「ストップ」ボタンから「スタート」ボタンになる
             this.status           = "stop"
-            this.displayTodayMeal = true;
+
+            // this.displayTodayMeal = true;
+            // モーダルを閉じるまでは、「スタート」ボタンや「セット」ボタンを押せないようにする
 			this.SecondclickNone  = true;
             this.transparency     = false;
 
+            // ルーレットを回さないようにする。
             clearInterval(this.intervalId);
 
+            // colorStatusがtrueのものは本日のレシピで、モーダル表示までの時間チカチカさせる。
             this.rouletteRecipe.forEach((e) => {
                 if (e.colorStatus) {
                     const shineTodayMeal = setInterval(() => {
@@ -191,12 +206,14 @@ export default {
                     }, 150)
 
                     setTimeout(() => {
+                        // 1.5秒後、チカチカをやめて、モーダルを表示。
                         clearInterval(shineTodayMeal);
                         e.colorStatus = true;
                         this.isActive = true;
                         
                     }, 1500)
 
+                    // prosに渡す準備
                     this.todayRecipe.recipeTitle = e.jpStrMeal
                     this.todayRecipe.recipeUrl   = 'https://www.themealdb.com/meal/' + e.idMeal
                     this.todayRecipe.recipeId    = e.idMeal
@@ -205,10 +222,12 @@ export default {
             })
         },
 
+        // モーダル閉じる（emit）
         closeResModal() {
             this.isActive = false;
         },
 
+        // モーダルを閉じたときに、スタートボタンを押せるようにする。（emit）
 		clickOk() {
 			this.SecondclickNone = false;
 		},
@@ -216,6 +235,7 @@ export default {
 
         // ルーレットセットするときに使う関数
         SetRouletteRecipe(recipeTarget) {
+
             // インデックスにランダムに数字を入れて、ランダムにレシピをルーレットに入れる。
             // 重複がでないように、同じIDのものは配列に入れないようにする。
             this.rouletteRecipe.push(recipeTarget[Math.floor(Math.random() * recipeTarget.length)]);
@@ -223,14 +243,18 @@ export default {
                 return e.idMeal !== this.rouletteRecipe[0].idMeal
             })
 
+            // push処理をされるは配列が、2つ目のターゲットからが変わるため、処理は一緒だが、違う関数になる。
             this.SetRouletteRecipeHelper(remainingRecipe);
 
+            // ルーレットを回るように見せるための枠の色付けするstatusをプロパティに追加する。
             this.rouletteRecipe.forEach((e) => {
                 e.colorStatus = false;
             })
 
         },
 
+        // ルーレットセットするときに使う関数
+        // (push処理をされるは配列が、2つ目のターゲットからが変わるため、処理は一緒だが、違う関数になる。)
         SetRouletteRecipeHelper(helperVariable) {
             this.rouletteRecipe.push(helperVariable[Math.floor(Math.random() * helperVariable.length)])
             helperVariable = helperVariable.filter((e) => {
@@ -248,67 +272,25 @@ export default {
             })
         },
 
-        otherPage(event) {
-            this.recipeTarget = event.target.dataset.cat;
-        },
-
         // 翻訳する
         async translateAPI(beforeTranslateData) {
-
-
-
-            // let recipes = beforeTranslateData[0].strMeal + '・' + beforeTranslateData[1].strMeal + '・' + beforeTranslateData[2].strMeal + '・' + beforeTranslateData[3].strMeal 
-            
-            //     console.log('元々のtext=に入れているもの:' + recipes)
 
             const API_KEY = '3c240d34-7d9e-4c33-fc65-2934e5a213a4:fx'
             const API_URL = 'https://api-free.deepl.com/v2/translate'
 
-            // let content = encodeURI('auth_key=' + API_KEY + '&text=' + recipes + '&source_lang=EN&target_lang=JA');
-            // let url     = API_URL + '?' + content;
-            // let translatedTitle = await $fetch(url);
-
+            // まとめてやっていたが、出てくるレシピ名によって不具合が生まれやすいため、一つずつfetchする。
             const response = await Promise.all([
                 $fetch(API_URL + '?' + encodeURI('auth_key=' + API_KEY + '&text=' + beforeTranslateData[0].strMeal + '&source_lang=EN&target_lang=JA')),
                 $fetch(API_URL + '?' + encodeURI('auth_key=' + API_KEY + '&text=' + beforeTranslateData[1].strMeal + '&source_lang=EN&target_lang=JA')),
                 $fetch(API_URL + '?' + encodeURI('auth_key=' + API_KEY + '&text=' + beforeTranslateData[2].strMeal + '&source_lang=EN&target_lang=JA')),
                 $fetch(API_URL + '?' + encodeURI('auth_key=' + API_KEY + '&text=' + beforeTranslateData[3].strMeal + '&source_lang=EN&target_lang=JA')),
-
             ])
-
+            
+            // 翻訳されたタイトルをstrMealのプロパティを作り、各々のレシピに入れていく。
             this.rouletteRecipe.forEach((recipe, index) => {
                 recipe.jpStrMeal = response[index].translations[0].text
             })
-            
-
-            // alert(recipes)
-
-                
-                // console.log('URL:' + url)
-
-                // console.log('fetchしてきたもの↓')
-                // console.log(translatedTitle)
-
-
-            // 翻訳データ（/で区切ってあるものを分割して）を配列にいれる。
-            // let translationsRecipeTitles = translatedTitle.translations[0].text.split('・');
-
-            //     console.log('分割して配列に入れたもの配列:' + translationsRecipeTitles)
-            //     console.log('分割して配列に入れたもの一個め:' + translationsRecipeTitles[0])
-
-
-            // translationsRecipeTitles.forEach((e, i) => {
-            //     console.log(this)
-
-            //     this.rouletteRecipe[i].strMeal = e
-            // })
-
-            // this.rouletteRecipe.forEach((recipe, index) => {
-            //     recipe.jpStrMeal = translationsRecipeTitles[index]
-            // })
-
         }
-
     }
 }
 </script>
@@ -370,7 +352,7 @@ export default {
                 </div>
 			</div>
 
-			<div class="roulette_cover roulette_on" v-else="displayRoulette">
+			<div class="roulette_cover roulette_on" v-else>
 				<div class="target"></div>
 				<div class="target"></div>
 				<div class="target"></div>
@@ -393,7 +375,6 @@ export default {
                 @closeResModal="closeResModal"
 				@clickOk="clickOk"
             ></Modal>
-    
 </div>
 
 </template>

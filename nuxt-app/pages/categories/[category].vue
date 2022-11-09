@@ -13,19 +13,12 @@ export default {
 
 	async created() {
 
-		// 楽天レシピ
+        // 楽天レシピのデータ表示
         const rakutenResponse = await RakutenServise.fetchRecipeRanking();
-
-        console.log(rakutenResponse)
-
-		// const recipeRankingLists = useRankingDataFetch()
-        // console.log(recipeRankingLists.recipeRanking)
-
 		this.recipeRankingList = rakutenResponse
-        
 
         // パラメータ取得
-        const category      = this.$route.params.category
+        const category    = this.$route.params.category
         let dataCatRecipe = null
         
         // パラメータによってfetchするデータを変える。タイトルもだし変える。
@@ -48,7 +41,6 @@ export default {
 
 		this.catRecipeList = dataCatRecipe.meals
 
-        
 		// 表示するレシピを最大20個までにする。
 		// カテゴリーによっては、60以上レシピがあり、重くなってしまうため。
 		if (this.catRecipeList.length > 20) {
@@ -69,6 +61,9 @@ export default {
 		return !recipe.strMeal.includes("Boxty");
 		})
 
+		// 順番をランダムに表示する。
+		this.shuffle(this.catRecipeList)
+
 		// 翻訳する
 		await this.translateAPI(this.catRecipeList)
 
@@ -82,35 +77,21 @@ export default {
 
 	methods: {
 
-        // // 一旦ランダムに並び替えてみる、それで翻訳が機能するか確かめる
-        // // 結果連続していなければ、翻訳できそう。ただランダムでは、よくない。
-        // shuffle (array) {
-        //     // 配列の数分回す
-        //     for (let i = array.length - 1; i >= 0; i--) {
-        //         // （自分メモ）Math.floorMath.floorで引数に与えられた数値以下の整数を返す
-        //         // Math.random()は０以上１未満の乱数を返す
-        //         const j = Math.floor(Math.random() * (i + 1));
-        //         [array[i], array[j]] = [array[j], array[i]];
-        //     }
-        //     return array;
-        // },
-
-
 		async translateAPI(beforeTranslateDataList) {
 
-			// 翻訳したいタイトルをひとつの文字列にする。
+			// 翻訳したいタイトルをひとつの文字列にする。　
 			  // まずタイトルだけの配列を作る。
 			const beforeTranslateTitles = [];
 			beforeTranslateDataList.forEach(e => {
 				beforeTranslateTitles.push(e.strMeal)
 			}) 
 
-			  // 「/」がついていないかチェック※スラッシュがついていると、区切られてしまい、翻訳がおかしくなってしまうため。
+			  // 「\n」がついていないかチェック※「\n」がついていると、区切られてしまい、翻訳がおかしくなってしまうため。
 			const needTranslateTitles = beforeTranslateTitles.filter((title) => {
 				return !title.includes("\n")
 			})
 
-			  // 「/」区切りの文字列を作る
+			  // 「\n」区切りの文字列を作る
 			const needTranslateTitleString = needTranslateTitles.join("\n")
 
 			// 翻訳する
@@ -122,9 +103,21 @@ export default {
 
 			let translatedTitle = await $fetch(url);
 
-			  // 翻訳データ（/で区切ってあるものを分割して）を配列にいれる。
+			// 翻訳データ（「\n」で区切ってあるものを分割して）を配列にいれる。
 			this.translationsRecipeTitles = translatedTitle.translations[0].text.split("\n");
 		},
+
+		// カテゴリーを順番ランダムに表示
+        shuffle (array) {
+            // 配列の数分回す
+            for (let i = array.length - 1; i >= 0; i--) {
+                // （自分メモ）Math.floorMath.floorで引数に与えられた数値以下の整数を返す
+                // Math.random()は０以上１未満の乱数を返す
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        },
 	}
 }
 

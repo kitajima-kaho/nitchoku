@@ -1,13 +1,5 @@
 <script>
-import jsondataList from '@/assets/json/jsondata.json'
-
 export default {
-
-	data () {
-		return {
-			jsondataList: jsondataList,
-		}
-	},
 
 	props: {
 		recipeList: Array,
@@ -15,30 +7,29 @@ export default {
 
 	methods: {
 		clickUrl(recipeUrl) {
-			window.open(recipeUrl, '_blank')
+			// _blankは危険、noopenerによって外部から元のJSを触られないようにする。
+			window.open(recipeUrl, '_blank', 'noopener')
 		},
-	}
-
+	},
 }
 </script>
 <template>
 <div class="wrap">
 	<slot></slot>
-	<div class="box aricle_box" v-for="item in recipeList" :key="recipeList"  @click="clickUrl(item.recipeUrl)">
-			<div class="media-left">
-				<figure class="image is-64x64">
-					<img :src="item.strMealThumb" alt="レシピの写真">
-				</figure>
+	<div class="box article_box" v-for="recipe in recipeList" :key="recipe.idMeal"  @click="clickUrl(recipe.recipeUrl)">
+		<div class="media-left">
+			<figure class="image is-64x64">
+				<img :src="recipe.strMealThumb" alt="レシピの写真">
+			</figure>
+		</div>
+		<div class="media-content">
+			<div class="content">
+				<p>
+				{{ recipe.strMeal }}
+				</p>
 			</div>
-			<div class="media-content">
-				<div class="content">
-					<p>
-					{{ item.jpStrMeal }}
-					</p>
-				</div>
-			</div>
+		</div>
 	</div>
-
 </div>
 </template>
 <style lang="scss">
@@ -47,7 +38,7 @@ h2 {
 	margin-bottom: 15px;
 }
 
-.aricle_box {
+.article_box {
 	display: flex;
     cursor: pointer;
     width: 550px;
@@ -60,13 +51,17 @@ h2 {
 		p {
 			font-size: 20px;
 		}
-		
 	}
+}
 
+@media only screen and (min-width:640px) and (max-width:1023px) {
+	.article_box {
+		width: auto;
+	}
 }
 
 @media screen and (max-width:639px) {    
-	.aricle_box {
+	.article_box {
         width: auto;
     }
 }

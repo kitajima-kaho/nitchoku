@@ -1,6 +1,6 @@
 <template>
     <footer>
-        <p class="fotter_p">なにたべAPP</p>
+        <p>なにたべAPP</p>
     </footer>
 
 </template>

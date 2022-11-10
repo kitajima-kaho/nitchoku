@@ -25,7 +25,6 @@ main {
         max-width: 925px;
         display: flex;
 
-
         .media {
             margin: 20px auto;
             display: block;
@@ -49,12 +48,9 @@ main {
 
             .media {
                 margin: 5px;
-
             }
-   
         }
     }
-
 }
 
 </style>

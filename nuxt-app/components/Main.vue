@@ -13,7 +13,6 @@ html {
     box-sizing: border-box;
     background-color: #FCF4EC;
     width: 100vw;
-
 }
 
 main {
@@ -49,10 +48,7 @@ main {
             .media {
                 margin: 5px;
             }
-   
         }
     }
-
 }
-
 </style>

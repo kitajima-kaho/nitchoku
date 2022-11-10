@@ -88,7 +88,6 @@ export default {
             margin: 5px;
             width: 97%;
             height: 100%;
-            
         }
     }
 }

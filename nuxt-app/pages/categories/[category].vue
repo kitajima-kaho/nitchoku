@@ -120,8 +120,6 @@ export default {
         },
 	}
 }
-
-
 </script>
 <template>
 <div id="page" >

@@ -136,51 +136,37 @@ export default {
                 return;
 
             } else if (this.recipeTarget === 'american') {
-                // タイトルと写真が入ったルーレットが表示される。
-                this.displayRoulette = true; 
-
-                // スタートボタンを押せるようにする。
-				this.clickNone = false;  
                 this.SetRouletteRecipe(this.recipeAmerican);
 
             } else if (this.recipeTarget === 'japanese') {
-                this.displayRoulette = true;
-				this.clickNone = false;  
                 this.SetRouletteRecipe(this.recipeJapanese);
 
-
-            } else if (this.recipeTarget === 'chinese') {
-                this.displayRoulette = true;
-				this.clickNone = false;  
+            } else if (this.recipeTarget === 'chinese') {  
                 this.SetRouletteRecipe(this.recipeChinese);
 
             } else if (this.recipeTarget === 'french') {
-                this.displayRoulette = true;
-				this.clickNone = false;  
                 this.SetRouletteRecipe(this.recipeFrench);
             
-            } else if (this.recipeTarget === 'chicken') {
-                this.displayRoulette = true;
-				this.clickNone = false;  
+            } else if (this.recipeTarget === 'chicken') { 
                 this.SetRouletteRecipe(this.recipeChicken);
             
-            } else if (this.recipeTarget === 'beef') {
-                this.displayRoulette = true;
-				this.clickNone = false;  
+            } else if (this.recipeTarget === 'beef') { 
                 this.SetRouletteRecipe(this.recipeBeef);
             
-            } else if (this.recipeTarget === 'seafood') {
-                this.displayRoulette = true;
-				this.clickNone = false;  
+            } else if (this.recipeTarget === 'seafood') { 
                 this.SetRouletteRecipe(this.recipeSeafood);
             
             } else if (this.recipeTarget === 'vegetarian') {
-                this.displayRoulette = true;
-				this.clickNone = false;  
                 this.SetRouletteRecipe(this.recipeVegetarian);
             
             }
+            // タイトルと写真が入ったルーレットが表示される。
+            this.displayRoulette = true; 
 
+            // スタートボタンを押せるようにする。
+			this.clickNone = false;  
+
+            // 翻訳する。
             this.translateAPI(this.rouletteRecipe)
         },
 
@@ -303,16 +289,18 @@ export default {
 				<div class="select is-warning">
 					<select v-model="recipeTarget">
 						<option value="not">選択してください</option>
-						<option value="not">--- 国 ---</option>
-						<option value="american">アメリカ</option>
-						<option value="japanese">日本</option>
-						<option value="chinese">中国</option>
-						<option value="french">フランス</option>
-						<option value="not">--- 素材 ---</option>
-						<option value="chicken">鶏肉</option>
-						<option value="beef">牛肉</option>
-						<option value="seafood">魚介</option>
-						<option value="vegetarian">野菜</option>
+                        <optgroup label="--- 国 ---">
+                            <option value="american">アメリカ</option>
+                            <option value="japanese">日本</option>
+                            <option value="chinese">中国</option>
+                            <option value="french">フランス</option>
+                        </optgroup>
+                        <optgroup label="--- 素材 ---">
+                            <option value="chicken">鶏肉</option>
+                            <option value="beef">牛肉</option>
+                            <option value="seafood">魚介</option>
+                            <option value="vegetarian">野菜</option>
+                        </optgroup>
 					</select>
 				</div>               
                 
@@ -402,10 +390,8 @@ export default {
         display: flex;
         margin-top: 15px;
 
-
         .btn_right {
         display: block;
-      
         }
     }
 }
@@ -418,8 +404,6 @@ export default {
     width: fit-content;
     padding: 20px;
 }
-
-
     
 .roulette_cover {
     background-color: #FF8A02;
@@ -430,11 +414,8 @@ export default {
     position: relative;
 
     .target {
-        // padding-top: 60px; 
-        // padding-bottom: 60px; 
         width: 225px;
         height: 225px;
-        // text-align: center; 
 
         span {
             box-sizing: content-box; 
@@ -546,7 +527,6 @@ export default {
             }
         }
     }
-
 }
 
 .button {
@@ -566,60 +546,54 @@ export default {
             margin: 20px auto;
 
             .media {
-            width: 60%;
+                width: 60%;
 
-            .roulette_cover {
-                width: 300px;
-                height: 300px;
-                margin: 0 auto;
+                .roulette_cover {
+                    width: 300px;
+                    height: 300px;
+                    margin: 0 auto;
 
-                .target {
-                    // display: flex;
-                    width: 150px;
-                    height: 150px;
-                    font-size: 15px;
-                    padding-top: 50px;
-                    padding-left: 45px;
+                    .target {
+                        // display: flex;
+                        width: 150px;
+                        height: 150px;
+                        font-size: 15px;
+                        padding-top: 50px;
+                        padding-left: 45px;
 
-                    &:first-child {
-                        padding-top: 60px;
-                        margin-left: 20px;
-                        padding-left: 0;
-                    }
+                        &:first-child {
+                            padding-top: 60px;
+                            margin-left: 20px;
+                            padding-left: 0;
+                        }
 
-                    &:nth-child(2) {
-                        padding-top: 20px;
-                        padding-left: 0;
-                    }
+                        &:nth-child(2) {
+                            padding-top: 20px;
+                            padding-left: 0;
+                        }
 
-                    &:nth-child(3) {
-                        padding-top: 20px;
+                        &:nth-child(3) {
+                            padding-top: 20px;
+                            
+                        }
                         
-                    }
-                    
-                    &:last-child {
-                        padding-top: 60px;
+                        &:last-child {
+                            padding-top: 60px;
 
-                    }
+                        }
 
-                    span {
-                        display: none;
-                    }
-                    
-                    .image {
-                        margin-top: 0;
-                        margin-left: 20px;
+                        span {
+                            display: none;
+                        }
+                        
+                        .image {
+                            margin-top: 0;
+                            margin-left: 20px;
+                        }
                     }
                 }
             }
-
         }
-
-
-        }
-
-       
-
     }
     .logo {
         min-width: 150px;
@@ -651,15 +625,11 @@ export default {
         margin: 0px auto;        
 
         .target {
-            // display: flex;
             width: 135px;
             height: 135px;
             font-size: 15px;
-            // padding-top: 50px;
-            // padding-left: 30px;
 
             &:first-child {
-                // margin-left: 20px;
                 padding-left: 0;
                 padding-top: 40px;
 
@@ -716,5 +686,4 @@ export default {
         }
     }
 }
-
 </style>

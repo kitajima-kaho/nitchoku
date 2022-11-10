@@ -54,7 +54,6 @@ header {
             display: flex;
             justify-content: space-around;
             margin: 0 auto;
-            // max-width: 925px;
 
             .other_btns {
                 display: flex;
@@ -91,13 +90,11 @@ header {
                             margin-left: 5px;
                             margin-right: 5px;
                         }
-
                     }
                 }
             }
         }
-    }
-        
+    }   
 }
 
 

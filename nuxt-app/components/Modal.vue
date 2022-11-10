@@ -47,8 +47,7 @@ export default {
 
     .modal-card {
         text-align: center;
-
-
+        
         .modal_img {
             width: 200px;
             height: 200px;

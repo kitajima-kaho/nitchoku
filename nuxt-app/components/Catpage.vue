@@ -51,15 +51,12 @@ h2 {
 		p {
 			font-size: 20px;
 		}
-		
 	}
-
 }
 
 @media only screen and (min-width:640px) and (max-width:1023px) {
 	.article_box {
 		width: auto;
-
 	}
 }
 

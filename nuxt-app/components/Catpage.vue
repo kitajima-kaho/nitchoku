@@ -16,16 +16,16 @@ export default {
 <template>
 <div class="wrap">
 	<slot></slot>
-	<div class="box article_box" v-for="item in recipeList" :key="recipeList"  @click="clickUrl(item.recipeUrl)">
+	<div class="box article_box" v-for="recipe in recipeList" :key="recipe.idMeal"  @click="clickUrl(recipe.recipeUrl)">
 		<div class="media-left">
 			<figure class="image is-64x64">
-				<img :src="item.strMealThumb" alt="レシピの写真">
+				<img :src="recipe.strMealThumb" alt="レシピの写真">
 			</figure>
 		</div>
 		<div class="media-content">
 			<div class="content">
 				<p>
-				{{ item.strMeal }}
+				{{ recipe.strMeal }}
 				</p>
 			</div>
 		</div>

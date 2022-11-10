@@ -69,7 +69,7 @@ export default {
         this.recipeVegetarian = dataVegetarian.data.value.meals
 
         // 楽天レシピのデータ表示
-        const rakutenResponse = await RakutenServise.fetchRecipeRanking();
+        const rakutenResponse  = await RakutenServise.fetchRecipeRanking();
 		this.recipeRankingList = rakutenResponse
     },
 

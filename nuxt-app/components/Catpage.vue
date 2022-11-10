@@ -32,7 +32,7 @@ export default {
 	</div>
 </div>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 h2 {
 	text-align: center;
 	margin-bottom: 15px;

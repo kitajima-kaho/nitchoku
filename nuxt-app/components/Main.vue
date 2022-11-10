@@ -5,7 +5,7 @@
         </div>
     </main>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 html {
     position: relative;
     padding-bottom: 50px;

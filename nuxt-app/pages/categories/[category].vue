@@ -122,7 +122,7 @@ export default {
 }
 </script>
 <template>
-<div id="page" >
+<div id="page">
 	<Header></Header>
 	<Main>
 		<article class="box media">
@@ -139,3 +139,5 @@ export default {
 	<Footer></Footer>
 </div>
 </template>
+<style lang="scss" scoped>
+</style>

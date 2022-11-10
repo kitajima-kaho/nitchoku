@@ -16,7 +16,7 @@ export default {
 </script>
 
 <template>
-    <header>
+    <header class="header">
         <div class="header_container">
             <div class="header_display is-align-items-center">
                 <div class="logo">
@@ -33,13 +33,13 @@ export default {
         </div>
     </header>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 * {
     margin:0;
     padding:0;
 } 
 
-header {
+.header {
 
     .header_container {
         background: url(~/assets/image/foodiesfeed.com_traditional-korean-meals.jpg)  center / cover ;

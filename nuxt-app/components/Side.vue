@@ -31,7 +31,7 @@ export default {
         </div>
     </aside>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 .side {
     margin: 20px;
     margin-right: 0;

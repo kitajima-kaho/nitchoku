@@ -31,7 +31,7 @@ export default {
         </div>
     </div>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 .modal {
     animation-name: fade;
     animation-duration: 0.3s;

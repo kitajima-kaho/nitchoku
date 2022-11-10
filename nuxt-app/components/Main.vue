@@ -21,7 +21,7 @@ main {
     }
 }
 
-@media only screen and (min-width:640px) and (max-width:1023px) {
+@media screen and (min-width:640px) and (max-width:1023px) {
     .main_wrap {
             display: block;
             width: auto;

@@ -532,7 +532,7 @@ export default {
     margin-left: 10px;
 }
 
-@media only screen and (min-width:640px) and (max-width:1023px) {
+@media screen and (min-width:640px) and (max-width:1023px) {
     html {
         width: 100%;
 

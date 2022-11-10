@@ -164,7 +164,7 @@ export default {
 		
 	}
 }
-@media only screen and (min-width:640px) and (max-width:1023px) {
+@media screen and (min-width:640px) and (max-width:1023px) {
 	.media {
 		width: 60%;
 	}

@@ -5,7 +5,6 @@ export default {
             const pageNamePath = "/" + event.target.dataset.cat;
             // alert(pageNamePath)
             this.$router.push(pageNamePath)
-
         },
     },
 
@@ -71,9 +70,9 @@ export default {
     }
 }
 
-@media only screen and (min-width:640px) and (max-width:1023px) {
+@media screen and (min-width:640px) and (max-width:1023px) {
     html {
-        header {
+        .header {
 
             .header_container {
 
@@ -92,15 +91,10 @@ export default {
     }   
 }
 
-
 @media screen and (max-width:639px) {    
-    header {
+    .header {
         .header_container {
-        background: url(~/assets/image/foodiesfeed.com_traditional-korean-meals.jpg) no-repeat center / cover ;
-        background-color: rgba(#FF8A02, 0.3);
-        background-blend-mode: lighten;
-        height: 155px;
-        background-blend-mode: lighten;
+            height: 155px;
 
             .header_display {
                 display: block;
@@ -118,7 +112,6 @@ export default {
                         height: 64px;
                         width: 100px;
                         min-width: 85px;
-
                     }
                 }
 

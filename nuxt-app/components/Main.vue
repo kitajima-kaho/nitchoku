@@ -6,14 +6,7 @@
     </main>
 </template>
 <style lang="scss" scoped>
-html {
-    position: relative;
-    padding-bottom: 50px;
-    min-height: 100vh;
-    box-sizing: border-box;
-    background-color: #FCF4EC;
-    width: 100vw;
-}
+
 
 main {
     width: 100%;
@@ -24,19 +17,18 @@ main {
         max-width: 925px;
         display: flex;
 
-
-        .media {
-            margin-top: 20px;
-            display: block;
-
-            .main_title {
-                text-align: center;
-                margin-bottom: 15px;
-            }
-        }
+        
     }
 }
 
+@media only screen and (min-width:640px) and (max-width:1023px) {
+    .main_wrap {
+            display: block;
+            width: auto;
+         
+        }
+
+}
 
 @media screen and (max-width:639px) {    
     main {
@@ -45,9 +37,7 @@ main {
         .main_wrap {
             display: block;
 
-            .media {
-                margin: 5px;
-            }
+         
         }
     }
 }

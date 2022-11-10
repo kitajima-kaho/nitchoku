@@ -34,11 +34,6 @@ export default {
     </header>
 </template>
 <style lang="scss" scoped>
-* {
-    margin:0;
-    padding:0;
-} 
-
 .header {
 
     .header_container {

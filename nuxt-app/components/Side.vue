@@ -38,6 +38,7 @@ export default {
     width: 350px;
     min-width: 240px;
     height: 675px;
+    padding: 20px;
 
     h2 {
         text-align: center;
@@ -88,6 +89,7 @@ export default {
             margin: 5px;
             width: 97%;
             height: 100%;
+            padding: 20px;
         }
     }
 }

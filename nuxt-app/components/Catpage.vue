@@ -38,32 +38,53 @@ h2 {
 	margin-bottom: 15px;
 }
 
-.article_box {
-	display: flex;
-    cursor: pointer;
-    width: 550px;
-			
-	.media-content {
-		margin-left: 20px;
-		display: flex;
-		align-items: center;
+.wrap {
+	padding-top: 24px;
 
-		p {
-			font-size: 20px;
+	.article_box {
+		display: flex;
+		cursor: pointer;
+		width: 550px;
+		margin-left: 20px;
+		margin-right: 20px;
+		margin-bottom: 24px;
+
+		.media-content {
+			margin-left: 20px;
+			display: flex;
+			align-items: center;
+
+			p {
+				font-size: 20px;
+			}
 		}
 	}
 }
 
+
 @media only screen and (min-width:640px) and (max-width:1023px) {
+.wrap {
+
 	.article_box {
-		width: auto;
+		width: auto !important;
 	}
 }
 
+}
+
 @media screen and (max-width:639px) {    
-	.article_box {
-        width: auto;
-    }
+	.wrap {
+		padding-top: 24px;
+		padding-bottom: 24px;
+
+		.article_box {
+			width: auto;
+			margin-bottom: 5px;
+
+		}
+	
+	}
+	
 }
 
 </style>

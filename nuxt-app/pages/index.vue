@@ -280,76 +280,78 @@ export default {
 </script>
 
 <template>
-<div id="page" >
+<div id="page">
     <Header></Header>
-    <article class="box media roulette_box">
-        <h2 class="main_title">ルーレットで決める</h2>
-        <div class="click_container">
-            <div class="select is-warning">
-                <select v-model="recipeTarget">
-                    <option value="not">選択してください</option>
-                    <optgroup label="--- 国 ---">
-                        <option value="american">アメリカ</option>
-                        <option value="japanese">日本</option>
-                        <option value="chinese">中国</option>
-                        <option value="french">フランス</option>
-                    </optgroup>
-                    <optgroup label="--- 素材 ---">
-                        <option value="chicken">鶏肉</option>
-                        <option value="beef">牛肉</option>
-                        <option value="seafood">魚介</option>
-                        <option value="vegetarian">野菜</option>
-                    </optgroup>
-                </select>
-            </div>               
+    <div class="main_wrap">
+        <article class="box media roulette_box">
+            <h2 class="main_title">ルーレットで決める</h2>
+            <div class="click_container">
+                <div class="select is-warning">
+                    <select v-model="recipeTarget">
+                        <option value="not">選択してください</option>
+                        <optgroup label="--- 国 ---">
+                            <option value="american">アメリカ</option>
+                            <option value="japanese">日本</option>
+                            <option value="chinese">中国</option>
+                            <option value="french">フランス</option>
+                        </optgroup>
+                        <optgroup label="--- 素材 ---">
+                            <option value="chicken">鶏肉</option>
+                            <option value="beef">牛肉</option>
+                            <option value="seafood">魚介</option>
+                            <option value="vegetarian">野菜</option>
+                        </optgroup>
+                    </select>
+                </div>               
+                
+                <div class="btn_container">
+                    <button class="button is-warning is-rounded is-medium is-responsive inline_btn"  :class="{transparency : transparency}" @click="set()">ルーレットにレシピをセットする</button>
+                    <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-if="status !== 'start'" :class="{click_none : clickNone, second_click_none : SecondClickNone}" @click="start()">スタート</button>
+                    <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-else @click="stop()">ストップ</button>
+                </div>
+            </div>
             
-            <div class="btn_container">
-                <button class="button is-warning is-rounded is-medium is-responsive inline_btn"  :class="{transparency : transparency}" @click="set()">ルーレットにレシピをセットする</button>
-                <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-if="status !== 'start'" :class="{click_none : clickNone, second_click_none : SecondClickNone}" @click="start()">スタート</button>
-                <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-else @click="stop()">ストップ</button>
-            </div>
-        </div>
-        
-        <div class="roulette_cover roulette_on" v-if="displayRoulette">
-            <div class="target" :class="{color_blue : rouletteRecipe[0].colorStatus}">
-                <span>{{ rouletteRecipe[0].jpStrMeal }}</span>
-                <figure class="image image_box is-64x64">
-                    <img :src="rouletteRecipe[0].strMealThumb" alt="Image">
+            <div class="roulette_cover roulette_on" v-if="displayRoulette">
+                <div class="target" :class="{color_blue : rouletteRecipe[0].colorStatus}">
+                    <span>{{ rouletteRecipe[0].jpStrMeal }}</span>
+                    <figure class="image image_box is-64x64">
+                        <img :src="rouletteRecipe[0].strMealThumb" alt="Image">
+                    </figure>
+                </div>
+                <div class="target" :class="{color_red : rouletteRecipe[1].colorStatus}">
+                    <span>{{ rouletteRecipe[1].jpStrMeal }}</span>
+                    <figure class="image image_box is-64x64">
+                    <img :src="rouletteRecipe[1].strMealThumb" alt="Image">
                 </figure>
+                </div>	
+                <div class="target" :class="{color_green : rouletteRecipe[2].colorStatus}">
+                    <span>{{ rouletteRecipe[2].jpStrMeal }}</span>          
+                    <figure class="image image_box is-64x64">
+                        <img :src="rouletteRecipe[2].strMealThumb" alt="Image">
+                    </figure>
+                </div>	
+                <div class="target" :class="{color_yellow : rouletteRecipe[3].colorStatus}">
+                    <span>{{ rouletteRecipe[3].jpStrMeal }}</span>
+                    <figure class="image image_box is-64x64">
+                        <img :src="rouletteRecipe[3].strMealThumb" alt="Image">
+                    </figure>
+                </div>
             </div>
-            <div class="target" :class="{color_red : rouletteRecipe[1].colorStatus}">
-                <span>{{ rouletteRecipe[1].jpStrMeal }}</span>
-                <figure class="image image_box is-64x64">
-                <img :src="rouletteRecipe[1].strMealThumb" alt="Image">
-            </figure>
-            </div>	
-            <div class="target" :class="{color_green : rouletteRecipe[2].colorStatus}">
-                <span>{{ rouletteRecipe[2].jpStrMeal }}</span>          
-                <figure class="image image_box is-64x64">
-                    <img :src="rouletteRecipe[2].strMealThumb" alt="Image">
-                </figure>
-            </div>	
-            <div class="target" :class="{color_yellow : rouletteRecipe[3].colorStatus}">
-                <span>{{ rouletteRecipe[3].jpStrMeal }}</span>
-                <figure class="image image_box is-64x64">
-                    <img :src="rouletteRecipe[3].strMealThumb" alt="Image">
-                </figure>
+
+            <div class="roulette_cover roulette_on" v-else>
+                <div class="target"></div>
+                <div class="target"></div>
+                <div class="target"></div>
+                <div class="target"></div>
             </div>
-        </div>
 
-        <div class="roulette_cover roulette_on" v-else>
-            <div class="target"></div>
-            <div class="target"></div>
-            <div class="target"></div>
-            <div class="target"></div>
-        </div>
+        </article>
 
-    </article>
+        <Side
+            :recipeRankingList = "recipeRankingList" 
+        ></Side>
 
-    <Side
-        :recipeRankingList = "recipeRankingList" 
-    ></Side>
-
+    </div>
     <Footer></Footer>          
             <Modal 
                 :isActive="isActive" 
@@ -369,168 +371,187 @@ export default {
     padding:0;
 }
 
-.page {
-    overflow: hidden;
-    
-}
-
-.click_container {
-    justify-content: space-between;  
-    margin-bottom: 20px;
-
-    .transparency {
-        opacity: 0;
-        pointer-events: none;
-    }
-
-
-    .btn_container {
-        display: flex;
-        margin-top: 15px;
-
-        .btn_right {
-        display: block;
-        }
-    }
-}
-
-.second_click_none {
-    pointer-events: none;
-}
-
-.roulette_box {
-    width: fit-content;
-    padding: 20px;
-}
-    
-.roulette_cover {
-    background-color: #FF8A02;
-    width: 450px;
-    height: 450px;
-    border-radius: 50%;
-    margin: 20px;
+#page {
     position: relative;
+    padding-bottom: 50px;
+    min-height: 100vh;
+    box-sizing: border-box;
+    background-color: #FCF4EC;
+    width: 100vw;
 
-    .target {
-        width: 225px;
-        height: 225px;
+    .main_wrap {
+        margin-right: auto;
+        margin-left: auto;
+        max-width: 925px;
+        display: flex;
 
-        span {
-            box-sizing: content-box; 
+        .roulette_box {
+            width: fit-content;
+            padding: 20px;
             display: block;
-            width: 140px;
-        }
-
-        &:first-child {
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            border-radius: 0 100% 0 0;
-            padding-top: 50px;
-
-            border: solid 0.5em blue;
-            background-color: #bbdbf3;
-
-            span {
-                display: block;
-                padding-left: 20px;
+            margin-top: 20px;
+            
+            .main_title {
+                text-align: center;
+			    margin-bottom: 15px;
             }
 
-            .image {
-                display: block;
-                margin-top: 10px;
-                margin-left: 40px;
-            }   
+            .click_container {
+                justify-content: space-between;  
+                margin-bottom: 20px;
 
-            &:not(.color_blue) {
-                border: none;
-                background-color: #bbdbf3;
-            }
-        }
+                .transparency {
+                    opacity: 0;
+                    pointer-events: none;
+                }
 
-        &:nth-child(2) {
-            position: absolute;
-            bottom: 0px;
-            right: 0px;
-            border-radius: 0 0 100% 0;
-            padding-top: 35px;
-            border: solid 0.5em red;
-            background-color: #e3acae;
+                .btn_container {
+                    display: flex;
+                    margin-top: 15px;
 
-            span {
-                padding-left: 20px;
-            }
+                    .second_click_none {
+                        pointer-events: none;
+                    }
 
-            .image {
-                display: block;
-                margin-top: 5px;
-                margin-left: 40px;
-            }   
+                    .button {
+                        display: block;
+                        margin-left: 10px;
+                    }
 
-            &:not(.color_red) {
-                border: none;
-                background-color: #e3acae;
-            }
-        }
-
-        &:nth-child(3) {
-            position: absolute;
-            bottom: 0px;
-            left: 0px;
-            border-radius: 0 0 0 100%;
-            border: solid 0.5em green;
-            background-color: #a3d6ce;
-            padding-top: 35px;
-
-            span {
-                display: block;
-                padding-left: 70px;
+                    .btn_right {
+                        display: block;
+                    }
+                }
             }
 
-            .image {
-                display: block;
-                margin-top: 5px;
-                margin-left: 120px;
-            }   
+            .roulette_cover {
+                background-color: #FF8A02;
+                width: 450px;
+                height: 450px;
+                border-radius: 50%;
+                margin: 20px;
+                position: relative;
+
+                .target {
+                    width: 225px;
+                    height: 225px;
+
+                    span {
+                        box-sizing: content-box; 
+                        display: block;
+                        width: 140px;
+                    }
+
+                    &:first-child {
+                        position: absolute;
+                        top: 0px;
+                        right: 0px;
+                        border-radius: 0 100% 0 0;
+                        padding-top: 50px;
+
+                        border: solid 0.5em blue;
+                        background-color: #bbdbf3;
+
+                        span {
+                            display: block;
+                            padding-left: 20px;
+                        }
+
+                        .image {
+                            display: block;
+                            margin-top: 10px;
+                            margin-left: 40px;
+                        }   
+
+                        &:not(.color_blue) {
+                            border: none;
+                            background-color: #bbdbf3;
+                        }
+                    }
+
+                    &:nth-child(2) {
+                        position: absolute;
+                        bottom: 0px;
+                        right: 0px;
+                        border-radius: 0 0 100% 0;
+                        padding-top: 35px;
+                        border: solid 0.5em red;
+                        background-color: #e3acae;
+
+                        span {
+                            padding-left: 20px;
+                        }
+
+                        .image {
+                            display: block;
+                            margin-top: 5px;
+                            margin-left: 40px;
+                        }   
+
+                        &:not(.color_red) {
+                            border: none;
+                            background-color: #e3acae;
+                        }
+                    }
+
+                    &:nth-child(3) {
+                        position: absolute;
+                        bottom: 0px;
+                        left: 0px;
+                        border-radius: 0 0 0 100%;
+                        border: solid 0.5em green;
+                        background-color: #a3d6ce;
+                        padding-top: 35px;
+
+                        span {
+                            display: block;
+                            padding-left: 70px;
+                        }
+
+                        .image {
+                            display: block;
+                            margin-top: 5px;
+                            margin-left: 120px;
+                        }   
 
 
 
-            &:not(.color_green) {
-                border: none;
-                background-color: #a3d6ce;
-            }
-        }
+                        &:not(.color_green) {
+                            border: none;
+                            background-color: #a3d6ce;
+                        }
+                    }
 
-        &:last-child {
-            padding-top: 50px;
-            top: 0px;
-            left: 0px;
-            border-radius: 100% 0 0 0;
-            border: solid 0.5em yellow;
-            background-color: #ffedab;
+                    &:last-child {
+                        padding-top: 50px;
+                        top: 0px;
+                        left: 0px;
+                        border-radius: 100% 0 0 0;
+                        border: solid 0.5em yellow;
+                        background-color: #ffedab;
 
-            span {
-                padding-left: 70px;
-            }
+                        span {
+                            padding-left: 70px;
+                        }
 
-            .image {
-                display: block;
-                margin-top: 10px;
-                margin-left: 120px;
-            }   
+                        .image {
+                            display: block;
+                            margin-top: 10px;
+                            margin-left: 120px;
+                        }   
 
-            &:not(.color_yellow) {
-                border: none;
-                background-color: #ffedab;
+                        &:not(.color_yellow) {
+                            border: none;
+                            background-color: #ffedab;
+                        }
+                    }
+                }
             }
         }
     }
 }
 
-.button {
-    display: block;
-    margin-left: 10px;
-}
+
 
 @media screen and (min-width:640px) and (max-width:1023px) {
     html {

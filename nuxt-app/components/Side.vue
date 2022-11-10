@@ -19,7 +19,7 @@ export default {
                     <div class="content">
                         <p>
                         {{ item.rank }}位<br>
-                        <a target="_blank" :href="item.recipeUrl">{{ item.recipeTitle }}</a>
+                        <a target="_blank" rel=”noopener” :href="item.recipeUrl">{{ item.recipeTitle }}</a>
                         <br>
                         </p>
                     </div>

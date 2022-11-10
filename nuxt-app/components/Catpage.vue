@@ -7,7 +7,8 @@ export default {
 
 	methods: {
 		clickUrl(recipeUrl) {
-			window.open(recipeUrl, '_blank')
+			// _blankは危険、noopenerによって外部から元のJSを触られないようにする。
+			window.open(recipeUrl, '_blank', 'noopener')
 		},
 	},
 }

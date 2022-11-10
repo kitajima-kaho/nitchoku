@@ -22,7 +22,7 @@ export default {
                     <h2 v-if="isActive">{{ todayRecipeTitle }}</h2>
                     <img v-if="isActive" class="modal_img" :src="todayRecipeImg">
                     <h3>作り方はこちら🔻</h3>
-                    <a v-if="isActive" target="_blank" :href="todayRecipeUrl" >{{ todayRecipeUrl }}</a>
+                    <a v-if="isActive" target="_blank" rel=”noopener” :href="todayRecipeUrl" >{{ todayRecipeUrl }}</a>
                 </div>
             </section>
             <footer class="modal-card-foot">

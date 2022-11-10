@@ -94,14 +94,14 @@ export default {
 @media screen and (max-width:639px) {    
     .header {
         .header_container {
-            height: 155px;
+            height: auto;
+            padding: 5px;
 
             .header_display {
                 display: block;
 
 
                 .logo {
-                    margin-top: 5px;
                     margin-bottom: 5px;
                     width: 100%;
                     min-width: 85px;

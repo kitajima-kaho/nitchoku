@@ -305,7 +305,7 @@ export default {
                 </div>               
                 
                 <div class="btn_container">
-                    <button class="button is-warning is-rounded is-medium is-responsive inline_btn"  :class="{transparency : transparency}" @click="set()">ルーレットにレシピをセットする</button>
+                    <button class="button btn_left is-warning is-rounded is-medium is-responsive inline_btn"  :class="{transparency : transparency}" @click="set()">ルーレットにレシピをセットする</button>
                     <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-if="status !== 'start'" :class="{click_none : clickNone, second_click_none : SecondClickNone}" @click="start()">スタート</button>
                     <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-else @click="stop()">ストップ</button>
                 </div>
@@ -561,7 +561,8 @@ export default {
             width: 100%;
         }
 
-        .main_wrap {
+        #page {
+            .main_wrap {
             margin: 20px auto;
 
             .media {
@@ -613,96 +614,113 @@ export default {
                 }
             }
         }
-    }
-    .logo {
-        min-width: 150px;
+
+        // .side {
+        //     width: 20%;
+        // }
+
+        }
+
     }
 }
 
 @media screen and ( max-width:639px ) {
-    .roulette_box {
-        box-sizing: border-box;
-        width: 97%;
-        height: 460px;
 
-        .click_container {
+    #page {
 
-            .btn_container {
-                display: flex;
+        .main_wrap {
+            display: block;
 
-                .btn_right {
-                    margin-left: 24px;
+        .roulette_box {
+            box-sizing: border-box;
+            width: 97%;
+            margin: 5px;
+
+            .click_container {
+                display: block;
+
+                .btn_container {
+                    display: block;
+
+                    .btn_left{
+                        margin: 10px auto;
+                    }
+
+                    .btn_right {
+                        margin: 10px auto;
+                    }
                 }
             }
-        }
 
+            .roulette_cover {
+                width: 270px;
+                height: 270px;
+                margin: 0px auto;        
+
+                .target {
+                    width: 135px;
+                    height: 135px;
+                    font-size: 15px;
+
+                    &:first-child {
+                        padding-left: 0;
+                        padding-top: 40px;
+
+                        span {
+                            display: none;
+                        }
+
+                        .image {
+                            margin-top: 10px;
+                            margin-left: 20px;
+                        }
+                    }
+
+                    &:nth-child(2) {
+                        padding-top: 20px;
+
+                        .image {
+                            margin: 0;
+                            margin-left: 20px;
+
+                        }
+
+                        span {
+                            display: none;
+                        }
+                    }
+
+                    &:nth-child(3) {
+                        padding-top: 20px;
+
+                        .image {
+                            margin: 0;
+                            margin-left: 50px;
+
+                        }
+                        
+                        span {
+                            display: none;
+                        }
+                        
+                    }
+
+                    &:last-child {
+
+                        .image {
+                            margin: 0;
+                            margin-left: 50px;
+                        }
+                        
+                        span {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }   
     }
-
-    .roulette_cover {
-        width: 270px;
-        height: 270px;
-        margin: 0px auto;        
-
-        .target {
-            width: 135px;
-            height: 135px;
-            font-size: 15px;
-
-            &:first-child {
-                padding-left: 0;
-                padding-top: 40px;
-
-                span {
-                    display: none;
-                }
-
-                .image {
-                    margin-top: 10px;
-                    margin-left: 20px;
-                }
-            }
-
-            &:nth-child(2) {
-                padding-top: 20px;
-
-                .image {
-                    margin: 0;
-                    margin-left: 20px;
-
-                }
-
-                span {
-                    display: none;
-                }
-            }
-
-            &:nth-child(3) {
-                padding-top: 20px;
-
-                .image {
-                    margin: 0;
-                    margin-left: 50px;
-
-                }
-                
-                span {
-                    display: none;
-                }
-                
-            }
-
-            &:last-child {
-
-                .image {
-                    margin: 0;
-                    margin-left: 50px;
-                }
-                
-                span {
-                    display: none;
-                }
-            }
-        }
     }
+    
 }
 </style>

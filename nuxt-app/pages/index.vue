@@ -471,7 +471,7 @@ export default {
                         // .color_blue がついている時。
                         // すなわちルーレットがチカってしている時。
                         border-radius: 0 100% 0 0;
-                        border: solid 0.5em blue;
+                        border: solid 0.3em blue;
                         background-color: #bbdbf3;
 
                         img {
@@ -514,7 +514,7 @@ export default {
                         bottom: 0px;
                         right: 0px;
                         border-radius: 0 0 100% 0;
-                        border: solid 0.5em red;
+                        border: solid 0.3em red;
                         background-color: #e3acae;
 
                         img {
@@ -556,7 +556,7 @@ export default {
                         bottom: 0px;
                         left: 0px;
                         border-radius: 0 0 0 100%;
-                        border: solid 0.5em green;
+                        border: solid 0.3em green;
                         background-color: #a3d6ce;
 
                         img {
@@ -595,7 +595,7 @@ export default {
                         top: 0px;
                         left: 0px;
                         border-radius: 100% 0 0 0;
-                        border: solid 0.5em yellow;
+                        border: solid 0.3em yellow;
                         background-color: #ffedab;
 
                         img {
@@ -655,68 +655,50 @@ export default {
                     .roulette_cover {
                         width: 300px;
                         height: 300px;
-                        margin: 0 auto;
+                        margin: 70px auto;
 
                         .target {
-                            // display: flex;
                             width: 150px;
                             height: 150px;
                             font-size: 15px;
-                            padding-top: 50px;
-                            padding-left: 45px;
+
+                            span {
+                                display: none;
+                            }
 
                             &:first-child {
-                                padding-top: 60px;
-                                margin-left: 20px;
-                                padding-left: 0;
-
-                                span {
-                                    display: none;
-                                }
-
-                                .image {
-                                    margin-top: 10px;
-                                    margin-left: 20px;
-                                }
+                                &:not(.color_blue) {
+                                    img {
+                                        filter: grayscale(80%);
+                                        opacity: 0.7; 
+                                    }                      
+                                }   
                             }
 
                             &:nth-child(2) {
-                                padding-top: 20px;
-                                padding-left: 0;
-
-                                span {
-                                    display: none;
-                                }
-
-                                .image {
-                                    margin: 0;
-                                    margin-left: 20px;
-                                }
+                                &:not(.color_red) {
+                                    img {
+                                        filter: grayscale(80%);
+                                        opacity: 0.7; 
+                                    }                      
+                                }   
                             }
 
                             &:nth-child(3) {
-                                padding-top: 20px;
-
-                                span {
-                                    display: none;
-                                }
-
-                                .image {
-                                    margin: 0;
-                                    margin-left: 50px;
+                                &:not(.color_green) {
+                                    img {
+                                        filter: grayscale(80%);
+                                        opacity: 0.7; 
+                                    }                      
                                 }
                             }
                             
                             &:last-child {
-                                padding-top: 60px;
-
-                                span {
-                                    display: none;
-                                }
-
-                                .image {
-                                    margin: 10px;
-                                    margin-left: 20px;
+                                &:not(.color_yellow) {
+                                    img {
+                                        filter: grayscale(80%);
+                                        opacity: 0.7; 
+                                    }                      
                                 }
                             }
                         }
@@ -765,55 +747,39 @@ export default {
                         height: 135px;
                         font-size: 15px;
 
+                        span {
+                            display: none;
+                        }
+
                         &:first-child {
-                            padding-left: 0;
-                            padding-top: 40px;
-
-                            span {
-                                display: none;
-                            }
-
-                            .image {
-                                margin-top: 10px;
-                                margin-left: 20px;
-                            }
+                            &:not(.color_blue) {
+                                img {
+                                    filter: grayscale(80%);
+                                }                      
+                            }   
                         }
 
                         &:nth-child(2) {
-                            padding-top: 20px;
-
-                            span {
-                                display: none;
-                            }
-
-                            .image {
-                                margin: 0;
-                                margin-left: 20px;
-                            }
+                            &:not(.color_red) {
+                                img {
+                                    filter: grayscale(80%);
+                                }                      
+                            }   
                         }
 
                         &:nth-child(3) {
-                            padding-top: 20px;
-
-                            span {
-                                display: none;
+                            &:not(.color_green) {
+                                img {
+                                    filter: grayscale(80%);
+                                }                      
                             }
-
-                            .image {
-                                margin: 0;
-                                margin-left: 50px;
-                            }                                                
                         }
 
                         &:last-child {
-
-                            span {
-                                display: none;
-                            }
-
-                            .image {
-                                margin: 0;
-                                margin-left: 50px;
+                            &:not(.color_yellow) {
+                                img {
+                                    filter: grayscale(80%);
+                                }                      
                             }
                         }
                     }
@@ -821,6 +787,5 @@ export default {
             }   
         }
     }
-    
 }
 </style>

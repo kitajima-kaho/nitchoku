@@ -65,11 +65,12 @@ export default {
 		this.shuffle(this.catRecipeList)
 
 		// 翻訳する　 // 🌟ここ戻す
-		// await this.translateAPI(this.catRecipeList)
+		await this.translateAPI(this.catRecipeList)
 
 		// 英語タイトルを翻訳しタイトルに置き換える。レシピのURLをレシピObjに追加する。
 		this.catRecipeList.forEach((e, i) => {
-			// e.strMeal   = this.translationsRecipeTitles[i] // 🌟ここ戻す
+			e.strMeal   = this.translationsRecipeTitles[i]
+			// 🌟ここ戻す
 			
 			e.recipeUrl = 'https://www.themealdb.com/meal/' + e.idMeal
 		})

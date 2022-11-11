@@ -392,8 +392,11 @@ export default {
             margin-top: 20px;
             
             .main_title {
+                font-family: "メイリオ";
+
                 text-align: center;
 			    margin-bottom: 15px;
+
             }
 
             .click_container {

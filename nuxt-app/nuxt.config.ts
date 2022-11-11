@@ -9,6 +9,20 @@ export default defineNuxtConfig({
     '@pinia/nuxt'
   ],
 
+  app: {
+    head: {
+      title: 'nanitabe',
+      htmlAttrs: {
+        lang: 'ja'
+      },
+    
+      // link: [
+      //   { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      // ]
+    },
+
+  }
+  
 
 
 

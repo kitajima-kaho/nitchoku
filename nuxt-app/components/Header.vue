@@ -5,7 +5,6 @@ export default {
             const pageNamePath = "/" + event.target.dataset.cat;
             // alert(pageNamePath)
             this.$router.push(pageNamePath)
-
         },
     },
 
@@ -16,7 +15,7 @@ export default {
 </script>
 
 <template>
-    <header>
+    <header class="header">
         <div class="header_container">
             <div class="header_display is-align-items-center">
                 <div class="logo">
@@ -33,13 +32,8 @@ export default {
         </div>
     </header>
 </template>
-<style lang="scss">
-* {
-    margin:0;
-    padding:0;
-} 
-
-header {
+<style lang="scss" scoped>
+.header {
 
     .header_container {
         background: url(~/assets/image/foodiesfeed.com_traditional-korean-meals.jpg)  center / cover ;
@@ -76,9 +70,9 @@ header {
     }
 }
 
-@media only screen and (min-width:640px) and (max-width:1023px) {
+@media screen and (min-width:640px) and (max-width:1023px) {
     html {
-        header {
+        .header {
 
             .header_container {
 
@@ -97,22 +91,17 @@ header {
     }   
 }
 
-
 @media screen and (max-width:639px) {    
-    header {
+    .header {
         .header_container {
-        background: url(~/assets/image/foodiesfeed.com_traditional-korean-meals.jpg) no-repeat center / cover ;
-        background-color: rgba(#FF8A02, 0.3);
-        background-blend-mode: lighten;
-        height: 155px;
-        background-blend-mode: lighten;
+            height: auto;
+            padding: 5px;
 
             .header_display {
                 display: block;
 
 
                 .logo {
-                    margin-top: 5px;
                     margin-bottom: 5px;
                     width: 100%;
                     min-width: 85px;
@@ -123,7 +112,6 @@ header {
                         height: 64px;
                         width: 100px;
                         min-width: 85px;
-
                     }
                 }
 

@@ -64,12 +64,14 @@ export default {
 		// 順番をランダムに表示する。
 		this.shuffle(this.catRecipeList)
 
-		// 翻訳する
+		// 翻訳する　 // 🌟ここ戻す
 		await this.translateAPI(this.catRecipeList)
 
 		// 英語タイトルを翻訳しタイトルに置き換える。レシピのURLをレシピObjに追加する。
 		this.catRecipeList.forEach((e, i) => {
 			e.strMeal   = this.translationsRecipeTitles[i]
+			// 🌟ここ戻す
+			
 			e.recipeUrl = 'https://www.themealdb.com/meal/' + e.idMeal
 		})
 
@@ -122,12 +124,12 @@ export default {
 }
 </script>
 <template>
-<div id="page" >
+<div id="page">
 	<Header></Header>
 	<Main>
 		<article class="box media">
 			<Catpage :recipeList="catRecipeList">
-				<h2>{{ categoryMainTitle }}カテゴリーレシピ一覧</h2>
+				<h2 class="main_title">{{ categoryMainTitle }}カテゴリーレシピ一覧</h2>
 			</Catpage>
 		</article>		
 
@@ -139,3 +141,45 @@ export default {
 	<Footer></Footer>
 </div>
 </template>
+<style lang="scss" scoped>
+* {
+    margin:0;
+    padding:0;
+} 
+
+#page {
+    position: relative;
+    padding-bottom: 50px;
+    min-height: 100vh;
+    box-sizing: border-box;
+    background-color: #FCF4EC;
+    width: 100vw;
+
+	.media {
+		margin-top: 20px;
+		display: block;
+		.main_title {
+			text-align: center;
+			margin-bottom: 15px;
+		}
+		
+	}
+}
+@media screen and (min-width:640px) and (max-width:1023px) {
+	.media {
+		width: 60%;
+	}
+
+	.side {
+		width: 20%;
+	}
+}
+
+@media screen and (max-width:639px) { 
+	#page {
+		.media {
+			margin: 5px;
+		}
+	}   
+}
+</style>

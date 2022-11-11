@@ -166,7 +166,7 @@ export default {
             // スタートボタンを押せるようにする。
 			this.clickNone = false;  
 
-            // 翻訳する。
+            // 翻訳する。🌟
             this.translateAPI(this.rouletteRecipe)
         },
 
@@ -313,26 +313,26 @@ export default {
             
             <div class="roulette_cover roulette_on" v-if="displayRoulette">
                 <div class="target" :class="{color_blue : rouletteRecipe[0].colorStatus}">
-                    <span>{{ rouletteRecipe[0].jpStrMeal }}</span>
-                    <figure class="image image_box is-64x64">
+                    <figure class="image image_box">
+                        <span>{{ rouletteRecipe[0].jpStrMeal }}</span>
                         <img :src="rouletteRecipe[0].strMealThumb" alt="Image">
                     </figure>
                 </div>
                 <div class="target" :class="{color_red : rouletteRecipe[1].colorStatus}">
-                    <span>{{ rouletteRecipe[1].jpStrMeal }}</span>
-                    <figure class="image image_box is-64x64">
-                    <img :src="rouletteRecipe[1].strMealThumb" alt="Image">
-                </figure>
+                    <figure class="image image_box">
+                        <span>{{ rouletteRecipe[1].jpStrMeal }}</span>
+                        <img :src="rouletteRecipe[1].strMealThumb" alt="Image">
+                    </figure>
                 </div>	
                 <div class="target" :class="{color_green : rouletteRecipe[2].colorStatus}">
-                    <span>{{ rouletteRecipe[2].jpStrMeal }}</span>          
-                    <figure class="image image_box is-64x64">
+                    <figure class="image image_box">
+                        <span>{{ rouletteRecipe[2].jpStrMeal }}</span>          
                         <img :src="rouletteRecipe[2].strMealThumb" alt="Image">
                     </figure>
                 </div>	
                 <div class="target" :class="{color_yellow : rouletteRecipe[3].colorStatus}">
-                    <span>{{ rouletteRecipe[3].jpStrMeal }}</span>
-                    <figure class="image image_box is-64x64">
+                    <figure class="image image_box">
+                        <span>{{ rouletteRecipe[3].jpStrMeal }}</span>
                         <img :src="rouletteRecipe[3].strMealThumb" alt="Image">
                     </figure>
                 </div>
@@ -424,6 +424,8 @@ export default {
                 }
             }
 
+            // ルーレットここから　🌟いずれ消す
+
             .roulette_cover {
                 background-color: #FF8A02;
                 width: 450px;
@@ -435,37 +437,75 @@ export default {
                 .target {
                     width: 225px;
                     height: 225px;
-
-                    span {
-                        box-sizing: content-box; 
+                    
+                    .image {
+                        // 親要素（targetに大きさを合わせる。）
                         display: block;
-                        width: 140px;
-                    }
+                        width: 100%;
+                        height: 100%;
+
+                        // imgと文字を重ねている。
+                        // 写真の位置を円に合うように配置(中のspanは重なる) 
+                        position: relative;
+
+                        span {
+                            // imgと文字を重ねている。
+                            position: absolute;
+                            z-index: 1;
+                        }
+
+                        img {
+                            position: absolute;
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                    } 
 
                     &:first-child {
+                        // ルーレットの的を円に当てている。
                         position: absolute;
                         top: 0px;
                         right: 0px;
-                        border-radius: 0 100% 0 0;
-                        padding-top: 50px;
 
+                        // .color_blue がついている時。
+                        // すなわちルーレットがチカってしている時。
+                        border-radius: 0 100% 0 0;
                         border: solid 0.5em blue;
                         background-color: #bbdbf3;
 
-                        span {
-                            display: block;
-                            padding-left: 20px;
+                        img {
+                            top: 0px;
+                            right: 0px;
+                            border-radius: 0 100% 0 0;
                         }
 
-                        .image {
-                            display: block;
-                            margin-top: 10px;
-                            margin-left: 40px;
-                        }   
-
+                        span {
+                            opacity:0;
+                        }
+ 
+                        // .color_blue がついていない時
+                        // すなわち、ルーレットでチカってしていない時。
+                        // 回っていない時もこれ。（セット時とセット前両方）
                         &:not(.color_blue) {
                             border: none;
                             background-color: #bbdbf3;
+
+                            img {
+                                filter: grayscale(100%);
+                                opacity: 0.5; 
+                            }
+
+                            span {
+                                bottom: 10px;
+                                left: 10px;
+                                right: 10px;
+                                font-size: 16px;
+                                font-weight: bold;
+                                text-shadow: 1px 1px 8px #4aa5eb;
+                                color: white;
+                                opacity:1;
+                            }
                         }
                     }
 
@@ -474,23 +514,40 @@ export default {
                         bottom: 0px;
                         right: 0px;
                         border-radius: 0 0 100% 0;
-                        padding-top: 35px;
                         border: solid 0.5em red;
                         background-color: #e3acae;
 
-                        span {
-                            padding-left: 20px;
+                        img {
+                            bottom: 0px;
+                            right: 0px;
+                            border-radius: 0 0 100% 0;
                         }
 
-                        .image {
-                            display: block;
-                            margin-top: 5px;
-                            margin-left: 40px;
-                        }   
+
+                        span {
+                            opacity:0;
+                        }
+
 
                         &:not(.color_red) {
                             border: none;
                             background-color: #e3acae;
+
+                            img {
+                                filter: grayscale(100%);
+                                opacity: 0.5; 
+                            }
+
+                            span {
+                                opacity: 1;
+                                color: white;
+                                font-size: 16px;
+                                font-weight: bold;
+                                text-shadow: 1px 1px 8px #e26266;
+                                top: 10px;
+                                right: 10px;
+                                left: 10px;
+                            }
                         }
                     }
 
@@ -501,48 +558,75 @@ export default {
                         border-radius: 0 0 0 100%;
                         border: solid 0.5em green;
                         background-color: #a3d6ce;
-                        padding-top: 35px;
 
-                        span {
-                            display: block;
-                            padding-left: 70px;
+                        img {
+                            bottom: 0px;
+                            left: 0px;
+                            border-radius: 0 0 0 100%;
                         }
 
-                        .image {
-                            display: block;
-                            margin-top: 5px;
-                            margin-left: 120px;
-                        }   
-
-
+                        span {
+                            opacity:0;
+                        }
 
                         &:not(.color_green) {
                             border: none;
                             background-color: #a3d6ce;
+
+                            img {
+                                filter: grayscale(100%);
+                                opacity: 0.5; 
+                            }
+
+                            span {
+                                opacity: 1;
+                                color: white;
+                                font-size: 16px;
+                                font-weight: bold;
+                                text-shadow: 1px 1px 8px #39e1c8;
+                                top: 10px;
+                                right: 10px;
+                                margin-left: 10px;
+                            }
                         }
                     }
 
                     &:last-child {
-                        padding-top: 50px;
                         top: 0px;
                         left: 0px;
                         border-radius: 100% 0 0 0;
                         border: solid 0.5em yellow;
                         background-color: #ffedab;
 
-                        span {
-                            padding-left: 70px;
+                        img {
+                            top: 0px;
+                            left: 0px;
+                            border-radius: 100% 0 0 0;
                         }
 
-                        .image {
-                            display: block;
-                            margin-top: 10px;
-                            margin-left: 120px;
-                        }   
-
+                        span {
+                            opacity:0;
+                        }
+    
                         &:not(.color_yellow) {
                             border: none;
                             background-color: #ffedab;
+
+                            img {
+                                filter: grayscale(100%);
+                                opacity: 0.5; 
+                            }
+
+                            span {
+                                opacity: 1;
+                                color: white;
+                                font-size: 16px;
+                                font-weight: bold;
+                                text-shadow: 1px 1px 8px #f1b40c;
+                                bottom: 10px;
+                                right: 10px;
+                                margin-left: 10px;
+                            }
                         }
                     }
                 }

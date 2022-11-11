@@ -565,62 +565,81 @@ export default {
             .main_wrap {
             margin: 20px auto;
 
-            .media {
-                width: 60%;
+                .media {
+                    width: 60%;
 
-                .roulette_cover {
-                    width: 300px;
-                    height: 300px;
-                    margin: 0 auto;
+                    .roulette_cover {
+                        width: 300px;
+                        height: 300px;
+                        margin: 0 auto;
 
-                    .target {
-                        // display: flex;
-                        width: 150px;
-                        height: 150px;
-                        font-size: 15px;
-                        padding-top: 50px;
-                        padding-left: 45px;
+                        .target {
+                            // display: flex;
+                            width: 150px;
+                            height: 150px;
+                            font-size: 15px;
+                            padding-top: 50px;
+                            padding-left: 45px;
 
-                        &:first-child {
-                            padding-top: 60px;
-                            margin-left: 20px;
-                            padding-left: 0;
-                        }
+                            &:first-child {
+                                padding-top: 60px;
+                                margin-left: 20px;
+                                padding-left: 0;
 
-                        &:nth-child(2) {
-                            padding-top: 20px;
-                            padding-left: 0;
-                        }
+                                span {
+                                    display: none;
+                                }
 
-                        &:nth-child(3) {
-                            padding-top: 20px;
+                                .image {
+                                    margin-top: 10px;
+                                    margin-left: 20px;
+                                }
+                            }
+
+                            &:nth-child(2) {
+                                padding-top: 20px;
+                                padding-left: 0;
+
+                                span {
+                                    display: none;
+                                }
+
+                                .image {
+                                    margin: 0;
+                                    margin-left: 20px;
+                                }
+                            }
+
+                            &:nth-child(3) {
+                                padding-top: 20px;
+
+                                span {
+                                    display: none;
+                                }
+
+                                .image {
+                                    margin: 0;
+                                    margin-left: 50px;
+                                }
+                            }
                             
-                        }
-                        
-                        &:last-child {
-                            padding-top: 60px;
+                            &:last-child {
+                                padding-top: 60px;
 
-                        }
+                                span {
+                                    display: none;
+                                }
 
-                        span {
-                            display: none;
-                        }
-                        
-                        .image {
-                            margin-top: 0;
-                            margin-left: 20px;
+                                .image {
+                                    margin: 10px;
+                                    margin-left: 20px;
+                                }
+                            }
                         }
                     }
                 }
             }
         }
-
-        // .side {
-        //     width: 20%;
-        // }
-
-        }
-
     }
 }
 
@@ -631,95 +650,92 @@ export default {
         .main_wrap {
             display: block;
 
-        .roulette_box {
-            box-sizing: border-box;
-            width: 97%;
-            margin: 5px;
+            .roulette_box {
+                box-sizing: border-box;
+                width: 97%;
+                margin: 5px;
 
-            .click_container {
-                display: block;
-
-                .btn_container {
+                .click_container {
                     display: block;
 
-                    .btn_left{
-                        margin: 10px auto;
-                    }
+                    .btn_container {
+                        display: block;
 
-                    .btn_right {
-                        margin: 10px auto;
-                    }
-                }
-            }
-
-            .roulette_cover {
-                width: 270px;
-                height: 270px;
-                margin: 0px auto;        
-
-                .target {
-                    width: 135px;
-                    height: 135px;
-                    font-size: 15px;
-
-                    &:first-child {
-                        padding-left: 0;
-                        padding-top: 40px;
-
-                        span {
-                            display: none;
+                        .btn_left{
+                            margin: 10px auto;
                         }
 
-                        .image {
-                            margin-top: 10px;
-                            margin-left: 20px;
-                        }
-                    }
-
-                    &:nth-child(2) {
-                        padding-top: 20px;
-
-                        .image {
-                            margin: 0;
-                            margin-left: 20px;
-
-                        }
-
-                        span {
-                            display: none;
-                        }
-                    }
-
-                    &:nth-child(3) {
-                        padding-top: 20px;
-
-                        .image {
-                            margin: 0;
-                            margin-left: 50px;
-
-                        }
-                        
-                        span {
-                            display: none;
-                        }
-                        
-                    }
-
-                    &:last-child {
-
-                        .image {
-                            margin: 0;
-                            margin-left: 50px;
-                        }
-                        
-                        span {
-                            display: none;
+                        .btn_right {
+                            margin: 10px auto;
                         }
                     }
                 }
-            }
-        }   
-    }
+
+                .roulette_cover {
+                    width: 270px;
+                    height: 270px;
+                    margin: 0px auto;        
+
+                    .target {
+                        width: 135px;
+                        height: 135px;
+                        font-size: 15px;
+
+                        &:first-child {
+                            padding-left: 0;
+                            padding-top: 40px;
+
+                            span {
+                                display: none;
+                            }
+
+                            .image {
+                                margin-top: 10px;
+                                margin-left: 20px;
+                            }
+                        }
+
+                        &:nth-child(2) {
+                            padding-top: 20px;
+
+                            span {
+                                display: none;
+                            }
+
+                            .image {
+                                margin: 0;
+                                margin-left: 20px;
+                            }
+                        }
+
+                        &:nth-child(3) {
+                            padding-top: 20px;
+
+                            span {
+                                display: none;
+                            }
+
+                            .image {
+                                margin: 0;
+                                margin-left: 50px;
+                            }                                                
+                        }
+
+                        &:last-child {
+
+                            span {
+                                display: none;
+                            }
+
+                            .image {
+                                margin: 0;
+                                margin-left: 50px;
+                            }
+                        }
+                    }
+                }
+            }   
+        }
     }
     
 }

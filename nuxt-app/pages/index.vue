@@ -284,7 +284,7 @@ export default {
     <Header></Header>
     <div class="main_wrap">
         <article class="box media roulette_box">
-            <h2 class="main_title">ルーレットで決める</h2>
+            <h2 class="main_title">週間楽天レシピランキング</h2>
             <div class="click_container">
                 <div class="select is-warning">
                     <select v-model="recipeTarget">
@@ -369,6 +369,7 @@ export default {
 * {
     margin:0;
     padding:0;
+    font-family: 'Kaisei Decol', serif;
 }
 
 #page {
@@ -392,8 +393,9 @@ export default {
             margin-top: 20px;
             
             .main_title {
-                font-family: "メイリオ";
-
+                font-family: 'Kaisei Decol', serif;
+                font-weight: 700;
+                font-size: 20px;
                 text-align: center;
 			    margin-bottom: 15px;
 
@@ -419,6 +421,7 @@ export default {
                     .button {
                         display: block;
                         margin-left: 10px;
+                        font-weight: 500;
                     }
 
                     .btn_right {
@@ -505,7 +508,7 @@ export default {
                                 right: 10px;
                                 font-size: 16px;
                                 font-weight: bold;
-                                text-shadow: 1px 1px 8px #4aa5eb;
+                                text-shadow: 4px 4px 10px #4aa5eb;
                                 color: white;
                                 opacity:1;
                             }
@@ -546,7 +549,7 @@ export default {
                                 color: white;
                                 font-size: 16px;
                                 font-weight: bold;
-                                text-shadow: 1px 1px 8px #e26266;
+                                text-shadow: 4px 4px 10px #e26266;
                                 top: 10px;
                                 right: 10px;
                                 left: 10px;
@@ -586,7 +589,7 @@ export default {
                                 color: white;
                                 font-size: 16px;
                                 font-weight: bold;
-                                text-shadow: 1px 1px 8px #39e1c8;
+                                text-shadow: 4px 4px 10px #39e1c8;
                                 top: 10px;
                                 right: 10px;
                                 margin-left: 10px;
@@ -625,7 +628,7 @@ export default {
                                 color: white;
                                 font-size: 16px;
                                 font-weight: bold;
-                                text-shadow: 1px 1px 8px #f1b40c;
+                                text-shadow: 4px 4px 10px #f1b40c;
                                 bottom: 10px;
                                 right: 10px;
                                 margin-left: 10px;

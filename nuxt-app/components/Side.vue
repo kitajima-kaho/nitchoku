@@ -8,7 +8,7 @@ export default {
 <template>
     <aside class="box side">
         <h2>週間楽天レシピランキング</h2>
-        <div class="side_box" v-for="recipe in recipeRankingList" :key="recipeRankingList.recipeId">
+        <div class="side_box box" v-for="recipe in recipeRankingList" :key="recipeRankingList.recipeId">
             <article class="media">
                 <div class="media-left">
                     <figure class="image image_box is-64x64">
@@ -32,27 +32,34 @@ export default {
     </aside>
 </template>
 <style lang="scss" scoped>
+* {
+  font-family: 'Kaisei Decol', serif;
+}
 .side {
     margin: 20px;
     margin-right: 0;
     width: 350px;
-    min-width: 240px;
+    min-width: 280px;
     height: 675px;
     padding: 20px;
 
     h2 {
+        font-weight: 700;
+        font-size: 20px;
         text-align: center;
+        margin-bottom: 24px;
     }
 
     .side_box {
+        height: 104px;
+        padding: 10px;
+        display: flex;
+        align-items: center;
 
         .media {
             display: flex;
             width:fit-content;
-            margin-top: 15px;
-            height: 100px;
-
-
+            align-items: center;
 
             .media-left {
                 min-width: 60px;
@@ -60,6 +67,10 @@ export default {
                 .image_box {
                     display: flex;
                     padding-left: 5px;
+
+                    img {
+                        object-fit: cover;
+                    }
                 }
             }
         }
@@ -81,6 +92,15 @@ export default {
     }
 }
 
+@media screen and (min-width:640px) and (max-width:1023px) {
+.side {
+    .side_box {
+		width: auto;
+    }
+}
+
+}
+
 @media screen and (max-width:639px) {    
     .main_wrap {
 
@@ -90,6 +110,10 @@ export default {
             width: 97%;
             height: 100%;
             padding: 20px;
+
+            .side_box {
+                margin-bottom: 5px;
+            }
         }
     }
 }

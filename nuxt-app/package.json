@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^0.1.8",
-    "pinia": "^2.0.13",
-    "glottologist": "^2.0.3"
+    "glottologist": "^2.0.3",
+    "pinia": "^2.0.13"
   }
 }

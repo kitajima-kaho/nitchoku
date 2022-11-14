@@ -39,7 +39,7 @@ h2 {
 }
 
 .wrap {
-	padding-top: 24px;
+	padding-top: 20px;
 
 	.article_box {
 		display: flex;

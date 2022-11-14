@@ -160,7 +160,9 @@ export default {
 		display: block;
 		.main_title {
 			text-align: center;
-			margin-bottom: 15px;
+			margin-bottom: 24px;
+			font-weight: 700;
+    		font-size: 20px;
 		}
 		
 	}

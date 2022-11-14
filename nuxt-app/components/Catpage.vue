@@ -39,7 +39,7 @@ h2 {
 }
 
 .wrap {
-	padding-top: 24px;
+	padding-top: 20px;
 
 	.article_box {
 		display: flex;
@@ -48,6 +48,10 @@ h2 {
 		margin-left: 20px;
 		margin-right: 20px;
 		margin-bottom: 24px;
+
+		img {
+			border-radius: 10px;
+		}
 
 		.media-content {
 			margin-left: 20px;
@@ -80,7 +84,6 @@ h2 {
 		.article_box {
 			width: auto;
 			margin-bottom: 5px;
-
 		}
 	
 	}

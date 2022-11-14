@@ -33,6 +33,10 @@ export default {
     </header>
 </template>
 <style lang="scss" scoped>
+* {
+    font-family: 'Kaisei Decol', serif;
+    font-weight: 500;
+}
 .header {
 
     .header_container {
@@ -64,6 +68,7 @@ export default {
 
 
             .logo {
+                margin-right: 25px;
                 width:fit-content;
             }
         }

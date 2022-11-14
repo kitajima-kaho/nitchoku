@@ -1,15 +1,23 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
-export default defineNuxtConfig({
 
-    css:['assets/scss/index.scss'],
-   
-    ssr:false,
+export default defineNuxtConfig ({
+  app: {
+    head: {
+      charset: 'utf-8',
+      viewport: 'width=500, initial-scale=1', 
+      title: 'nanitabeApp',
+      meta: [
+        { name: 'description', content: '朝ごはん、昼ごはん、夜ごはん、なに食べようか迷った時はルーレットで決めましょう。' }
+      ],
+    }
+  },
 
-    modules: [ 
-    '@pinia/nuxt'
+  css:['assets/scss/index.scss'],
+  
+  ssr:false,
+
+  modules: [ 
+  '@pinia/nuxt',
   ],
 
-
-
-
-})
+});

@@ -509,7 +509,7 @@ export default {
                                 right: 10px;
                                 font-size: 16px;
                                 font-weight: bold;
-                                text-shadow: 4px 4px 10px #4aa5eb;
+                                text-shadow: 1px 1px 5px #4aa5eb;
                                 color: white;
                                 opacity:1;
                             }
@@ -550,7 +550,7 @@ export default {
                                 color: white;
                                 font-size: 16px;
                                 font-weight: bold;
-                                text-shadow: 4px 4px 10px #e26266;
+                                text-shadow: 1px 1px 5px #e26266;
                                 top: 10px;
                                 right: 10px;
                                 left: 10px;
@@ -590,7 +590,7 @@ export default {
                                 color: white;
                                 font-size: 16px;
                                 font-weight: bold;
-                                text-shadow: 4px 4px 10px #39e1c8;
+                                text-shadow: 1px 1px 5px #39e1c8;
                                 top: 10px;
                                 right: 10px;
                                 margin-left: 10px;
@@ -630,7 +630,7 @@ export default {
                                 color: white;
                                 font-size: 16px;
                                 font-weight: bold;
-                                text-shadow: 4px 4px 10px #f1b40c;
+                                text-shadow: 1px 1px 5px #f1b40c;
                                 bottom: 10px;
                                 right: 10px;
                                 margin-left: 10px;

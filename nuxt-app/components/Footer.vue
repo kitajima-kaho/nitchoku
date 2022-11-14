@@ -1,6 +1,6 @@
 <template>
     <footer class="footer">
-        <p>なにたべAPP</p>
+        <p>なにたべルーレット</p>
     </footer>
 
 </template>

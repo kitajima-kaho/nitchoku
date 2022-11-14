@@ -284,7 +284,7 @@ export default {
     <Header></Header>
     <div class="main_wrap">
         <article class="box media roulette_box">
-            <h2 class="main_title">週間楽天レシピランキング</h2>
+            <h2 class="main_title">なに食べる？ルーレットできめる？</h2>
             <div class="click_container">
                 <div class="select is-warning">
                     <select v-model="recipeTarget">

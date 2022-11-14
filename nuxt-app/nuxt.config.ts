@@ -5,7 +5,7 @@ export default defineNuxtConfig ({
     head: {
       charset: 'utf-8',
       viewport: 'width=500, initial-scale=1', 
-      title: 'nanitabeApp',
+      title: 'なにたべルーレット',
       meta: [
         { name: 'description', content: '朝ごはん、昼ごはん、夜ごはん、なに食べようか迷った時はルーレットで決めましょう。' }
       ],

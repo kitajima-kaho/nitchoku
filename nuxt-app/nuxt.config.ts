@@ -9,6 +9,9 @@ export default defineNuxtConfig ({
       meta: [
         { name: 'description', content: '朝ごはん、昼ごはん、夜ごはん、なに食べようか迷った時はルーレットで決めましょう。' }
       ],
+      link: [
+        { rel: 'icon', href: '/favicon.ico' },
+      ],
     }
   },
 

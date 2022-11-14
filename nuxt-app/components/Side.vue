@@ -3,12 +3,15 @@ export default {
     props: {
         recipeRankingList: Array,
     }
+
+
 }
 </script>
 <template>
     <aside class="box side">
         <h2>週間楽天レシピランキング</h2>
         <div class="side_box box" v-for="recipe in recipeRankingList" :key="recipeRankingList.recipeId">
+            {{ recipe.rankColor }}
             <article class="media">
                 <div class="media-left">
                     <figure class="image image_box is-64x64">
@@ -18,9 +21,9 @@ export default {
                 <div class="media-content">
                     <div class="content">
                         <p>
-                        {{ recipe.rank }}位<br>
-                        <a target="_blank" rel=”noopener” :href="recipe.recipeUrl">{{ recipe.recipeTitle }}</a>
-                        <br>
+                            <span class="rank">{{ recipe.rank }}</span><br>
+                            <a target="_blank" rel=”noopener” :href="recipe.recipeUrl">{{ recipe.recipeTitle }}</a>
+                            <br>
                         </p>
                     </div>
                 </div>
@@ -55,6 +58,12 @@ export default {
         padding: 10px;
         display: flex;
         align-items: center;
+
+
+        & .rank:first-child() {
+            background-color: #d6a140;
+            color: white;
+        }
 
         .media {
             display: flex;

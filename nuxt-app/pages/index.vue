@@ -71,6 +71,11 @@ export default {
         // 楽天レシピのデータ表示
         const rakutenResponse  = await RakutenServise.fetchRecipeRanking();
 		this.recipeRankingList = rakutenResponse
+
+        // ランキングの背景カラーを決めるプロパティ追加
+        this.recipeRankingList[0].rankColor = 'gold';
+        this.recipeRankingList[1].rankColor = 'silver';
+        this.recipeRankingList[2].rankColor = 'bronze';
     },
 
     methods: {

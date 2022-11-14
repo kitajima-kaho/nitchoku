@@ -69,6 +69,7 @@ export default {
                     padding-left: 5px;
 
                     img {
+                        border-radius: 10px;
                         object-fit: cover;
                     }
                 }

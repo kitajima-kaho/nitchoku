@@ -49,6 +49,10 @@ h2 {
 		margin-right: 20px;
 		margin-bottom: 24px;
 
+		img {
+			border-radius: 10px;
+		}
+
 		.media-content {
 			margin-left: 20px;
 			display: flex;
@@ -80,7 +84,6 @@ h2 {
 		.article_box {
 			width: auto;
 			margin-bottom: 5px;
-
 		}
 	
 	}

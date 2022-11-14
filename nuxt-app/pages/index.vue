@@ -339,10 +339,10 @@ export default {
             </div>
 
             <div class="roulette_cover roulette_on" v-else>
-                <div class="target"></div>
-                <div class="target"></div>
-                <div class="target"></div>
-                <div class="target"></div>
+                <div class="target" style="background: #bbdbf3"></div>
+                <div class="target" style="background: #e3acae"></div>
+                <div class="target" style="background: #a3d6ce"></div>
+                <div class="target" style="background: #ffedab"></div>
             </div>
 
         </article>
@@ -495,7 +495,8 @@ export default {
                         // 回っていない時もこれ。（セット時とセット前両方）
                         &:not(.color_blue) {
                             border: none;
-                            background-color: #bbdbf3;
+                            // background-color: #bbdbf3;
+                            background: linear-gradient(rgba(187,219,243), rgb(52, 78, 98));
 
                             img {
                                 filter: grayscale(100%);
@@ -534,10 +535,10 @@ export default {
                             opacity:0;
                         }
 
-
                         &:not(.color_red) {
                             border: none;
-                            background-color: #e3acae;
+                            // background-color: #e3acae;
+                            background: linear-gradient(#732d30, #e3acae);
 
                             img {
                                 filter: grayscale(100%);
@@ -577,7 +578,7 @@ export default {
 
                         &:not(.color_green) {
                             border: none;
-                            background-color: #a3d6ce;
+                            background: linear-gradient(#2f6b62, #a3d6ce);
 
                             img {
                                 filter: grayscale(100%);
@@ -617,6 +618,7 @@ export default {
                         &:not(.color_yellow) {
                             border: none;
                             background-color: #ffedab;
+                            background: linear-gradient(#ffedab, #7e6c2c);
 
                             img {
                                 filter: grayscale(100%);
@@ -674,8 +676,9 @@ export default {
 
                             &:first-child {
                                 &:not(.color_blue) {
+                                    background-color: #bbdbf3;
+
                                     img {
-                                        filter: grayscale(80%);
                                         opacity: 0.7; 
                                     }                      
                                 }   
@@ -684,7 +687,6 @@ export default {
                             &:nth-child(2) {
                                 &:not(.color_red) {
                                     img {
-                                        filter: grayscale(80%);
                                         opacity: 0.7; 
                                     }                      
                                 }   
@@ -693,7 +695,6 @@ export default {
                             &:nth-child(3) {
                                 &:not(.color_green) {
                                     img {
-                                        filter: grayscale(80%);
                                         opacity: 0.7; 
                                     }                      
                                 }
@@ -702,7 +703,6 @@ export default {
                             &:last-child {
                                 &:not(.color_yellow) {
                                     img {
-                                        filter: grayscale(80%);
                                         opacity: 0.7; 
                                     }                      
                                 }

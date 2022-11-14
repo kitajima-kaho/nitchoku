@@ -68,6 +68,7 @@ export default {
 
 
             .logo {
+                margin-right: 25px;
                 width:fit-content;
             }
         }

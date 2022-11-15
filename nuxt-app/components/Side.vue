@@ -11,7 +11,6 @@ export default {
     <aside class="box side">
         <h2>週間楽天レシピランキング</h2>
         <div class="side_box box" v-for="recipe in recipeRankingList" :key="recipeRankingList.recipeId">
-            {{ recipe.rankColor }}
             <article class="media">
                 <div class="media-left">
                     <figure class="image image_box is-64x64">
@@ -21,9 +20,8 @@ export default {
                 <div class="media-content">
                     <div class="content">
                         <p>
-                            <span class="rank">{{ recipe.rank }}</span><br>
+                            <span class="rank" :class="{'rank_gold':(recipe.rankColor === 'gold'), 'rank_silver':(recipe.rankColor === 'silver'), 'rank_bronze':(recipe.rankColor === 'bronze'), 'rank_blue':(recipe.rankColor === 'blue')} ">{{ recipe.rank }}</span>
                             <a target="_blank" rel=”noopener” :href="recipe.recipeUrl">{{ recipe.recipeTitle }}</a>
-                            <br>
                         </p>
                     </div>
                 </div>
@@ -59,12 +57,6 @@ export default {
         display: flex;
         align-items: center;
 
-
-        & .rank:first-child() {
-            background-color: #d6a140;
-            color: white;
-        }
-
         .media {
             display: flex;
             width:fit-content;
@@ -82,6 +74,35 @@ export default {
                         object-fit: cover;
                     }
                 }
+            }
+
+            span {
+                display: block;
+                width: 30px;
+                height: 30px;
+                line-height: 30px;
+                text-align: center;
+                border-radius: 50%;
+            }
+
+            .rank_gold {
+                color: white;
+                background-color: #FFD700;
+            }
+
+            .rank_silver {
+                color: white;
+                background-color: #C0C0C0;
+            }
+
+            .rank_bronze {
+                color: white;
+                background-color: #C47222;
+            }
+
+            .rank_blue {
+                color: white;
+                background-color: #6fafd4;
             }
         }
 

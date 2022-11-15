@@ -76,6 +76,7 @@ export default {
         this.recipeRankingList[0].rankColor = 'gold';
         this.recipeRankingList[1].rankColor = 'silver';
         this.recipeRankingList[2].rankColor = 'bronze';
+        this.recipeRankingList[3].rankColor = 'blue';
     },
 
     methods: {

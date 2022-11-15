@@ -26,7 +26,7 @@ export default {
             this.categoryMainTitle = '朝食';
             dataCatRecipe  = await $fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Breakfast');
         } else if(category === 'sideMenu') {
-            this.categoryMainTitle = 'サイドメニュー';
+            this.categoryMainTitle = 'サイド';
             dataCatRecipe  = await $fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Side');
         } else if(category === 'dessert') {
             this.categoryMainTitle = 'デザート';
@@ -173,20 +173,33 @@ export default {
 	}
 }
 @media screen and (min-width:640px) and (max-width:1023px) {
-	.media {
+	#page {
+		.media {
 		width: 60%;
+		
+			.wrap {
+				h2 {
+					font-size: 20px;
+				}
+			}
+		}
 
-	}
-
-	.side {
-		width: 20%;
+		.side {
+			width: 20%;
+		}
 	}
 }
 
 @media screen and (max-width:639px) { 
 	#page {
+
 		.media {
 			margin: 5px;
+
+
+			.main_title {
+				font-size: 22px;
+			}
 		}
 	}   
 }

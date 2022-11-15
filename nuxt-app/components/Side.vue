@@ -38,7 +38,6 @@ export default {
     margin: 20px;
     margin-right: 0;
     min-width: 280px;
-    height: 675px;
     padding: 20px;
 
     h2 {
@@ -130,12 +129,16 @@ export default {
 }
 
 @media screen and (min-width:640px) and (max-width:1023px) {
-.side {
-    .side_box {
-		width: 100%;
-    }
-}
+    .side {
 
+        h2 {
+            font-size: 20px;
+        }
+        
+        .side_box {
+            width: 100%;
+        }
+    }
 }
 
 @media screen and (max-width:639px) {    
@@ -148,9 +151,14 @@ export default {
             height: 100%;
             padding: 20px;
 
+            h2 {
+                font-size: 22px;
+            }
+
             .side_box {
                 margin-bottom: 5px;
             }
+
         }
     }
 }

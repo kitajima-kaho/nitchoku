@@ -288,23 +288,23 @@ export default {
         <article class="box media roulette_box">
             <h2 class="main_title">なにたべる？ルーレットできめる？</h2>
             <div class="click_container">
-                <div class="select is-warning">
-                    <select v-model="recipeTarget">
-                        <option value="not">選択してください</option>
-                        <optgroup label="--- 国 ---">
-                            <option value="american">アメリカ</option>
-                            <option value="japanese">日本</option>
-                            <option value="chinese">中国</option>
-                            <option value="french">フランス</option>
-                        </optgroup>
-                        <optgroup label="--- 素材 ---">
-                            <option value="chicken">鶏肉</option>
-                            <option value="beef">牛肉</option>
-                            <option value="seafood">魚介</option>
-                            <option value="vegetarian">野菜</option>
-                        </optgroup>
-                    </select>
-                </div>               
+                <div class="select_wrap">
+                    <div class="select is-warning">
+                        <select v-model="recipeTarget">
+                            <option value="not">選択してください</option>
+                            <option disabled>--- 国 ---</option>
+                                <option value="american">アメリカ</option>
+                                <option value="japanese">日本</option>
+                                <option value="chinese">中国</option>
+                                <option value="french">フランス</option>
+                            <option disabled>--- 素材 ---</option>
+                                <option value="chicken">鶏肉</option>
+                                <option value="beef">牛肉</option>
+                                <option value="seafood">魚介</option>
+                                <option value="vegetarian">野菜</option>
+                        </select>
+                    </div>       
+                </div>        
                 
                 <div class="btn_container">
                     <button class="button btn_left is-warning is-rounded is-medium is-responsive inline_btn"  :class="{transparency : transparency}" @click="set()">ルーレットにレシピをセットする</button>
@@ -394,6 +394,7 @@ export default {
             padding: 20px;
             display: block;
             margin-top: 20px;
+            margin-bottom: 20px;
             
             .main_title {
                 padding: 0.5rem 0;
@@ -404,12 +405,12 @@ export default {
                 font-size: 24px;
                 text-align: center;
 			    margin-bottom: 15px;
-
             }
 
             .click_container {
                 justify-content: space-between;  
                 margin-bottom: 20px;
+
 
                 .select {
                     margin-left: 10px;
@@ -670,6 +671,11 @@ export default {
 
                 .media {
                     width: 60%;
+                    margin-bottom: 20px;
+
+                    .main_title {
+                    font-size: 20px;
+                    }
 
                     .roulette_cover {
                         width: 300px;
@@ -733,13 +739,25 @@ export default {
         .main_wrap {
             display: block;
 
+
             .roulette_box {
                 box-sizing: border-box;
                 width: 97%;
                 margin: 5px;
 
+                .main_title {
+                    font-size: 20px;
+                }
+
                 .click_container {
                     display: block;
+                    .select_wrap {
+                        display: flex;
+                        justify-content: center;
+                        .select {
+                            margin-left: 0;
+                        }
+                    }
 
                     .btn_container {
                         display: block;

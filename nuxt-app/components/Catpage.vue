@@ -84,6 +84,12 @@ h2 {
 		.article_box {
 			width: auto;
 			margin-bottom: 5px;
+
+			.media-content {
+				p {
+					font-size: 16px;
+				}
+			}
 		}
 	}
 }

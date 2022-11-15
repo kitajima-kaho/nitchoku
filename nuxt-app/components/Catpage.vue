@@ -66,14 +66,13 @@ h2 {
 
 
 @media screen and (min-width:640px) and (max-width:1023px) {
-.wrap {
-	width: 100%;
+	.wrap {
+		width: 100%;
 
-	.article_box {
-		width: auto !important;
+		.article_box {
+			width: auto !important;
+		}
 	}
-}
-
 }
 
 @media screen and (max-width:639px) {    
@@ -86,9 +85,6 @@ h2 {
 			width: auto;
 			margin-bottom: 5px;
 		}
-	
 	}
-	
 }
-
 </style>

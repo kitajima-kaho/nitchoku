@@ -411,6 +411,10 @@ export default {
                 justify-content: space-between;  
                 margin-bottom: 20px;
 
+                .select {
+                    margin-left: 10px;
+                }
+
                 .transparency {
                     opacity: 0;
                     pointer-events: none;
@@ -426,6 +430,7 @@ export default {
 
                     .button {
                         display: block;
+                        font-family: 'Kaisei Decol', serif;
                         margin-left: 10px;
                         font-weight: 500;
                     }

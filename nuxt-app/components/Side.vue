@@ -130,7 +130,7 @@ export default {
 @media screen and (min-width:640px) and (max-width:1023px) {
 .side {
     .side_box {
-		width: auto;
+		width: 100%;
     }
 }
 

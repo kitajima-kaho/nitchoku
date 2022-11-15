@@ -67,6 +67,7 @@ h2 {
 
 @media screen and (min-width:640px) and (max-width:1023px) {
 .wrap {
+	width: 100%;
 
 	.article_box {
 		width: auto !important;
@@ -77,6 +78,7 @@ h2 {
 
 @media screen and (max-width:639px) {    
 	.wrap {
+		width: 100%;
 		padding-top: 24px;
 		padding-bottom: 24px;
 

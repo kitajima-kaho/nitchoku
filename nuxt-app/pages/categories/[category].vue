@@ -158,12 +158,12 @@ export default {
 	.media {
 		margin-top: 20px;
 		display: block;
-		
+
 		.main_title {
 			text-align: center;
 			margin-bottom: 24px;
 			font-weight: 700;
-    		font-size: 20px;
+    		font-size: 24px;
 		}
 		
 	}

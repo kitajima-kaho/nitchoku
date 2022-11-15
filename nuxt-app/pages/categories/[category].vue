@@ -160,10 +160,14 @@ export default {
 		display: block;
 
 		.main_title {
+			padding: 0.5rem 0;
+			border-bottom: 3px dotted hsl(44deg, 100%, 77%);
 			text-align: center;
 			margin-bottom: 24px;
 			font-weight: 700;
     		font-size: 24px;
+			margin-left: 20px;
+			margin-right: 20px;
 		}
 		
 	}

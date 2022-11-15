@@ -372,6 +372,7 @@ export default {
     margin:0;
     padding:0;
     font-family: 'Sawarabi Gothic', sans-serif;
+    color: #554200
 }
 
 #page {
@@ -395,6 +396,9 @@ export default {
             margin-top: 20px;
             
             .main_title {
+                padding: 0.5rem 0;
+                margin-bottom: 0.1rem;
+                border-bottom: 3px dotted hsl(44deg, 100%, 77%);
                 font-family: 'Kaisei Decol', serif;
                 font-weight: 700;
                 font-size: 24px;

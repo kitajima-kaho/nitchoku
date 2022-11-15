@@ -42,6 +42,9 @@ export default {
     padding: 20px;
 
     h2 {
+        padding: 0.5rem 0;
+        margin-bottom: 0.2rem;
+        border-bottom: 3px dotted hsl(44deg, 100%, 77%);
         font-family: 'Kaisei Decol', serif;
         font-weight: 700;
         font-size: 24px;

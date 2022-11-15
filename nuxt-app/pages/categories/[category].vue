@@ -157,6 +157,7 @@ export default {
 
 	.media {
 		margin-top: 20px;
+		margin-bottom: 20px;
 		display: block;
 
 		.main_title {

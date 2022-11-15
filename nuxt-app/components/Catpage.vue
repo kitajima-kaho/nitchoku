@@ -41,6 +41,11 @@ h2 {
 .wrap {
 	padding-top: 20px;
 	width: 544px;
+
+	.media {
+		margin-bottom: 20px;
+
+	}
 	.article_box {
 		display: flex;
 		cursor: pointer;

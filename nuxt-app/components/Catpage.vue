@@ -40,11 +40,10 @@ h2 {
 
 .wrap {
 	padding-top: 20px;
-
+	width: 544px;
 	.article_box {
 		display: flex;
 		cursor: pointer;
-		width: 550px;
 		margin-left: 20px;
 		margin-right: 20px;
 		margin-bottom: 24px;
@@ -54,11 +53,11 @@ h2 {
 		}
 
 		.media-content {
-			margin-left: 20px;
 			display: flex;
 			align-items: center;
 
 			p {
+				font-family: 'Sawarabi Gothic', sans-serif;
 				font-size: 20px;
 			}
 		}

@@ -3,8 +3,6 @@ export default {
     props: {
         recipeRankingList: Array,
     }
-
-
 }
 </script>
 <template>
@@ -34,7 +32,7 @@ export default {
 </template>
 <style lang="scss" scoped>
 * {
-  font-family: 'Kaisei Decol', serif;
+  font-family: 'Sawarabi Gothic', sans-serif;
 }
 .side {
     margin: 20px;
@@ -45,8 +43,9 @@ export default {
     padding: 20px;
 
     h2 {
+        font-family: 'Kaisei Decol', serif;
         font-weight: 700;
-        font-size: 20px;
+        font-size: 24px;
         text-align: center;
         margin-bottom: 24px;
     }
@@ -103,6 +102,11 @@ export default {
             .rank_blue {
                 color: white;
                 background-color: #6fafd4;
+            }
+
+            a {
+                display: block;
+                margin-top: 5px
             }
         }
 

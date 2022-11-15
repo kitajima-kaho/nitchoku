@@ -375,7 +375,7 @@ export default {
 * {
     margin:0;
     padding:0;
-    font-family: 'Kaisei Decol', serif;
+    font-family: 'Sawarabi Gothic', sans-serif;
 }
 
 #page {
@@ -401,7 +401,7 @@ export default {
             .main_title {
                 font-family: 'Kaisei Decol', serif;
                 font-weight: 700;
-                font-size: 20px;
+                font-size: 24px;
                 text-align: center;
 			    margin-bottom: 15px;
 

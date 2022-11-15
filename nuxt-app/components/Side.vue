@@ -37,7 +37,6 @@ export default {
 .side {
     margin: 20px;
     margin-right: 0;
-    width: 350px;
     min-width: 280px;
     height: 675px;
     padding: 20px;

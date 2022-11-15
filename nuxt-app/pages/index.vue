@@ -23,11 +23,11 @@ export default {
                 colorStatus: null
             },
 
+            // TODO：否定系はよくないかも。true/false分からなくなる。
             // セットする前にスタートボタンが押されないようにするもの。
 			clickNone: true,
 
             // ルーレットが一度回って止めた後、すぐにルーレットを回さないようにするもの。
-            // TODO：否定系はよくないかも。true/false分からなくなる。
 			SecondClickNone: false,
 
             recipeRanking: null,

@@ -32,8 +32,10 @@ export default {
 </template>
 <style lang="scss" scoped>
 * {
-  font-family: 'Sawarabi Gothic', sans-serif;
+    color: #554200;
+    font-family: 'Sawarabi Gothic', sans-serif;
 }
+
 .side {
     margin: 20px;
     margin-right: 0;

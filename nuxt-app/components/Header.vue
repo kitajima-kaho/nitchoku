@@ -34,6 +34,7 @@ export default {
 </template>
 <style lang="scss" scoped>
 * {
+    color: #554200;
     font-family: 'Kaisei Decol', serif;
     font-weight: 500;
 }

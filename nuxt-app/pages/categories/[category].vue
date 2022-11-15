@@ -160,6 +160,7 @@ export default {
 		display: block;
 
 		.main_title {
+			color: #554200;
 			padding: 0.5rem 0;
 			border-bottom: 3px dotted hsl(44deg, 100%, 77%);
 			text-align: center;

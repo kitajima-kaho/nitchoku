@@ -57,6 +57,7 @@ h2 {
 			align-items: center;
 
 			p {
+				color: #554200;
 				font-family: 'Sawarabi Gothic', sans-serif;
 				font-size: 20px;
 			}

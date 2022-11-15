@@ -426,6 +426,7 @@ export default {
 
                     .button {
                         display: block;
+                        color: #554200;
                         font-family: 'Kaisei Decol', serif;
                         font-weight: 500;
                     }

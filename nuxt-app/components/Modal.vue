@@ -14,7 +14,7 @@ export default {
         <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
-                <p class="modal-card-title">🍴本日はこれ食べる🍚</p>
+                <p class="modal-card-title">🍴本日はこれたべる🍚</p>
                 <button class="delete" aria-label="close" @click="$emit('closeResModal'); $emit('clickOk')"></button>
             </header>
             <section class="modal-card-body">

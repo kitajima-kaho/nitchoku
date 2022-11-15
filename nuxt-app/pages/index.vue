@@ -72,11 +72,7 @@ export default {
         const rakutenResponse  = await RakutenServise.fetchRecipeRanking();
 		this.recipeRankingList = rakutenResponse
 
-        // ランキングの背景カラーを決めるプロパティ追加
-        this.recipeRankingList[0].rankColor = 'gold';
-        this.recipeRankingList[1].rankColor = 'silver';
-        this.recipeRankingList[2].rankColor = 'bronze';
-        this.recipeRankingList[3].rankColor = 'blue';
+
     },
 
     methods: {
@@ -290,7 +286,7 @@ export default {
     <Header></Header>
     <div class="main_wrap">
         <article class="box media roulette_box">
-            <h2 class="main_title">なに食べる？ルーレットできめる？</h2>
+            <h2 class="main_title">なにたべる？ルーレットできめる？</h2>
             <div class="click_container">
                 <div class="select is-warning">
                     <select v-model="recipeTarget">

@@ -713,9 +713,11 @@ export default {
 
                             &:first-child {
                                 &:not(.color_blue) {
+                                    background:none;
                                     background-color: #bbdbf3;
 
                                     img {
+                                        filter: grayscale(80%);
                                         opacity: 0.7; 
                                     }                      
                                 }   
@@ -723,15 +725,23 @@ export default {
 
                             &:nth-child(2) {
                                 &:not(.color_red) {
+                                    background:none;
+                                    background-color: #e3acae;
+
                                     img {
-                                        opacity: 0.7; 
+                                        filter: grayscale(80%);
+                                        opacity: 0.9; 
                                     }                      
                                 }   
                             }
 
                             &:nth-child(3) {
                                 &:not(.color_green) {
+                                    background:none;
+                                    background-color: #a3d6ce;
+
                                     img {
+                                        filter: grayscale(80%);
                                         opacity: 0.7; 
                                     }                      
                                 }
@@ -739,7 +749,11 @@ export default {
                             
                             &:last-child {
                                 &:not(.color_yellow) {
+                                    background:none;
+                                    background-color: #ffedab;
+
                                     img {
+                                        filter: grayscale(80%);
                                         opacity: 0.7; 
                                     }                      
                                 }
@@ -807,32 +821,48 @@ export default {
 
                         &:first-child {
                             &:not(.color_blue) {
+                                background:none;
+                                background-color: #bbdbf3;
+
                                 img {
                                     filter: grayscale(80%);
+                                    opacity: 0.7; 
                                 }                      
                             }   
                         }
 
                         &:nth-child(2) {
                             &:not(.color_red) {
+                                background:none;
+                                background-color: #e3acae;
+
                                 img {
                                     filter: grayscale(80%);
+                                    opacity: 0.9; 
                                 }                      
                             }   
                         }
 
                         &:nth-child(3) {
                             &:not(.color_green) {
+                                background:none;
+                                background-color: #a3d6ce;
+
                                 img {
                                     filter: grayscale(80%);
+                                    opacity: 0.7; 
                                 }                      
                             }
                         }
 
                         &:last-child {
                             &:not(.color_yellow) {
+                                background:none;
+                                background-color: #ffedab;
+
                                 img {
                                     filter: grayscale(80%);
+                                    opacity: 0.7; 
                                 }                      
                             }
                         }

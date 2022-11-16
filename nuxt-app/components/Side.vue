@@ -41,6 +41,7 @@ export default {
     margin-right: 0;
     min-width: 280px;
     padding: 20px;
+    align-self: flex-start; // flexで伸びていたものを実際の大きさにする。
 
     h2 {
         padding: 0.5rem 0;
@@ -132,6 +133,7 @@ export default {
 
 @media screen and (min-width:640px) and (max-width:1023px) {
     .side {
+        width: 35%;
 
         h2 {
             font-size: 20px;

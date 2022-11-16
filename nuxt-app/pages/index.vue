@@ -663,10 +663,11 @@ export default {
 
         #page {
             .main_wrap {
-            margin: 20px auto;
+                margin-left: 10px;
+                margin-right: 10px;
 
                 .media {
-                    width: 410px;
+                    width: 60%;
                     margin-bottom: 20px;
 
                     .main_title {

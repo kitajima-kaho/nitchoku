@@ -177,7 +177,7 @@ export default {
 @media screen and (min-width:640px) and (max-width:1023px) {
 	#page {
 		.media {
-			width: 410px;
+			width: 60%;
 		
 			.wrap {
 				h2 {

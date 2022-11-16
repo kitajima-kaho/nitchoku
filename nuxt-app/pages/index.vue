@@ -666,12 +666,35 @@ export default {
             margin: 20px auto;
 
                 .media {
-                    width: 60%;
+                    width: 410px;
                     margin-bottom: 20px;
 
                     .main_title {
                     font-size: 20px;
                     }
+
+                    .select_wrap {
+                        display: flex;
+                        justify-content: center;
+                        .select {
+                            margin-left: 0;
+                        }
+                    }
+
+                    .click_container {
+                        .btn_container {
+                            display: block;
+
+                            .btn_left{
+                                margin: 10px auto;
+                            }
+
+                            .btn_right {
+                                margin: 10px auto;
+                            }
+                        }
+                    }
+
 
                     .roulette_cover {
                         width: 300px;

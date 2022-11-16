@@ -177,17 +177,13 @@ export default {
 @media screen and (min-width:640px) and (max-width:1023px) {
 	#page {
 		.media {
-		width: 60%;
+			width: 410px;
 		
 			.wrap {
 				h2 {
 					font-size: 20px;
 				}
 			}
-		}
-
-		.side {
-			width: 20%;
 		}
 	}
 }

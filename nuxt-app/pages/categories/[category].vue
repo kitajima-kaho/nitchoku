@@ -182,12 +182,17 @@ export default {
 	#page {
 		.media {
 			width: 60%;
+			margin-left: 10px;
 		
 			.wrap {
 				h2 {
 					font-size: 20px;
 				}
 			}
+		}
+
+		.side {
+			margin-right: 10px;
 		}
 	}
 }

@@ -753,7 +753,6 @@ export default {
 }
 
 @media screen and ( max-width:639px ) {
-
     #page {
 
         .main_wrap {

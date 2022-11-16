@@ -41,7 +41,7 @@ export default {
     margin-right: 0;
     min-width: 280px;
     padding: 20px;
-    align-self: flex-start; // flexで伸びていたものを実際の大きさにする。
+    min-height: 665px;
 
     h2 {
         padding: 0.5rem 0;

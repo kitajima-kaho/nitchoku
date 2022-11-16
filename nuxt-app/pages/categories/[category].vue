@@ -155,6 +155,10 @@ export default {
     background-color: #FCF4EC;
     width: 100vw;
 
+	.side {
+		align-self: flex-start; // flexで伸びていたものを実際の大きさにする。
+	}
+	
 	.media {
 		margin-top: 20px;
 		margin-bottom: 20px;

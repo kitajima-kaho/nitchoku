@@ -41,7 +41,6 @@ export default {
     margin-right: 0;
     min-width: 280px;
     padding: 20px;
-    min-height: 665px;
 
     h2 {
         padding: 0.5rem 0;
@@ -133,7 +132,9 @@ export default {
 
 @media screen and (min-width:640px) and (max-width:1023px) {
     .side {
-        width: 35%;
+        width: 40%;
+        margin: 20px 10px;
+        margin-right: 0;
 
         h2 {
             font-size: 20px;

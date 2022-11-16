@@ -672,6 +672,7 @@ export default {
 
                     .main_title {
                     font-size: 20px;
+                    margin-bottom: 25px;
                     }
 
                     .select_wrap {
@@ -685,13 +686,14 @@ export default {
                     .click_container {
                         .btn_container {
                             display: block;
+                            margin-top: 25px;
 
                             .btn_left{
                                 margin: 10px auto;
                             }
 
                             .btn_right {
-                                margin: 10px auto;
+                                margin: 25px auto;
                             }
                         }
                     }
@@ -700,7 +702,7 @@ export default {
                     .roulette_cover {
                         width: 300px;
                         height: 300px;
-                        margin: 70px auto;
+                        margin: 30px auto;
 
                         .target {
                             width: 150px;

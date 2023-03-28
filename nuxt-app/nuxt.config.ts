@@ -1,10 +1,10 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 
-export default defineNuxtConfig ({
+export default defineNuxtConfig({
   app: {
     head: {
       charset: 'utf-8',
-      viewport: 'device-width, initial-scale=1', 
+      viewport: 'device-width, initial-scale=1',
       title: 'なにたべルーレット',
       meta: [
         { name: 'description', content: '朝ごはん、昼ごはん、夜ごはん、なに食べようか迷った時はルーレットで決めましょう。' }
@@ -15,12 +15,12 @@ export default defineNuxtConfig ({
     }
   },
 
-  css:['assets/scss/index.scss'],
-  
-  ssr:false,
+  css: ['assets/scss/index.scss'],
 
-  modules: [ 
-  '@pinia/nuxt',
+  ssr: false,
+
+  modules: [
+    '@pinia/nuxt',
   ],
 
 });

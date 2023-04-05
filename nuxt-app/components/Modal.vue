@@ -10,7 +10,7 @@ export default {
 }
 </script>
 <template>
-    <div class="modal" :class="{'is-active' : isActive}">
+    <div class="modal" :class="{ 'is-active': isActive }">
         <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
@@ -22,11 +22,11 @@ export default {
                     <h2 v-if="isActive">{{ todayRecipeTitle }}</h2>
                     <img v-if="isActive" class="modal_img" :src="todayRecipeImg">
                     <h3>作り方はこちら🔻</h3>
-                    <a v-if="isActive" target="_blank" rel=”noopener” :href="todayRecipeUrl" >{{ todayRecipeUrl }}</a>
+                    <a v-if="isActive" target="_blank" rel=”noopener” :href="todayRecipeUrl">{{ todayRecipeUrl }}</a>
                 </div>
             </section>
             <footer class="modal-card-foot">
-                <button class="button is-warning is-rounded"  @click="$emit('closeResModal'); $emit('clickOk')">閉じる</button>
+                <button class="button is-warning is-rounded" @click="$emit('closeResModal'); $emit('clickOk')">閉じる</button>
             </footer>
         </div>
     </div>
@@ -37,22 +37,23 @@ export default {
     animation-duration: 0.3s;
 
     @keyframes fade {
-        0%{
+        0% {
             opacity: 0;
         }
-        100%{
+
+        100% {
             opacity: 1;
         }
     }
 
     .modal-card {
         text-align: center;
-        
+
         .modal_img {
             width: 200px;
             height: 200px;
             object-fit: cover;
-            margin: 0 auto;
+            margin: 0;
             display: block;
         }
     }

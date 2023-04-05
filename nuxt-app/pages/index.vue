@@ -1,10 +1,18 @@
 <script>
 import RakutenServise from '~/service/rakutenService'
-
+import users from '~/assets/user.json'
 export default {
+
+    // asyncData() {
+    //     const users = require(`~/assets/users.json`)
+    //     return {
+    //         aaa: users
+    //     }
+    // },
 
     data() {
         return {
+            users: users,
             recipeRankingList: [],
             status: 'clear',
             rouletteRecipe: [],
@@ -25,10 +33,10 @@ export default {
 
             // TODO：否定系はよくないかも。true/false分からなくなる。
             // セットする前にスタートボタンが押されないようにするもの。
-			clickNone: true,
+            clickNone: true,
 
             // ルーレットが一度回って止めた後、すぐにルーレットを回さないようにするもの。
-			SecondClickNone: false,
+            SecondClickNone: false,
 
             recipeRanking: null,
             recipeAmerican: null,
@@ -44,8 +52,8 @@ export default {
     },
 
     async created() {
-        const[dataAmerican, dataJapanese, dataChinese, dataFrench, dataChicken, dataBeef, dataSeafood, dataVegetarian] = await Promise.all([
-            
+        const [dataAmerican, dataJapanese, dataChinese, dataFrench, dataChicken, dataBeef, dataSeafood, dataVegetarian] = await Promise.all([
+
             useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=American'),
             useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=Japanese'),
             useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=Chinese'),
@@ -58,19 +66,19 @@ export default {
 
         ]);
 
-        this.recipeAmerican   = dataAmerican.data.value.meals
-        this.recipeJapanese   = dataJapanese.data.value.meals
-        this.recipeChinese    = dataChinese.data.value.meals
-        this.recipeFrench     = dataFrench.data.value.meals
+        this.recipeAmerican = dataAmerican.data.value.meals
+        this.recipeJapanese = dataJapanese.data.value.meals
+        this.recipeChinese = dataChinese.data.value.meals
+        this.recipeFrench = dataFrench.data.value.meals
 
-        this.recipeChicken    = dataChicken.data.value.meals
-        this.recipeBeef       = dataBeef.data.value.meals
-        this.recipeSeafood    = dataSeafood.data.value.meals
+        this.recipeChicken = dataChicken.data.value.meals
+        this.recipeBeef = dataBeef.data.value.meals
+        this.recipeSeafood = dataSeafood.data.value.meals
         this.recipeVegetarian = dataVegetarian.data.value.meals
 
         // 楽天レシピのデータ表示
-        const rakutenResponse  = await RakutenServise.fetchRecipeRanking();
-		this.recipeRankingList = rakutenResponse
+        const rakutenResponse = await RakutenServise.fetchRecipeRanking();
+        this.recipeRankingList = rakutenResponse
 
 
     },
@@ -81,60 +89,60 @@ export default {
         start() {
 
             // セットする前にスタートボタンが押された時
-			if(this.clickNone) {
-				alert('国名かカテゴリーをセットしてください')
+            if (this.clickNone) {
+                alert('国名かカテゴリーをセットしてください')
 
-			} else {
-			this.status = 'start';
-            let attentionIndex = 0;
+            } else {
+                this.status = 'start';
+                let attentionIndex = 0;
 
-            // ルーレットが回っている間は「セット」ボタンを押せないようにする。
-            this.transparency = true;
-            
-            //　ルーレットの途中でスタートボタンが押されたら、初めから回し始める。
-            // colorStatusがtrueの場合は、枠が色づけされ、回っているように見せる。
-            this.rouletteRecipe.forEach(e => {
-                e.colorStatus = false
-            })
+                // ルーレットが回っている間は「セット」ボタンを押せないようにする。
+                this.transparency = true;
 
-            // ルーレットを回しているように見せる枠の色をtrue/falseで、色づけするしないを判断している。
-            // 4つあるマスのうち一個ずつtrueを入れる。その前のマスをfalseにして、色付けを止めるようにする。
-            this.intervalId = setInterval(() => {
+                //　ルーレットの途中でスタートボタンが押されたら、初めから回し始める。
+                // colorStatusがtrueの場合は、枠が色づけされ、回っているように見せる。
+                this.rouletteRecipe.forEach(e => {
+                    e.colorStatus = false
+                })
 
-                // ますは4つのため、また0スタートのため、3以上になったら、0に戻す。（このコメントは不要か？）
-                if(attentionIndex > 3) {
-                    attentionIndex = 0
-                }
+                // ルーレットを回しているように見せる枠の色をtrue/falseで、色づけするしないを判断している。
+                // 4つあるマスのうち一個ずつtrueを入れる。その前のマスをfalseにして、色付けを止めるようにする。
+                this.intervalId = setInterval(() => {
 
-                // 配列のインデックスによって、falseを入れる対象を定める。
-                if (attentionIndex !== 0) {
-                    this.rouletteRecipe[attentionIndex - 1].colorStatus = false
-                } else if (attentionIndex === 0) {
-                    this.rouletteRecipe[3].colorStatus = false
-                }
-                this.rouletteRecipe[attentionIndex].colorStatus = true
+                    // ますは4つのため、また0スタートのため、3以上になったら、0に戻す。（このコメントは不要か？）
+                    if (attentionIndex > 3) {
+                        attentionIndex = 0
+                    }
 
-                attentionIndex++
-                
-            }, 90)
+                    // 配列のインデックスによって、falseを入れる対象を定める。
+                    if (attentionIndex !== 0) {
+                        this.rouletteRecipe[attentionIndex - 1].colorStatus = false
+                    } else if (attentionIndex === 0) {
+                        this.rouletteRecipe[3].colorStatus = false
+                    }
+                    this.rouletteRecipe[attentionIndex].colorStatus = true
 
-			}
-		    
+                    attentionIndex++
+
+                }, 90)
+
+            }
+
         },
 
         // ルーレットセットする
         set() {
             // ルーレットが一度回って止めた後、すぐにルーレットを回さないようにするもの。
             // この時は、何回も押しても良いのでfalse
-			this.SecondClickNone = false;
-            this.rouletteRecipe  = new Array();
+            this.SecondClickNone = false;
+            this.rouletteRecipe = new Array();
 
             if (this.recipeTarget === 'not') {
                 alert('国名か素材名を選択してください。')
                 // ここではまだルーレットを出さない。（タイトルと写真を表示するもの）
                 this.displayRoulette = false;
                 // スタートボタンを押してもアラートが出る
-                this.clickNone = true;  
+                this.clickNone = true;
                 return;
 
             } else if (this.recipeTarget === 'american') {
@@ -143,30 +151,30 @@ export default {
             } else if (this.recipeTarget === 'japanese') {
                 this.SetRouletteRecipe(this.recipeJapanese);
 
-            } else if (this.recipeTarget === 'chinese') {  
+            } else if (this.recipeTarget === 'chinese') {
                 this.SetRouletteRecipe(this.recipeChinese);
 
             } else if (this.recipeTarget === 'french') {
                 this.SetRouletteRecipe(this.recipeFrench);
-            
-            } else if (this.recipeTarget === 'chicken') { 
+
+            } else if (this.recipeTarget === 'chicken') {
                 this.SetRouletteRecipe(this.recipeChicken);
-            
-            } else if (this.recipeTarget === 'beef') { 
+
+            } else if (this.recipeTarget === 'beef') {
                 this.SetRouletteRecipe(this.recipeBeef);
-            
-            } else if (this.recipeTarget === 'seafood') { 
+
+            } else if (this.recipeTarget === 'seafood') {
                 this.SetRouletteRecipe(this.recipeSeafood);
-            
+
             } else if (this.recipeTarget === 'vegetarian') {
                 this.SetRouletteRecipe(this.recipeVegetarian);
-            
+
             }
             // タイトルと写真が入ったルーレットが表示される。
-            this.displayRoulette = true; 
+            this.displayRoulette = true;
 
             // スタートボタンを押せるようにする。
-			this.clickNone = false;  
+            this.clickNone = false;
 
             // 翻訳する。🌟
             this.translateAPI(this.rouletteRecipe)
@@ -175,11 +183,11 @@ export default {
         // ルーレットとめる
         stop() {
             // 「ストップ」ボタンから「スタート」ボタンになる
-            this.status           = "stop"
+            this.status = "stop"
 
             // モーダルを閉じるまでは、「スタート」ボタンや「セット」ボタンを押せないようにする
-			this.SecondClickNone  = true;
-            this.transparency     = false;
+            this.SecondClickNone = true;
+            this.transparency = false;
 
             // ルーレットを回さないようにする。
             clearInterval(this.intervalId);
@@ -196,15 +204,15 @@ export default {
                         clearInterval(shineTodayMeal);
                         e.colorStatus = true;
                         this.isActive = true;
-                        
+
                     }, 1500)
 
                     // prosに渡す準備
                     this.todayRecipe.recipeTitle = e.jpStrMeal
-                    this.todayRecipe.recipeUrl   = 'https://www.themealdb.com/meal/' + e.idMeal
-                    this.todayRecipe.recipeId    = e.idMeal
-                    this.todayRecipe.img         = e.strMealThumb
-                }   
+                    this.todayRecipe.recipeUrl = 'https://www.themealdb.com/meal/' + e.idMeal
+                    this.todayRecipe.recipeId = e.idMeal
+                    this.todayRecipe.img = e.strMealThumb
+                }
             })
         },
 
@@ -214,9 +222,9 @@ export default {
         },
 
         // モーダルを閉じたときに、スタートボタンを押せるようにする。（emit）
-		clickOk() {
-			this.SecondClickNone = false;
-		},
+        clickOk() {
+            this.SecondClickNone = false;
+        },
 
 
         // ルーレットセットするときに使う関数
@@ -271,7 +279,7 @@ export default {
                 $fetch(API_URL + '?' + encodeURI('auth_key=' + API_KEY + '&text=' + beforeTranslateData[2].strMeal + '&source_lang=EN&target_lang=JA')),
                 $fetch(API_URL + '?' + encodeURI('auth_key=' + API_KEY + '&text=' + beforeTranslateData[3].strMeal + '&source_lang=EN&target_lang=JA')),
             ])
-            
+
             // 翻訳されたタイトルをstrMealのプロパティを作り、各々のレシピに入れていく。
             this.rouletteRecipe.forEach((recipe, index) => {
                 recipe.jpStrMeal = response[index].translations[0].text
@@ -282,95 +290,96 @@ export default {
 </script>
 
 <template>
-<div id="page">
-    <Header></Header>
-    <div class="main_wrap">
-        <article class="box media roulette_box">
-            <h2 class="main_title">なにたべる？ルーレットできめる？</h2>
-            <div class="click_container">
-                <div class="select_wrap">
-                    <div class="select is-warning">
-                        <select v-model="recipeTarget">
-                            <option value="not">選択してください</option>
-                            <option disabled>--- 国 ---</option>
-                                <option value="american">アメリカ</option>
-                                <option value="japanese">日本</option>
-                                <option value="chinese">中国</option>
-                                <option value="french">フランス</option>
-                            <option disabled>--- 素材 ---</option>
-                                <option value="chicken">鶏肉</option>
-                                <option value="beef">牛肉</option>
-                                <option value="seafood">魚介</option>
-                                <option value="vegetarian">野菜</option>
-                        </select>
-                    </div>       
-                </div>        
-                
-                <div class="btn_container">
-                    <button class="button btn_left is-warning is-rounded is-medium is-responsive inline_btn"  :class="{transparency : transparency}" @click="set()">ルーレットにレシピをセットする</button>
-                    <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-if="status !== 'start'" :class="{click_none : clickNone, second_click_none : SecondClickNone}" @click="start()">スタート</button>
-                    <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-else @click="stop()">ストップ</button>
+    <div id="page">
+        <Header></Header>
+        <div class="main_wrap">
+            <article class="box media roulette_box">
+                <h2 class="main_title">日直だれやるの〜？</h2>
+                <div class="content">
+                    <div class="click_container">
+                        <div class="select_wrap">
+                            <div class="select is-warning">
+                                <select v-model="recipeTarget">
+                                    <option value="not">選択してください</option>
+                                    <option disabled>--- 国 ---</option>
+                                    <option value="american">アメリカ</option>
+                                    <option value="japanese">日本</option>
+                                    <option value="chinese">中国</option>
+                                    <option value="french">フランス</option>
+                                    <option disabled>--- 素材 ---</option>
+                                    <option value="chicken">鶏肉</option>
+                                    <option value="beef">牛肉</option>
+                                    <option value="seafood">魚介</option>
+                                    <option value="vegetarian">野菜</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div v-for="user in users" :key="user.id">
+                            <input type="checkbox" name="" value="user.id">{{ user.name }}
+                        </div>
+
+                        <div class="btn_container">
+                            <button class="button btn_left is-warning is-rounded is-medium is-responsive inline_btn"
+                                :class="{ transparency: transparency }" @click="set()">セット</button>
+                            <button class="button btn_right is-warning is-rounded is-medium is-responsive"
+                                v-if="status !== 'start'"
+                                :class="{ click_none: clickNone, second_click_none: SecondClickNone }"
+                                @click="start()">スタート</button>
+                            <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-else
+                                @click="stop()">ストップ</button>
+                        </div>
+                    </div>
+                    <div class="roulette_cover roulette_on" v-if="displayRoulette">
+                        <div class="target" :class="{ color_blue: rouletteRecipe[0].colorStatus }">
+                            <figure class="image image_box">
+                                <span>{{ rouletteRecipe[0].jpStrMeal }}</span>
+                            </figure>
+                        </div>
+                        <div class="target" :class="{ color_red: rouletteRecipe[1].colorStatus }">
+                            <figure class="image image_box">
+                                <span>{{ rouletteRecipe[1].jpStrMeal }}</span>
+                            </figure>
+                        </div>
+                        <div class="target" :class="{ color_green: rouletteRecipe[2].colorStatus }">
+                            <figure class="image image_box">
+                                <span>{{ rouletteRecipe[2].jpStrMeal }}</span>
+                            </figure>
+                        </div>
+                        <div class="target" :class="{ color_yellow: rouletteRecipe[3].colorStatus }">
+                            <figure class="image image_box">
+                                <span>{{ rouletteRecipe[3].jpStrMeal }}</span>
+                            </figure>
+                        </div>
+                    </div>
+
+                    <div class="roulette_cover roulette_on" v-else>
+                        <div class="target" style="background: #bbdbf3"></div>
+                        <div class="target" style="background: #e3acae"></div>
+                        <div class="target" style="background: #a3d6ce"></div>
+                        <div class="target" style="background: #ffedab"></div>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="roulette_cover roulette_on" v-if="displayRoulette">
-                <div class="target" :class="{color_blue : rouletteRecipe[0].colorStatus}">
-                    <figure class="image image_box">
-                        <span>{{ rouletteRecipe[0].jpStrMeal }}</span>
-                        <img :src="rouletteRecipe[0].strMealThumb" alt="Image">
-                    </figure>
-                </div>
-                <div class="target" :class="{color_red : rouletteRecipe[1].colorStatus}">
-                    <figure class="image image_box">
-                        <span>{{ rouletteRecipe[1].jpStrMeal }}</span>
-                        <img :src="rouletteRecipe[1].strMealThumb" alt="Image">
-                    </figure>
-                </div>	
-                <div class="target" :class="{color_green : rouletteRecipe[2].colorStatus}">
-                    <figure class="image image_box">
-                        <span>{{ rouletteRecipe[2].jpStrMeal }}</span>          
-                        <img :src="rouletteRecipe[2].strMealThumb" alt="Image">
-                    </figure>
-                </div>	
-                <div class="target" :class="{color_yellow : rouletteRecipe[3].colorStatus}">
-                    <figure class="image image_box">
-                        <span>{{ rouletteRecipe[3].jpStrMeal }}</span>
-                        <img :src="rouletteRecipe[3].strMealThumb" alt="Image">
-                    </figure>
-                </div>
-            </div>
 
-            <div class="roulette_cover roulette_on" v-else>
-                <div class="target" style="background: #bbdbf3"></div>
-                <div class="target" style="background: #e3acae"></div>
-                <div class="target" style="background: #a3d6ce"></div>
-                <div class="target" style="background: #ffedab"></div>
-            </div>
 
-        </article>
 
-        <Side
-            :recipeRankingList = "recipeRankingList" 
-        ></Side>
 
+            </article>
+
+            <!-- <Side
+                                                                                                                                                                                                                                                                                        :recipeRankingList = "recipeRankingList" 
+                                                                                                                                                                                                                                                                                    ></Side> -->
+
+        </div>
+        <Footer></Footer>
+        <Modal :isActive="isActive" :todayRecipeTitle="todayRecipe.recipeTitle" :todayRecipeUrl="todayRecipe.recipeUrl"
+            :todayRecipeImg="todayRecipe.img" @closeResModal="closeResModal" @clickOk="clickOk"></Modal>
     </div>
-    <Footer></Footer>          
-            <Modal 
-                :isActive="isActive" 
-                :todayRecipeTitle="todayRecipe.recipeTitle"
-                :todayRecipeUrl="todayRecipe.recipeUrl"
-                :todayRecipeImg="todayRecipe.img"
-                @closeResModal="closeResModal"
-				@clickOk="clickOk"
-            ></Modal>
-</div>
-
 </template>
 
 <style lang="scss" scoped>
 * {
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
     font-family: 'Sawarabi Gothic', sans-serif;
     color: #554200
 }
@@ -384,18 +393,19 @@ export default {
     width: 100vw;
 
     .main_wrap {
-        margin-right: auto;
-        margin-left: auto;
-        max-width: 925px;
-        display: flex;
+        // margin-right: auto;
+        // margin-left: auto;
+        // max-width: 925px;
+        // display: flex;
+        width: 100%;
+
 
         .roulette_box {
-            width: fit-content;
+            width: 80%;
             padding: 20px;
             display: block;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            
+            margin: 20px auto;
+
             .main_title {
                 padding: 0.5rem 0;
                 margin-bottom: 0.1rem;
@@ -404,249 +414,257 @@ export default {
                 font-weight: 700;
                 font-size: 24px;
                 text-align: center;
-			    margin-bottom: 15px;
+                margin-bottom: 15px;
             }
 
-            .click_container {
-                justify-content: space-between;  
-                margin-bottom: 20px;
+            .content {
+                display: flex;
+                justify-content: space-between;
 
-                .transparency {
-                    opacity: 0;
-                    pointer-events: none;
-                }
+                .click_container {
+                    // justify-content: space-between;
+                    margin-bottom: 20px;
 
-                .btn_container {
-                    display: flex;
-                    margin-top: 15px;
-
-                    .second_click_none {
+                    .transparency {
+                        opacity: 0;
                         pointer-events: none;
                     }
 
-                    .button {
-                        display: block;
-                        color: #554200;
-                        font-family: 'Kaisei Decol', serif;
-                        font-weight: 500;
-                    }
+                    .btn_container {
+                        display: flex;
+                        margin-top: 15px;
 
-                    .btn_right {
-                        display: block;
-                        margin-left: 10px;
+                        .second_click_none {
+                            pointer-events: none;
+                        }
+
+                        .button {
+                            display: block;
+                            color: #554200;
+                            font-family: 'Kaisei Decol', serif;
+                            font-weight: 500;
+                        }
+
+                        .btn_right {
+                            display: block;
+                            margin-left: 10px;
+                        }
                     }
                 }
-            }
 
-            // ルーレットここから　🌟いずれ消す
+                // ルーレットここから　🌟いずれ消す
 
-            .roulette_cover {
-                background-color: #FF8A02;
-                width: 450px;
-                height: 450px;
-                border-radius: 50%;
-                margin: 20px;
-                position: relative;
+                .roulette_cover {
+                    background-color: #FF8A02;
+                    width: 450px;
+                    height: 450px;
+                    border-radius: 50%;
+                    margin: 20px;
+                    position: relative;
 
-                .target {
-                    width: 225px;
-                    height: 225px;
-                    
-                    .image {
-                        // 親要素（targetに大きさを合わせる。）
-                        display: block;
-                        width: 100%;
-                        height: 100%;
+                    .target {
+                        width: 225px;
+                        height: 225px;
 
-                        // imgと文字を重ねている。
-                        // 写真の位置を円に合うように配置(中のspanは重なる) 
-                        position: relative;
-
-                        span {
-                            // imgと文字を重ねている。
-                            position: absolute;
-                            z-index: 1;
-                        }
-
-                        img {
-                            position: absolute;
+                        .image {
+                            // 親要素（targetに大きさを合わせる。）
+                            display: block;
                             width: 100%;
                             height: 100%;
-                            object-fit: cover;
-                        }
-                    } 
 
-                    &:first-child {
-                        // ルーレットの的を円に当てている。
-                        position: absolute;
-                        top: 0px;
-                        right: 0px;
-
-                        // .color_blue がついている時。
-                        // すなわちルーレットがチカってしている時。
-                        border-radius: 0 100% 0 0;
-                        border: solid 0.3em blue;
-                        background-color: #bbdbf3;
-
-                        img {
-                            top: 0px;
-                            right: 0px;
-                            border-radius: 0 100% 0 0;
-                        }
-
-                        span {
-                            opacity:0;
-                        }
- 
-                        // .color_blue がついていない時
-                        // すなわち、ルーレットでチカってしていない時。
-                        // 回っていない時もこれ。（セット時とセット前両方）
-                        &:not(.color_blue) {
-                            border: none;
-                            // background-color: #bbdbf3;
-                            background: linear-gradient(rgba(187,219,243), rgb(52, 78, 98));
-
-                            img {
-                                filter: grayscale(100%);
-                                opacity: 0.5; 
-                            }
+                            // imgと文字を重ねている。
+                            // 写真の位置を円に合うように配置(中のspanは重なる) 
+                            position: relative;
 
                             span {
-                                bottom: 10px;
-                                left: 10px;
-                                right: 10px;
-                                font-size: 16px;
-                                font-weight: bold;
-                                text-shadow: 1px 1px 5px #4aa5eb;
-                                color: white;
-                                opacity:1;
+                                // imgと文字を重ねている。
+                                position: absolute;
+                                z-index: 1;
+                            }
+
+                            img {
+                                position: absolute;
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
                             }
                         }
-                    }
 
-                    &:nth-child(2) {
-                        position: absolute;
-                        bottom: 0px;
-                        right: 0px;
-                        border-radius: 0 0 100% 0;
-                        border: solid 0.3em red;
-                        background-color: #e3acae;
+                        &:first-child {
+                            // ルーレットの的を円に当てている。
+                            position: absolute;
+                            top: 0px;
+                            right: 0px;
 
-                        img {
+                            // .color_blue がついている時。
+                            // すなわちルーレットがチカってしている時。
+                            border-radius: 0 100% 0 0;
+                            border: solid 0.3em blue;
+                            background-color: #bbdbf3;
+
+                            // img {
+                            //     top: 0px;
+                            //     left: 10px;
+                            //     border-radius: 0 100% 0 0;
+                            // }
+
+                            // span {
+                            //     opacity: 0;
+                            // }
+
+                            // .color_blue がついていない時
+                            // すなわち、ルーレットでチカってしていない時。
+                            // 回っていない時もこれ。（セット時とセット前両方）
+                            &:not(.color_blue) {
+                                border: none;
+                                // background-color: #bbdbf3;
+                                background: linear-gradient(rgba(187, 219, 243), rgb(52, 78, 98));
+
+                                img {
+                                    filter: grayscale(100%);
+                                    opacity: 0.5;
+                                }
+
+                                span {
+                                    bottom: 10px;
+                                    left: 10px;
+                                    right: 30px;
+                                    font-size: 16px;
+                                    font-weight: bold;
+                                    text-shadow: 1px 1px 5px #4aa5eb;
+                                    color: white;
+                                    opacity: 1;
+                                }
+                            }
+                        }
+
+                        &:nth-child(2) {
+                            position: absolute;
                             bottom: 0px;
                             right: 0px;
                             border-radius: 0 0 100% 0;
-                        }
+                            border: solid 0.3em red;
+                            background-color: #e3acae;
 
+                            // img {
+                            //     bottom: 0px;
+                            //     right: 0px;
+                            //     border-radius: 0 0 100% 0;
+                            // }
 
-                        span {
-                            opacity:0;
-                        }
-
-                        &:not(.color_red) {
-                            border: none;
-                            // background-color: #e3acae;
-                            background: linear-gradient(#732d30, #e3acae);
-
-                            img {
-                                filter: grayscale(100%);
-                                opacity: 0.5; 
-                            }
 
                             span {
-                                opacity: 1;
-                                color: white;
-                                font-size: 16px;
-                                font-weight: bold;
-                                text-shadow: 1px 1px 5px #e26266;
-                                top: 10px;
-                                right: 10px;
-                                left: 10px;
+                                opacity: 0;
+                            }
+
+                            &:not(.color_red) {
+                                border: none;
+                                // background-color: #e3acae;
+                                background: linear-gradient(#732d30, #e3acae);
+
+                                img {
+                                    filter: grayscale(100%);
+                                    opacity: 0.5;
+                                }
+
+                                span {
+                                    opacity: 1;
+                                    color: white;
+                                    font-size: 16px;
+                                    font-weight: bold;
+                                    text-shadow: 1px 1px 5px #e26266;
+                                    top: 10px;
+                                    right: 30px;
+                                    left: 10px;
+                                }
                             }
                         }
-                    }
 
-                    &:nth-child(3) {
-                        position: absolute;
-                        bottom: 0px;
-                        left: 0px;
-                        border-radius: 0 0 0 100%;
-                        border: solid 0.3em green;
-                        background-color: #a3d6ce;
-
-                        img {
+                        &:nth-child(3) {
+                            position: absolute;
                             bottom: 0px;
                             left: 0px;
                             border-radius: 0 0 0 100%;
-                        }
+                            border: solid 0.3em green;
+                            background-color: #a3d6ce;
 
-                        span {
-                            opacity:0;
-                        }
-
-                        &:not(.color_green) {
-                            border: none;
-                            background: linear-gradient(#2f6b62, #a3d6ce);
-
-                            img {
-                                filter: grayscale(100%);
-                                opacity: 0.5; 
-                            }
+                            // img {
+                            //     bottom: 0px;
+                            //     left: 0px;
+                            //     border-radius: 0 0 0 100%;
+                            // }
 
                             span {
-                                opacity: 1;
-                                color: white;
-                                font-size: 16px;
-                                font-weight: bold;
-                                text-shadow: 1px 1px 5px #39e1c8;
-                                top: 10px;
-                                right: 10px;
-                                margin-left: 10px;
+                                opacity: 0;
+                            }
+
+                            &:not(.color_green) {
+                                border: none;
+                                background: linear-gradient(#2f6b62, #a3d6ce);
+
+                                img {
+                                    filter: grayscale(100%);
+                                    opacity: 0.5;
+                                }
+
+                                span {
+                                    opacity: 1;
+                                    color: white;
+                                    font-size: 16px;
+                                    font-weight: bold;
+                                    text-shadow: 1px 1px 5px #39e1c8;
+                                    top: 10px;
+                                    right: 40px;
+                                    margin-left: 10px;
+                                }
                             }
                         }
-                    }
 
-                    &:last-child {
-                        top: 0px;
-                        left: 0px;
-                        border-radius: 100% 0 0 0;
-                        border: solid 0.3em yellow;
-                        background-color: #ffedab;
-
-                        img {
+                        &:last-child {
                             top: 0px;
                             left: 0px;
                             border-radius: 100% 0 0 0;
-                        }
-
-                        span {
-                            opacity:0;
-                        }
-    
-                        &:not(.color_yellow) {
-                            border: none;
+                            border: solid 0.3em yellow;
                             background-color: #ffedab;
-                            background: linear-gradient(#ffedab, #7e6c2c);
 
-                            img {
-                                filter: grayscale(100%);
-                                opacity: 0.5; 
-                            }
+                            // img {
+                            //     top: 0px;
+                            //     right: 20px;
+                            //     border-radius: 100% 0 0 0;
+                            // }
 
                             span {
-                                opacity: 1;
-                                color: white;
-                                font-size: 16px;
-                                font-weight: bold;
-                                text-shadow: 1px 1px 5px #f1b40c;
-                                bottom: 10px;
-                                right: 10px;
-                                margin-left: 10px;
+                                opacity: 0;
+                            }
+
+                            &:not(.color_yellow) {
+                                border: none;
+                                background-color: #ffedab;
+                                background: linear-gradient(#ffedab, #7e6c2c);
+
+                                // img {
+                                //     filter: grayscale(100%);
+                                //     opacity: 0.5;
+                                // }
+
+                                span {
+                                    opacity: 1;
+                                    color: white;
+                                    font-size: 16px;
+                                    font-weight: bold;
+                                    text-shadow: 1px 1px 5px #f1b40c;
+                                    bottom: 10px;
+                                    right: 40px;
+                                    margin-left: 10px;
+                                }
                             }
                         }
                     }
                 }
             }
+
+
+
         }
     }
 }
@@ -667,17 +685,18 @@ export default {
                 margin-right: 10px;
 
                 .media {
-                    width: 60%;
+                    width: 100%;
                     margin-bottom: 20px;
 
                     .main_title {
-                    font-size: 20px;
-                    margin-bottom: 25px;
+                        font-size: 20px;
+                        margin-bottom: 25px;
                     }
 
                     .select_wrap {
                         display: flex;
                         justify-content: center;
+
                         .select {
                             margin-left: 0;
                         }
@@ -688,7 +707,7 @@ export default {
                             display: block;
                             margin-top: 25px;
 
-                            .btn_left{
+                            .btn_left {
                                 margin: 10px auto;
                             }
 
@@ -715,49 +734,49 @@ export default {
 
                             &:first-child {
                                 &:not(.color_blue) {
-                                    background:none;
+                                    background: none;
                                     background-color: #bbdbf3;
 
                                     img {
                                         filter: grayscale(80%);
-                                        opacity: 0.7; 
-                                    }                      
-                                }   
+                                        opacity: 0.7;
+                                    }
+                                }
                             }
 
                             &:nth-child(2) {
                                 &:not(.color_red) {
-                                    background:none;
+                                    background: none;
                                     background-color: #e3acae;
 
                                     img {
                                         filter: grayscale(80%);
-                                        opacity: 0.7; 
-                                    }                      
-                                }   
+                                        opacity: 0.7;
+                                    }
+                                }
                             }
 
                             &:nth-child(3) {
                                 &:not(.color_green) {
-                                    background:none;
+                                    background: none;
                                     background-color: #a3d6ce;
 
                                     img {
                                         filter: grayscale(80%);
-                                        opacity: 0.7; 
-                                    }                      
+                                        opacity: 0.7;
+                                    }
                                 }
                             }
-                            
+
                             &:last-child {
                                 &:not(.color_yellow) {
-                                    background:none;
+                                    background: none;
                                     background-color: #ffedab;
 
                                     img {
                                         filter: grayscale(80%);
-                                        opacity: 0.7; 
-                                    }                      
+                                        opacity: 0.7;
+                                    }
                                 }
                             }
                         }
@@ -768,7 +787,7 @@ export default {
     }
 }
 
-@media screen and ( max-width:639px ) {
+@media screen and (max-width:639px) {
     #page {
 
         .main_wrap {
@@ -777,7 +796,7 @@ export default {
 
             .roulette_box {
                 box-sizing: border-box;
-                width: 97%;
+                width: 100%;
                 margin: 5px;
 
                 .main_title {
@@ -786,9 +805,11 @@ export default {
 
                 .click_container {
                     display: block;
+
                     .select_wrap {
                         display: flex;
                         justify-content: center;
+
                         .select {
                             margin-left: 0;
                         }
@@ -797,7 +818,7 @@ export default {
                     .btn_container {
                         display: block;
 
-                        .btn_left{
+                        .btn_left {
                             margin: 10px auto;
                         }
 
@@ -810,7 +831,7 @@ export default {
                 .roulette_cover {
                     width: 270px;
                     height: 270px;
-                    margin: 0px auto;        
+                    margin: 0px auto;
 
                     .target {
                         width: 135px;
@@ -823,54 +844,54 @@ export default {
 
                         &:first-child {
                             &:not(.color_blue) {
-                                background:none;
+                                background: none;
                                 background-color: #bbdbf3;
 
                                 img {
                                     filter: grayscale(80%);
-                                    opacity: 0.7; 
-                                }                      
-                            }   
+                                    opacity: 0.7;
+                                }
+                            }
                         }
 
                         &:nth-child(2) {
                             &:not(.color_red) {
-                                background:none;
+                                background: none;
                                 background-color: #e3acae;
 
                                 img {
                                     filter: grayscale(80%);
-                                    opacity: 0.9; 
-                                }                      
-                            }   
+                                    opacity: 0.9;
+                                }
+                            }
                         }
 
                         &:nth-child(3) {
                             &:not(.color_green) {
-                                background:none;
+                                background: none;
                                 background-color: #a3d6ce;
 
                                 img {
                                     filter: grayscale(80%);
-                                    opacity: 0.7; 
-                                }                      
+                                    opacity: 0.7;
+                                }
                             }
                         }
 
                         &:last-child {
                             &:not(.color_yellow) {
-                                background:none;
+                                background: none;
                                 background-color: #ffedab;
 
                                 img {
                                     filter: grayscale(80%);
-                                    opacity: 0.7; 
-                                }                      
+                                    opacity: 0.7;
+                                }
                             }
                         }
                     }
                 }
-            }   
+            }
         }
     }
 }

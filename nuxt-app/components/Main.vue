@@ -1,5 +1,5 @@
 <template>
-	<main>
+    <main>
         <div class="main_wrap">
             <slot></slot>
         </div>
@@ -10,10 +10,10 @@ main {
     width: 100%;
 
     .main_wrap {
-        margin-right: auto;
-        margin-left: auto;
-        max-width: 925px;
-        display: flex;
+        // margin-right: auto;
+        // margin-left: auto;
+        // max-width: 925px;
+        // display: flex;
     }
 }
 
@@ -25,7 +25,7 @@ main {
     }
 }
 
-@media screen and (max-width:639px) {    
+@media screen and (max-width:639px) {
     main {
         width: 100%;
 

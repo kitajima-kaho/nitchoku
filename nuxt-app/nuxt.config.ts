@@ -5,13 +5,13 @@ export default defineNuxtConfig({
     head: {
       charset: 'utf-8',
       viewport: 'device-width, initial-scale=1',
-      title: 'なにたべルーレット',
+      title: 'ルーレット',
       meta: [
         { name: 'description', content: '朝ごはん、昼ごはん、夜ごはん、なに食べようか迷った時はルーレットで決めましょう。' }
       ],
-      link: [
-        { rel: 'icon', href: '/favicon.ico' },
-      ],
+      // link: [
+      //   { rel: 'icon', href: '/favicon.ico' },
+      // ],
     }
   },
 

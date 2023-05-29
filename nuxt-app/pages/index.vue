@@ -1,14 +1,10 @@
 <script>
 import RakutenServise from '~/service/rakutenService'
 import users from '~/assets/user.json'
-export default {
+import themes from '~/assets/theme.json'
+import allUsers from '~/assets/allusers.json'
 
-    // asyncData() {
-    //     const users = require(`~/assets/users.json`)
-    //     return {
-    //         aaa: users
-    //     }
-    // },
+export default {
 
     data() {
         return {
@@ -24,11 +20,7 @@ export default {
             todayMealUrl: null,
             isActive: false,
             todayRecipe: {
-                recipeTitle: null,
-                recipeUrl: null,
-                recipeId: null,
-                img: null,
-                colorStatus: null
+                name: null,
             },
 
             // TODO：否定系はよくないかも。true/false分からなくなる。
@@ -52,23 +44,9 @@ export default {
     },
 
     async created() {
-        const [dataAmerican, dataJapanese, dataChinese, dataFrench, dataChicken, dataBeef, dataSeafood, dataVegetarian] = await Promise.all([
-
-            useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=American'),
-            useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=Japanese'),
-            useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=Chinese'),
-            useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?a=French'),
-
-            useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Chicken'),
-            useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Beef'),
-            useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood'),
-            useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Vegetarian'),
-
-        ]);
-
-        this.recipeAmerican = dataAmerican.data.value.meals
-        this.recipeJapanese = dataJapanese.data.value.meals
-        this.recipeChinese = dataChinese.data.value.meals
+        this.recipeAmerican = users
+        this.recipeJapanese = themes
+        this.recipeChinese = allUsers
         this.recipeFrench = dataFrench.data.value.meals
 
         this.recipeChicken = dataChicken.data.value.meals
@@ -177,7 +155,7 @@ export default {
             this.clickNone = false;
 
             // 翻訳する。🌟
-            this.translateAPI(this.rouletteRecipe)
+            // this.translateAPI(this.rouletteRecipe)
         },
 
         // ルーレットとめる
@@ -208,10 +186,7 @@ export default {
                     }, 1500)
 
                     // prosに渡す準備
-                    this.todayRecipe.recipeTitle = e.jpStrMeal
-                    this.todayRecipe.recipeUrl = 'https://www.themealdb.com/meal/' + e.idMeal
-                    this.todayRecipe.recipeId = e.idMeal
-                    this.todayRecipe.img = e.strMealThumb
+                    this.todayRecipe.name = e.name
                 }
             })
         },
@@ -234,16 +209,11 @@ export default {
             // 重複がでないように、同じIDのものは配列に入れないようにする。
             this.rouletteRecipe.push(recipeTarget[Math.floor(Math.random() * recipeTarget.length)]);
             let remainingRecipe = recipeTarget.filter((e) => {
-                return e.idMeal !== this.rouletteRecipe[0].idMeal
+                return e.id !== this.rouletteRecipe[0].id
             })
 
             // push処理をされるは配列が、2つ目のターゲットからが変わるため、処理は一緒だが、違う関数になる。
             this.SetRouletteRecipeHelper(remainingRecipe);
-
-            // ルーレットを回るように見せるための枠の色付けするstatusをプロパティに追加する。
-            this.rouletteRecipe.forEach((e) => {
-                e.colorStatus = false;
-            })
 
         },
 
@@ -252,70 +222,41 @@ export default {
         SetRouletteRecipeHelper(helperVariable) {
             this.rouletteRecipe.push(helperVariable[Math.floor(Math.random() * helperVariable.length)])
             helperVariable = helperVariable.filter((e) => {
-                return e.idMeal !== this.rouletteRecipe[1].idMeal
+                return e.id !== this.rouletteRecipe[1].id
             })
 
             this.rouletteRecipe.push(helperVariable[Math.floor(Math.random() * helperVariable.length)])
             helperVariable = helperVariable.filter((e) => {
-                return e.idMeal !== this.rouletteRecipe[2].idMeal
+                return e.id !== this.rouletteRecipe[2].id
             })
 
             this.rouletteRecipe.push(helperVariable[Math.floor(Math.random() * helperVariable.length)])
             helperVariable = helperVariable.filter((e) => {
-                return e.idMeal !== this.rouletteRecipe[3].idMeal
+                return e.id !== this.rouletteRecipe[3].id
             })
         },
 
-        // 翻訳する
-        async translateAPI(beforeTranslateData) {
 
-            const API_KEY = '3c240d34-7d9e-4c33-fc65-2934e5a213a4:fx'
-            const API_URL = 'https://api-free.deepl.com/v2/translate'
-
-            // まとめてやっていたが、出てくるレシピ名によって不具合が生まれやすいため、一つずつfetchする。
-            const response = await Promise.all([
-                $fetch(API_URL + '?' + encodeURI('auth_key=' + API_KEY + '&text=' + beforeTranslateData[0].strMeal + '&source_lang=EN&target_lang=JA')),
-                $fetch(API_URL + '?' + encodeURI('auth_key=' + API_KEY + '&text=' + beforeTranslateData[1].strMeal + '&source_lang=EN&target_lang=JA')),
-                $fetch(API_URL + '?' + encodeURI('auth_key=' + API_KEY + '&text=' + beforeTranslateData[2].strMeal + '&source_lang=EN&target_lang=JA')),
-                $fetch(API_URL + '?' + encodeURI('auth_key=' + API_KEY + '&text=' + beforeTranslateData[3].strMeal + '&source_lang=EN&target_lang=JA')),
-            ])
-
-            // 翻訳されたタイトルをstrMealのプロパティを作り、各々のレシピに入れていく。
-            this.rouletteRecipe.forEach((recipe, index) => {
-                recipe.jpStrMeal = response[index].translations[0].text
-            })
-        }
     }
 }
 </script>
 
 <template>
     <div id="page">
-        <Header></Header>
         <div class="main_wrap">
             <article class="box media roulette_box">
-                <h2 class="main_title">日直だれやるの〜？</h2>
+                <h2 class="main_title">だれがなに話す〜？</h2>
                 <div class="content">
                     <div class="click_container">
                         <div class="select_wrap">
                             <div class="select is-warning">
                                 <select v-model="recipeTarget">
                                     <option value="not">選択してください</option>
-                                    <option disabled>--- 国 ---</option>
-                                    <option value="american">アメリカ</option>
-                                    <option value="japanese">日本</option>
-                                    <option value="chinese">中国</option>
-                                    <option value="french">フランス</option>
-                                    <option disabled>--- 素材 ---</option>
-                                    <option value="chicken">鶏肉</option>
-                                    <option value="beef">牛肉</option>
-                                    <option value="seafood">魚介</option>
-                                    <option value="vegetarian">野菜</option>
+                                    <option value="american">人</option>
+                                    <option value="japanese">話すテーマ</option>
+                                    <option value="chinese">ALL MEMBER</option>
                                 </select>
                             </div>
-                        </div>
-                        <div v-for="user in users" :key="user.id">
-                            <input type="checkbox" name="" value="user.id">{{ user.name }}
                         </div>
 
                         <div class="btn_container">
@@ -331,24 +272,16 @@ export default {
                     </div>
                     <div class="roulette_cover roulette_on" v-if="displayRoulette">
                         <div class="target" :class="{ color_blue: rouletteRecipe[0].colorStatus }">
-                            <figure class="image image_box">
-                                <span>{{ rouletteRecipe[0].jpStrMeal }}</span>
-                            </figure>
+                            <span>{{ rouletteRecipe[0].name }}</span>
                         </div>
                         <div class="target" :class="{ color_red: rouletteRecipe[1].colorStatus }">
-                            <figure class="image image_box">
-                                <span>{{ rouletteRecipe[1].jpStrMeal }}</span>
-                            </figure>
+                            <span>{{ rouletteRecipe[1].name }}</span>
                         </div>
                         <div class="target" :class="{ color_green: rouletteRecipe[2].colorStatus }">
-                            <figure class="image image_box">
-                                <span>{{ rouletteRecipe[2].jpStrMeal }}</span>
-                            </figure>
+                            <span>{{ rouletteRecipe[2].name }}</span>
                         </div>
                         <div class="target" :class="{ color_yellow: rouletteRecipe[3].colorStatus }">
-                            <figure class="image image_box">
-                                <span>{{ rouletteRecipe[3].jpStrMeal }}</span>
-                            </figure>
+                            <span>{{ rouletteRecipe[3].name }}</span>
                         </div>
                     </div>
 
@@ -360,18 +293,9 @@ export default {
                     </div>
                 </div>
 
-
-
-
             </article>
-
-            <!-- <Side
-                                                                                                                                                                                                                                                                                        :recipeRankingList = "recipeRankingList" 
-                                                                                                                                                                                                                                                                                    ></Side> -->
-
         </div>
-        <Footer></Footer>
-        <Modal :isActive="isActive" :todayRecipeTitle="todayRecipe.recipeTitle" :todayRecipeUrl="todayRecipe.recipeUrl"
+        <Modal :isActive="isActive" :name="todayRecipe.name" :todayRecipeUrl="todayRecipe.recipeUrl"
             :todayRecipeImg="todayRecipe.img" @closeResModal="closeResModal" @clickOk="clickOk"></Modal>
     </div>
 </template>
@@ -386,17 +310,13 @@ export default {
 
 #page {
     position: relative;
-    padding-bottom: 50px;
-    min-height: 100vh;
+    padding-top: 50px;
+    height: 100vh;
     box-sizing: border-box;
     background-color: #FCF4EC;
     width: 100vw;
 
     .main_wrap {
-        // margin-right: auto;
-        // margin-left: auto;
-        // max-width: 925px;
-        // display: flex;
         width: 100%;
 
 
@@ -422,7 +342,6 @@ export default {
                 justify-content: space-between;
 
                 .click_container {
-                    // justify-content: space-between;
                     margin-bottom: 20px;
 
                     .transparency {
@@ -465,30 +384,15 @@ export default {
                     .target {
                         width: 225px;
                         height: 225px;
+                        position: relative;
 
-                        .image {
-                            // 親要素（targetに大きさを合わせる。）
-                            display: block;
-                            width: 100%;
-                            height: 100%;
-
+                        span {
                             // imgと文字を重ねている。
-                            // 写真の位置を円に合うように配置(中のspanは重なる) 
-                            position: relative;
-
-                            span {
-                                // imgと文字を重ねている。
-                                position: absolute;
-                                z-index: 1;
-                            }
-
-                            img {
-                                position: absolute;
-                                width: 100%;
-                                height: 100%;
-                                object-fit: cover;
-                            }
+                            position: absolute;
+                            z-index: 1;
                         }
+
+                        // }
 
                         &:first-child {
                             // ルーレットの的を円に当てている。
@@ -502,28 +406,16 @@ export default {
                             border: solid 0.3em blue;
                             background-color: #bbdbf3;
 
-                            // img {
-                            //     top: 0px;
-                            //     left: 10px;
-                            //     border-radius: 0 100% 0 0;
-                            // }
-
-                            // span {
-                            //     opacity: 0;
-                            // }
+                            span {
+                                opacity: 0;
+                            }
 
                             // .color_blue がついていない時
                             // すなわち、ルーレットでチカってしていない時。
                             // 回っていない時もこれ。（セット時とセット前両方）
                             &:not(.color_blue) {
                                 border: none;
-                                // background-color: #bbdbf3;
                                 background: linear-gradient(rgba(187, 219, 243), rgb(52, 78, 98));
-
-                                img {
-                                    filter: grayscale(100%);
-                                    opacity: 0.5;
-                                }
 
                                 span {
                                     bottom: 10px;
@@ -546,26 +438,13 @@ export default {
                             border: solid 0.3em red;
                             background-color: #e3acae;
 
-                            // img {
-                            //     bottom: 0px;
-                            //     right: 0px;
-                            //     border-radius: 0 0 100% 0;
-                            // }
-
-
                             span {
                                 opacity: 0;
                             }
 
                             &:not(.color_red) {
                                 border: none;
-                                // background-color: #e3acae;
                                 background: linear-gradient(#732d30, #e3acae);
-
-                                img {
-                                    filter: grayscale(100%);
-                                    opacity: 0.5;
-                                }
 
                                 span {
                                     opacity: 1;
@@ -588,12 +467,6 @@ export default {
                             border: solid 0.3em green;
                             background-color: #a3d6ce;
 
-                            // img {
-                            //     bottom: 0px;
-                            //     left: 0px;
-                            //     border-radius: 0 0 0 100%;
-                            // }
-
                             span {
                                 opacity: 0;
                             }
@@ -601,11 +474,6 @@ export default {
                             &:not(.color_green) {
                                 border: none;
                                 background: linear-gradient(#2f6b62, #a3d6ce);
-
-                                img {
-                                    filter: grayscale(100%);
-                                    opacity: 0.5;
-                                }
 
                                 span {
                                     opacity: 1;
@@ -627,12 +495,6 @@ export default {
                             border: solid 0.3em yellow;
                             background-color: #ffedab;
 
-                            // img {
-                            //     top: 0px;
-                            //     right: 20px;
-                            //     border-radius: 100% 0 0 0;
-                            // }
-
                             span {
                                 opacity: 0;
                             }
@@ -641,11 +503,6 @@ export default {
                                 border: none;
                                 background-color: #ffedab;
                                 background: linear-gradient(#ffedab, #7e6c2c);
-
-                                // img {
-                                //     filter: grayscale(100%);
-                                //     opacity: 0.5;
-                                // }
 
                                 span {
                                     opacity: 1;

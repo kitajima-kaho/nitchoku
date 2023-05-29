@@ -3,7 +3,7 @@
 export default {
     props: {
         isActive: Boolean,
-        todayRecipeTitle: String,
+        name: String,
         todayRecipeUrl: String,
         todayRecipeImg: String,
     }
@@ -14,15 +14,12 @@ export default {
         <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
-                <p class="modal-card-title">🍴本日はこれたべる🍚</p>
+                <p class="modal-card-title">決定しました！</p>
                 <button class="delete" aria-label="close" @click="$emit('closeResModal'); $emit('clickOk')"></button>
             </header>
             <section class="modal-card-body">
                 <div class="content">
-                    <h2 v-if="isActive">{{ todayRecipeTitle }}</h2>
-                    <img v-if="isActive" class="modal_img" :src="todayRecipeImg">
-                    <h3>作り方はこちら🔻</h3>
-                    <a v-if="isActive" target="_blank" rel=”noopener” :href="todayRecipeUrl">{{ todayRecipeUrl }}</a>
+                    <h2 v-if="isActive">{{ name }}</h2>
                 </div>
             </section>
             <footer class="modal-card-foot">

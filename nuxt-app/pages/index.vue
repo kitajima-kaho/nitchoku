@@ -363,6 +363,7 @@ export default {
         justify-content: center;
         align-items: center;
 
+
         div {
             background-color: rgba(0, 0, 0, .5);
             border: 4px double #101bfa;

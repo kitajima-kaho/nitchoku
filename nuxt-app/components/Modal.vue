@@ -53,6 +53,11 @@ export default {
             margin: 0;
             display: block;
         }
+
+        h2 {
+            font-weight: 400;
+            margin-bottom: 0;
+        }
     }
 
     .button {

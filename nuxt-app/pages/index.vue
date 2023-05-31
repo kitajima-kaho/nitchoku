@@ -246,61 +246,74 @@ export default {
 </script>
 
 <template>
-    <div id="page">
-        <div class="main_wrap">
-            <article class="box media roulette_box">
-                <h2 class="main_title">だれがなに話す〜？</h2>
-                <div class="content">
-                    <div class="click_container">
-                        <div class="select_wrap">
-                            <div class="select is-warning">
-                                <select v-model="recipeTarget">
-                                    <option value="not">選択してください</option>
-                                    <option value="american">人</option>
-                                    <option value="japanese">話すテーマ</option>
-                                    <option value="chinese">ALL MEMBER</option>
-                                </select>
+    <div class="page_wrap">
+        <div class="header">
+            <div>
+                <p class="first">前菜になる話</p>
+                <p>前菜になれば、何をしゃべってもＯＫ。オチも必要なし！</p>
+            </div>
+        </div>
+        <div id="page">
+            <div class="main_wrap">
+                <article class="box media roulette_box">
+                    <h2 class="main_title">だれがなに話す〜？</h2>
+                    <div class="content">
+                        <div class="click_container">
+                            <div class="select_wrap">
+                                <div class="select is-warning">
+                                    <select v-model="recipeTarget">
+                                        <option value="not">選択してください</option>
+                                        <option value="american">人</option>
+                                        <option value="japanese">話すテーマ</option>
+                                        <option value="chinese">ALL MEMBER</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="btn_container">
+                                <button class="button btn_left is-warning is-rounded is-medium is-responsive inline_btn"
+                                    :class="{ transparency: transparency }" @click="set()">セット</button>
+                                <button class="button btn_right is-warning is-rounded is-medium is-responsive"
+                                    v-if="status !== 'start'"
+                                    :class="{ click_none: clickNone, second_click_none: SecondClickNone }"
+                                    @click="start()">スタート</button>
+                                <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-else
+                                    @click="stop()">ストップ</button>
+                            </div>
+                        </div>
+                        <div class="roulette_cover roulette_on" v-if="displayRoulette">
+                            <div class="target" :class="{ color_blue: rouletteRecipe[0].colorStatus }">
+                                <span :class="{ long_format: isLong }">{{ rouletteRecipe[0].name }}</span>
+                            </div>
+                            <div class="target" :class="{ color_red: rouletteRecipe[1].colorStatus }">
+                                <span :class="{ long_format: isLong }">{{ rouletteRecipe[1].name }}</span>
+                            </div>
+                            <div class="target" :class="{ color_green: rouletteRecipe[2].colorStatus }">
+                                <span :class="{ long_format: isLong }">{{ rouletteRecipe[2].name }}</span>
+                            </div>
+                            <div class="target" :class="{ color_yellow: rouletteRecipe[3].colorStatus }">
+                                <span :class="{ long_format: isLong }">{{ rouletteRecipe[3].name }}</span>
                             </div>
                         </div>
 
-                        <div class="btn_container">
-                            <button class="button btn_left is-warning is-rounded is-medium is-responsive inline_btn"
-                                :class="{ transparency: transparency }" @click="set()">セット</button>
-                            <button class="button btn_right is-warning is-rounded is-medium is-responsive"
-                                v-if="status !== 'start'"
-                                :class="{ click_none: clickNone, second_click_none: SecondClickNone }"
-                                @click="start()">スタート</button>
-                            <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-else
-                                @click="stop()">ストップ</button>
-                        </div>
-                    </div>
-                    <div class="roulette_cover roulette_on" v-if="displayRoulette">
-                        <div class="target" :class="{ color_blue: rouletteRecipe[0].colorStatus }">
-                            <span :class="{ long_format: isLong }">{{ rouletteRecipe[0].name }}</span>
-                        </div>
-                        <div class="target" :class="{ color_red: rouletteRecipe[1].colorStatus }">
-                            <span :class="{ long_format: isLong }">{{ rouletteRecipe[1].name }}</span>
-                        </div>
-                        <div class="target" :class="{ color_green: rouletteRecipe[2].colorStatus }">
-                            <span :class="{ long_format: isLong }">{{ rouletteRecipe[2].name }}</span>
-                        </div>
-                        <div class="target" :class="{ color_yellow: rouletteRecipe[3].colorStatus }">
-                            <span :class="{ long_format: isLong }">{{ rouletteRecipe[3].name }}</span>
+                        <div class="roulette_cover roulette_on" v-else>
+                            <div class="target" style="background: #bbdbf3"></div>
+                            <div class="target" style="background: #e3acae"></div>
+                            <div class="target" style="background: #a3d6ce"></div>
+                            <div class="target" style="background: #ffedab"></div>
                         </div>
                     </div>
 
-                    <div class="roulette_cover roulette_on" v-else>
-                        <div class="target" style="background: #bbdbf3"></div>
-                        <div class="target" style="background: #e3acae"></div>
-                        <div class="target" style="background: #a3d6ce"></div>
-                        <div class="target" style="background: #ffedab"></div>
-                    </div>
-                </div>
-
-            </article>
+                </article>
+            </div>
+            <Modal :isActive="isActive" :name="todayRecipe.name" :todayRecipeUrl="todayRecipe.recipeUrl"
+                :todayRecipeImg="todayRecipe.img" @closeResModal="closeResModal" @clickOk="clickOk"></Modal>
         </div>
-        <Modal :isActive="isActive" :name="todayRecipe.name" :todayRecipeUrl="todayRecipe.recipeUrl"
-            :todayRecipeImg="todayRecipe.img" @closeResModal="closeResModal" @clickOk="clickOk"></Modal>
+        <div class="no_responsive">
+            <p>Coming soooooon</p>
+            このサイズには対応していないのです。
+            残念ですよね。
+        </div>
     </div>
 </template>
 
@@ -312,472 +325,569 @@ export default {
     color: #554200
 }
 
-#page {
-    position: relative;
-    padding-top: 50px;
+.page_wrap {
     height: 100vh;
-    box-sizing: border-box;
-    background-color: #FCF4EC;
-    width: 100vw;
 
-    .main_wrap {
-        width: 100%;
+    .header {
+        background: url(~/assets/image/tsumami.png) center / cover;
+        height: 20%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-
-        .roulette_box {
-            width: 80%;
+        div {
+            background-color: rgba(0, 0, 0, .5);
+            border: 4px double #101bfa;
+            border-radius: 50px;
             padding: 20px;
-            display: block;
-            margin: 20px auto;
 
-            .main_title {
-                padding: 0.5rem 0;
-                margin-bottom: 0.1rem;
-                border-bottom: 3px dotted hsl(44deg, 100%, 77%);
-                font-family: 'Kaisei Decol', serif;
-                font-weight: 700;
-                font-size: 24px;
+            p {
+                font-size: 20px;
+                color: #1d9bfc;
                 text-align: center;
-                margin-bottom: 15px;
+                font-weight: 600;
+
+                &.first {
+                    color: #fdb75b;
+                    border-bottom: 4px double #ff6bff;
+                    width: 120px;
+                    margin: auto;
+                }
             }
+        }
 
-            .content {
-                display: flex;
-                justify-content: space-between;
 
-                .click_container {
-                    margin-bottom: 20px;
+    }
 
-                    .transparency {
-                        opacity: 0;
-                        pointer-events: none;
-                    }
+    #page {
+        position: relative;
+        height: 80%;
+        box-sizing: border-box;
+        background-color: #FCF4EC;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-                    .btn_container {
-                        display: flex;
-                        margin-top: 15px;
+        .main_wrap {
+            width: 100%;
 
-                        .second_click_none {
+
+            .roulette_box {
+                // width: 80%;
+                width: 1000px;
+                padding: 20px;
+                display: block;
+                margin: 20px auto;
+
+                .main_title {
+                    padding: 0.5rem 0;
+                    margin-bottom: 0.1rem;
+                    border-bottom: 3px dotted hsl(44deg, 100%, 77%);
+                    font-size: 24px;
+                    text-align: center;
+                    margin-bottom: 15px;
+                }
+
+                .content {
+                    display: flex;
+                    justify-content: space-between;
+
+                    .click_container {
+                        margin-bottom: 20px;
+                        margin-left: 20px;
+
+                        .transparency {
+                            opacity: 0;
                             pointer-events: none;
                         }
 
-                        .button {
-                            display: block;
-                            color: #554200;
-                            font-family: 'Kaisei Decol', serif;
-                            font-weight: 500;
-                        }
-
-                        .btn_right {
-                            display: block;
-                            margin-left: 10px;
-                        }
-                    }
-                }
-
-                // ルーレットここから　🌟いずれ消す
-
-                .roulette_cover {
-                    background-color: #FF8A02;
-                    width: 450px;
-                    height: 450px;
-                    border-radius: 50%;
-                    margin: 20px;
-                    position: relative;
-
-                    .target {
-                        width: 225px;
-                        height: 225px;
-                        position: relative;
-
-                        span {
-                            position: absolute;
-                            z-index: 1;
-                        }
-
-                        // }
-
-                        &:first-child {
-                            // ルーレットの的を円に当てている。
-                            position: absolute;
-                            top: 0px;
-                            right: 0px;
-
-                            // .color_blue がついている時。
-                            // すなわちルーレットがチカってしている時。
-                            border-radius: 0 100% 0 0;
-                            border: solid 0.5em blue;
-                            background-color: #bbdbf3;
-
-                            span {
-                                opacity: 0;
-                            }
-
-                            // .color_blue がついていない時
-                            // すなわち、ルーレットでチカってしていない時。
-                            // 回っていない時もこれ。（セット時とセット前両方）
-                            &:not(.color_blue) {
-                                border: none;
-                                // background: linear-gradient(rgba(187, 219, 243), rgb(52, 78, 98));
-
-                                span {
-                                    bottom: 90px;
-                                    left: 55px;
-                                    right: 40px;
-                                    font-size: 20px;
-                                    // font-weight: bold;
-                                    // text-shadow: 1px 1px 5px #4aa5eb;
-                                    // color: white;
-                                    opacity: 1;
-
-                                    &.long_format {
-                                        bottom: 90px;
-                                        left: 20px;
-                                        right: 50px;
-                                        font-size: 16px;
-                                    }
-                                }
-                            }
-                        }
-
-                        &:nth-child(2) {
-                            position: absolute;
-                            bottom: 0px;
-                            right: 0px;
-                            border-radius: 0 0 100% 0;
-                            border: solid 0.5em red;
-                            background-color: #e3acae;
-
-                            span {
-                                opacity: 0;
-                            }
-
-                            &:not(.color_red) {
-                                border: none;
-                                // background: linear-gradient(#732d30, #e3acae);
-
-                                span {
-                                    font-size: 20px;
-                                    opacity: 1;
-                                    // color: white;
-                                    // font-weight: bold;
-                                    // text-shadow: 1px 1px 5px #e26266;
-                                    top: 90px;
-                                    right: 30px;
-                                    left: 55px;
-
-                                    &.long_format {
-                                        top: 90px;
-                                        right: 50px;
-                                        left: 20px;
-                                        font-size: 16px;
-                                    }
-                                }
-                            }
-                        }
-
-                        &:nth-child(3) {
-                            position: absolute;
-                            bottom: 0px;
-                            left: 0px;
-                            border-radius: 0 0 0 100%;
-                            border: solid 0.5em green;
-                            background-color: #a3d6ce;
-
-                            span {
-                                opacity: 0;
-                            }
-
-                            &:not(.color_green) {
-                                border: none;
-                                // background: linear-gradient(#2f6b62, #a3d6ce);
-
-                                span {
-                                    font-size: 20px;
-                                    opacity: 1;
-                                    // color: white;
-                                    // font-weight: bold;
-                                    // text-shadow: 1px 1px 5px #39e1c8;
-                                    top: 90px;
-                                    right: 50px;
-                                    margin-left: 40px;
-
-                                    &.long_format {
-                                        top: 90px;
-                                        right: 20px;
-                                        font-size: 16px;
-                                    }
-
-                                }
-                            }
-                        }
-
-                        &:last-child {
-                            top: 0px;
-                            left: 0px;
-                            border-radius: 100% 0 0 0;
-                            border: solid 0.5em yellow;
-                            background-color: #ffedab;
-
-                            span {
-                                opacity: 0;
-                            }
-
-                            &:not(.color_yellow) {
-                                border: none;
-                                background-color: #ffedab;
-                                // background: linear-gradient(#ffedab, #7e6c2c);
-
-                                span {
-                                    font-size: 20px;
-                                    opacity: 1;
-                                    // color: white;
-                                    // font-weight: bold;
-                                    // text-shadow: 1px 1px 5px #f1b40c;
-                                    top: 105px;
-                                    right: 50px;
-                                    margin-left: 30px;
-
-                                    &.long_format {
-                                        bottom: 10px;
-                                        right: 20px;
-                                        font-size: 16px;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-
-
-        }
-    }
-}
-
-
-
-@media screen and (min-width:640px) and (max-width:1023px) {
-    html {
-        width: 100%;
-
-        .header_container {
-            width: 100%;
-        }
-
-        #page {
-            .main_wrap {
-                margin-left: 10px;
-                margin-right: 10px;
-
-                .media {
-                    width: 100%;
-                    margin-bottom: 20px;
-
-                    .main_title {
-                        font-size: 20px;
-                        margin-bottom: 25px;
-                    }
-
-                    .select_wrap {
-                        display: flex;
-                        justify-content: center;
-
-                        .select {
-                            margin-left: 0;
-                        }
-                    }
-
-                    .click_container {
                         .btn_container {
-                            display: block;
-                            margin-top: 25px;
+                            display: flex;
+                            margin-top: 15px;
 
-                            .btn_left {
-                                margin: 10px auto;
+                            .second_click_none {
+                                pointer-events: none;
+                            }
+
+                            .button {
+                                display: block;
+                                color: #554200;
+                                // font-family: 'Kaisei Decol', serif;
+                                font-weight: 500;
                             }
 
                             .btn_right {
-                                margin: 25px auto;
+                                display: block;
+                                margin-left: 10px;
                             }
                         }
                     }
 
+                    // ルーレットここから　🌟いずれ消す
 
                     .roulette_cover {
-                        width: 300px;
-                        height: 300px;
-                        margin: 30px auto;
+                        background-color: #FF8A02;
+                        width: 450px;
+                        height: 450px;
+                        border-radius: 50%;
+                        margin: 20px;
+                        position: relative;
 
                         .target {
-                            width: 150px;
-                            height: 150px;
-                            font-size: 15px;
+                            width: 225px;
+                            height: 225px;
+                            position: relative;
 
                             span {
-                                display: none;
+                                position: absolute;
+                                z-index: 1;
                             }
 
-                            &:first-child {
-                                &:not(.color_blue) {
-                                    background: none;
-                                    background-color: #bbdbf3;
+                            // }
 
-                                    img {
-                                        filter: grayscale(80%);
-                                        opacity: 0.7;
+                            &:first-child {
+                                // ルーレットの的を円に当てている。
+                                position: absolute;
+                                top: 0px;
+                                right: 0px;
+
+                                // .color_blue がついている時。
+                                // すなわちルーレットがチカってしている時。
+                                border-radius: 0 100% 0 0;
+                                border: solid 0.5em blue;
+                                background-color: #bbdbf3;
+
+                                span {
+                                    opacity: 0;
+                                }
+
+                                // .color_blue がついていない時
+                                // すなわち、ルーレットでチカってしていない時。
+                                // 回っていない時もこれ。（セット時とセット前両方）
+                                &:not(.color_blue) {
+                                    border: none;
+                                    // background: linear-gradient(rgba(187, 219, 243), rgb(52, 78, 98));
+
+                                    span {
+                                        bottom: 90px;
+                                        left: 55px;
+                                        right: 40px;
+                                        font-size: 20px;
+                                        // font-weight: bold;
+                                        // text-shadow: 1px 1px 5px #4aa5eb;
+                                        // color: white;
+                                        opacity: 1;
+
+                                        &.long_format {
+                                            bottom: 90px;
+                                            left: 20px;
+                                            right: 50px;
+                                            font-size: 16px;
+                                        }
                                     }
                                 }
                             }
 
                             &:nth-child(2) {
-                                &:not(.color_red) {
-                                    background: none;
-                                    background-color: #e3acae;
+                                position: absolute;
+                                bottom: 0px;
+                                right: 0px;
+                                border-radius: 0 0 100% 0;
+                                border: solid 0.5em red;
+                                background-color: #e3acae;
 
-                                    img {
-                                        filter: grayscale(80%);
-                                        opacity: 0.7;
+                                span {
+                                    opacity: 0;
+                                }
+
+                                &:not(.color_red) {
+                                    border: none;
+                                    // background: linear-gradient(#732d30, #e3acae);
+
+                                    span {
+                                        font-size: 20px;
+                                        opacity: 1;
+                                        // color: white;
+                                        // font-weight: bold;
+                                        // text-shadow: 1px 1px 5px #e26266;
+                                        top: 90px;
+                                        right: 30px;
+                                        left: 55px;
+
+                                        &.long_format {
+                                            top: 90px;
+                                            right: 50px;
+                                            left: 20px;
+                                            font-size: 16px;
+                                        }
                                     }
                                 }
                             }
 
                             &:nth-child(3) {
-                                &:not(.color_green) {
-                                    background: none;
-                                    background-color: #a3d6ce;
+                                position: absolute;
+                                bottom: 0px;
+                                left: 0px;
+                                border-radius: 0 0 0 100%;
+                                border: solid 0.5em green;
+                                background-color: #a3d6ce;
 
-                                    img {
-                                        filter: grayscale(80%);
-                                        opacity: 0.7;
+                                span {
+                                    opacity: 0;
+                                }
+
+                                &:not(.color_green) {
+                                    border: none;
+                                    // background: linear-gradient(#2f6b62, #a3d6ce);
+
+                                    span {
+                                        font-size: 20px;
+                                        opacity: 1;
+                                        // color: white;
+                                        // font-weight: bold;
+                                        // text-shadow: 1px 1px 5px #39e1c8;
+                                        top: 90px;
+                                        right: 50px;
+                                        margin-left: 40px;
+
+                                        &.long_format {
+                                            top: 90px;
+                                            right: 20px;
+                                            font-size: 16px;
+                                        }
+
                                     }
                                 }
                             }
 
                             &:last-child {
-                                &:not(.color_yellow) {
-                                    background: none;
-                                    background-color: #ffedab;
+                                top: 0px;
+                                left: 0px;
+                                border-radius: 100% 0 0 0;
+                                border: solid 0.5em yellow;
+                                background-color: #ffedab;
 
-                                    img {
-                                        filter: grayscale(80%);
-                                        opacity: 0.7;
+                                span {
+                                    opacity: 0;
+                                }
+
+                                &:not(.color_yellow) {
+                                    border: none;
+                                    background-color: #ffedab;
+                                    // background: linear-gradient(#ffedab, #7e6c2c);
+
+                                    span {
+                                        font-size: 20px;
+                                        opacity: 1;
+                                        // color: white;
+                                        // font-weight: bold;
+                                        // text-shadow: 1px 1px 5px #f1b40c;
+                                        top: 105px;
+                                        right: 50px;
+                                        margin-left: 30px;
+
+                                        &.long_format {
+                                            bottom: 10px;
+                                            right: 20px;
+                                            font-size: 16px;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
+
+
+
             }
         }
+
+    }
+
+    .no_responsive {
+        display: none;
     }
 }
 
-@media screen and (max-width:639px) {
-    #page {
 
-        .main_wrap {
+
+
+
+
+@media screen and (min-width:640px) and (max-width:900px) {
+    // html {
+    //     width: 100%;
+
+    //     .header_container {
+    //         width: 100%;
+    //     }
+
+    //     #page {
+    //         .main_wrap {
+    //             margin-left: 10px;
+    //             margin-right: 10px;
+
+    //             .media {
+    //                 width: 100%;
+    //                 margin-bottom: 20px;
+
+    //                 .main_title {
+    //                     font-size: 20px;
+    //                     margin-bottom: 25px;
+    //                 }
+
+    //                 .select_wrap {
+    //                     display: flex;
+    //                     justify-content: center;
+
+    //                     .select {
+    //                         margin-left: 0;
+    //                     }
+    //                 }
+
+    //                 .click_container {
+    //                     .btn_container {
+    //                         display: block;
+    //                         margin-top: 25px;
+
+    //                         .btn_left {
+    //                             margin: 10px auto;
+    //                         }
+
+    //                         .btn_right {
+    //                             margin: 25px auto;
+    //                         }
+    //                     }
+    //                 }
+
+
+    //                 .roulette_cover {
+    //                     width: 300px;
+    //                     height: 300px;
+    //                     margin: 30px auto;
+
+    //                     .target {
+    //                         width: 150px;
+    //                         height: 150px;
+    //                         font-size: 15px;
+
+    //                         span {
+    //                             display: none;
+    //                         }
+
+    //                         &:first-child {
+    //                             &:not(.color_blue) {
+    //                                 background: none;
+    //                                 background-color: #bbdbf3;
+
+    //                                 img {
+    //                                     filter: grayscale(80%);
+    //                                     opacity: 0.7;
+    //                                 }
+    //                             }
+    //                         }
+
+    //                         &:nth-child(2) {
+    //                             &:not(.color_red) {
+    //                                 background: none;
+    //                                 background-color: #e3acae;
+
+    //                                 img {
+    //                                     filter: grayscale(80%);
+    //                                     opacity: 0.7;
+    //                                 }
+    //                             }
+    //                         }
+
+    //                         &:nth-child(3) {
+    //                             &:not(.color_green) {
+    //                                 background: none;
+    //                                 background-color: #a3d6ce;
+
+    //                                 img {
+    //                                     filter: grayscale(80%);
+    //                                     opacity: 0.7;
+    //                                 }
+    //                             }
+    //                         }
+
+    //                         &:last-child {
+    //                             &:not(.color_yellow) {
+    //                                 background: none;
+    //                                 background-color: #ffedab;
+
+    //                                 img {
+    //                                     filter: grayscale(80%);
+    //                                     opacity: 0.7;
+    //                                 }
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+
+
+
+    .page_wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+
+        .header {
+            display: none;
+        }
+
+        #page {
+            display: none;
+        }
+
+        .no_responsive {
             display: block;
 
+            p {
+                text-align: center;
+                font-size: 20px;
+            }
+        }
+    }
 
-            .roulette_box {
-                box-sizing: border-box;
-                width: 100%;
-                margin: 5px;
+}
 
-                .main_title {
-                    font-size: 20px;
-                }
+@media screen and (max-width:639px) {
+    // #page {
 
-                .click_container {
-                    display: block;
+    //     .main_wrap {
+    //         display: block;
 
-                    .select_wrap {
-                        display: flex;
-                        justify-content: center;
 
-                        .select {
-                            margin-left: 0;
-                        }
-                    }
+    //         .roulette_box {
+    //             box-sizing: border-box;
+    //             width: 100%;
+    //             margin: 5px;
 
-                    .btn_container {
-                        display: block;
+    //             .main_title {
+    //                 font-size: 20px;
+    //             }
 
-                        .btn_left {
-                            margin: 10px auto;
-                        }
+    //             .click_container {
+    //                 display: block;
 
-                        .btn_right {
-                            margin: 10px auto;
-                        }
-                    }
-                }
+    //                 .select_wrap {
+    //                     display: flex;
+    //                     justify-content: center;
 
-                .roulette_cover {
-                    width: 270px;
-                    height: 270px;
-                    margin: 0px auto;
+    //                     .select {
+    //                         margin-left: 0;
+    //                     }
+    //                 }
 
-                    .target {
-                        width: 135px;
-                        height: 135px;
-                        font-size: 15px;
+    //                 .btn_container {
+    //                     display: block;
 
-                        span {
-                            display: none;
-                        }
+    //                     .btn_left {
+    //                         margin: 10px auto;
+    //                     }
 
-                        &:first-child {
-                            &:not(.color_blue) {
-                                background: none;
-                                background-color: #bbdbf3;
+    //                     .btn_right {
+    //                         margin: 10px auto;
+    //                     }
+    //                 }
+    //             }
 
-                                img {
-                                    filter: grayscale(80%);
-                                    opacity: 0.7;
-                                }
-                            }
-                        }
+    //             .roulette_cover {
+    //                 width: 270px;
+    //                 height: 270px;
+    //                 margin: 0px auto;
 
-                        &:nth-child(2) {
-                            &:not(.color_red) {
-                                background: none;
-                                background-color: #e3acae;
+    //                 .target {
+    //                     width: 135px;
+    //                     height: 135px;
+    //                     font-size: 15px;
 
-                                img {
-                                    filter: grayscale(80%);
-                                    opacity: 0.9;
-                                }
-                            }
-                        }
+    //                     span {
+    //                         display: none;
+    //                     }
 
-                        &:nth-child(3) {
-                            &:not(.color_green) {
-                                background: none;
-                                background-color: #a3d6ce;
+    //                     &:first-child {
+    //                         &:not(.color_blue) {
+    //                             background: none;
+    //                             background-color: #bbdbf3;
 
-                                img {
-                                    filter: grayscale(80%);
-                                    opacity: 0.7;
-                                }
-                            }
-                        }
+    //                             img {
+    //                                 filter: grayscale(80%);
+    //                                 opacity: 0.7;
+    //                             }
+    //                         }
+    //                     }
 
-                        &:last-child {
-                            &:not(.color_yellow) {
-                                background: none;
-                                background-color: #ffedab;
+    //                     &:nth-child(2) {
+    //                         &:not(.color_red) {
+    //                             background: none;
+    //                             background-color: #e3acae;
 
-                                img {
-                                    filter: grayscale(80%);
-                                    opacity: 0.7;
-                                }
-                            }
-                        }
-                    }
-                }
+    //                             img {
+    //                                 filter: grayscale(80%);
+    //                                 opacity: 0.9;
+    //                             }
+    //                         }
+    //                     }
+
+    //                     &:nth-child(3) {
+    //                         &:not(.color_green) {
+    //                             background: none;
+    //                             background-color: #a3d6ce;
+
+    //                             img {
+    //                                 filter: grayscale(80%);
+    //                                 opacity: 0.7;
+    //                             }
+    //                         }
+    //                     }
+
+    //                     &:last-child {
+    //                         &:not(.color_yellow) {
+    //                             background: none;
+    //                             background-color: #ffedab;
+
+    //                             img {
+    //                                 filter: grayscale(80%);
+    //                                 opacity: 0.7;
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+
+    .page_wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+
+        .header {
+            display: none;
+        }
+
+        #page {
+            display: none;
+        }
+
+        .no_responsive {
+            display: block;
+
+            p {
+                text-align: center;
+                font-size: 20px;
             }
         }
     }

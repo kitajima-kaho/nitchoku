@@ -5,7 +5,7 @@
 </template>
 <style>
 * {
-  font-family: 'Kaisei Decol', serif;
+  /* font-family: 'Kaisei Decol', serif; */
 }
 </style>
 

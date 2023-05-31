@@ -18,7 +18,9 @@ export default {
                 <div class="media-content">
                     <div class="content">
                         <p>
-                            <span class="rank" :class="{'rank_gold':(recipe.rankColor === 'gold'), 'rank_silver':(recipe.rankColor === 'silver'), 'rank_bronze':(recipe.rankColor === 'bronze'), 'rank_blue':(recipe.rankColor === 'blue')} ">{{ recipe.rank }}</span>
+                            <span class="rank"
+                                :class="{ 'rank_gold': (recipe.rankColor === 'gold'), 'rank_silver': (recipe.rankColor === 'silver'), 'rank_bronze': (recipe.rankColor === 'bronze'), 'rank_blue': (recipe.rankColor === 'blue') }">{{
+                                    recipe.rank }}</span>
                             <a target="_blank" rel=”noopener” :href="recipe.recipeUrl">{{ recipe.recipeTitle }}</a>
                         </p>
                     </div>
@@ -46,8 +48,8 @@ export default {
         padding: 0.5rem 0;
         margin-bottom: 0.2rem;
         border-bottom: 3px dotted hsl(44deg, 100%, 77%);
-        font-family: 'Kaisei Decol', serif;
-        font-weight: 700;
+        // font-family: 'Kaisei Decol', serif;
+        // font-weight: 700;
         font-size: 24px;
         text-align: center;
         margin-bottom: 24px;
@@ -61,7 +63,7 @@ export default {
 
         .media {
             display: flex;
-            width:fit-content;
+            width: fit-content;
             align-items: center;
 
             .media-left {
@@ -139,14 +141,14 @@ export default {
         h2 {
             font-size: 20px;
         }
-        
+
         .side_box {
             width: 100%;
         }
     }
 }
 
-@media screen and (max-width:639px) {    
+@media screen and (max-width:639px) {
     .main_wrap {
 
         .side {

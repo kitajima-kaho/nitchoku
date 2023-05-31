@@ -1,32 +1,32 @@
 [
   {
     "id": 1,
-    "name": "佐藤さん",
+    "name": "上村さん",
     "colorStatus": false
   },
   {
     "id": 2,
-    "name": "田中さん",
+    "name": "鶴飼さん",
     "colorStatus": false
   },
   {
     "id": 3,
-    "name": "松浦さん",
+    "name": "佐藤さん",
     "colorStatus": false
   },
   {
     "id": 4,
-    "name": "朴さん",
+    "name": "田中さん",
     "colorStatus": false
   },
   {
     "id": 5,
-    "name": "片岡さん",
+    "name": "松浦さん",
     "colorStatus": false
   },
   {
     "id": 6,
-    "name": "富田さん",
+    "name": "朴さん",
     "colorStatus": false
   },
   {
@@ -41,17 +41,17 @@
   },
   {
     "id": 9,
-    "name": "北島",
+    "name": "富田さん",
     "colorStatus": false
   },
   {
     "id": 10,
-    "name": "鶴飼さん",
+    "name": "北島",
     "colorStatus": false
   },
   {
     "id": 11,
-    "name": "上村さん",
+    "name": "片岡さん",
     "colorStatus": false
   },
   {

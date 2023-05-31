@@ -9,6 +9,10 @@ export default {
     data() {
         return {
             users: users,
+            allUsers: allUsers,
+            themes: themes,
+            selectedUsers: [],
+            selectedUsersIds: [],
             recipeRankingList: [],
             status: 'clear',
             rouletteRecipe: [],
@@ -48,12 +52,12 @@ export default {
         this.recipeAmerican = users
         this.recipeJapanese = themes
         this.recipeChinese = allUsers
-        this.recipeFrench = dataFrench.data.value.meals
+        // this.recipeFrench = dataFrench.data.value.meals
 
-        this.recipeChicken = dataChicken.data.value.meals
-        this.recipeBeef = dataBeef.data.value.meals
-        this.recipeSeafood = dataSeafood.data.value.meals
-        this.recipeVegetarian = dataVegetarian.data.value.meals
+        // this.recipeChicken = dataChicken.data.value.meals
+        // this.recipeBeef = dataBeef.data.value.meals
+        // this.recipeSeafood = dataSeafood.data.value.meals
+        // this.recipeVegetarian = dataVegetarian.data.value.meals
 
         // 楽天レシピのデータ表示
         const rakutenResponse = await RakutenServise.fetchRecipeRanking();
@@ -69,7 +73,7 @@ export default {
 
             // セットする前にスタートボタンが押された時
             if (this.clickNone) {
-                alert('国名かカテゴリーをセットしてください')
+                alert('メンバーかテーマを選択してください。')
 
             } else {
                 this.status = 'start';
@@ -103,7 +107,7 @@ export default {
 
                     attentionIndex++
 
-                }, 90)
+                }, 50)
 
             }
 
@@ -117,7 +121,7 @@ export default {
             this.rouletteRecipe = new Array();
 
             if (this.recipeTarget === 'not') {
-                alert('国名か素材名を選択してください。')
+                alert('メンバーかテーマを選択してください。')
                 // ここではまだルーレットを出さない。（タイトルと写真を表示するもの）
                 this.displayRoulette = false;
                 // スタートボタンを押してもアラートが出る
@@ -126,30 +130,33 @@ export default {
 
             } else if (this.recipeTarget === 'american') {
                 this.isLong = false;
-                this.SetRouletteRecipe(this.recipeAmerican);
+                this.SetRouletteRecipe(this.users);
 
             } else if (this.recipeTarget === 'japanese') {
                 this.isLong = true;
-                this.SetRouletteRecipe(this.recipeJapanese);
+                this.SetRouletteRecipe(this.themes);
 
             } else if (this.recipeTarget === 'chinese') {
-                this.SetRouletteRecipe(this.recipeChinese);
+                this.SetRouletteRecipe(this.allUsers);
                 this.isLong = false;
 
             } else if (this.recipeTarget === 'french') {
-                this.SetRouletteRecipe(this.recipeFrench);
 
-            } else if (this.recipeTarget === 'chicken') {
-                this.SetRouletteRecipe(this.recipeChicken);
+                this.SetRouletteRecipe(this.selectedUsers);
+                this.isLong = false;
 
-            } else if (this.recipeTarget === 'beef') {
-                this.SetRouletteRecipe(this.recipeBeef);
 
-            } else if (this.recipeTarget === 'seafood') {
-                this.SetRouletteRecipe(this.recipeSeafood);
+                // } else if (this.recipeTarget === 'chicken') {
+                //     this.SetRouletteRecipe(this.recipeChicken);
 
-            } else if (this.recipeTarget === 'vegetarian') {
-                this.SetRouletteRecipe(this.recipeVegetarian);
+                // } else if (this.recipeTarget === 'beef') {
+                //     this.SetRouletteRecipe(this.recipeBeef);
+
+                // } else if (this.recipeTarget === 'seafood') {
+                //     this.SetRouletteRecipe(this.recipeSeafood);
+
+                // } else if (this.recipeTarget === 'vegetarian') {
+                //     this.SetRouletteRecipe(this.recipeVegetarian);
 
             }
             // タイトルと写真が入ったルーレットが表示される。
@@ -240,6 +247,16 @@ export default {
             })
         },
 
+        getSelectedUsers() {
+
+            // チェックボックスで選んだユーザーからランダムでルーレットに表示させるための準び。
+            this.selectedUsers = this.allUsers.filter(user => this.selectedUsersIds.includes(user.id));
+
+            // セレクトボックスを選ばなくても、セットできるようにする。
+            this.recipeTarget = 'french';
+            this.set();
+        }
+
 
     }
 }
@@ -263,9 +280,9 @@ export default {
                                 <div class="select is-warning">
                                     <select v-model="recipeTarget">
                                         <option value="not">選択してください</option>
-                                        <option value="american">人</option>
-                                        <option value="japanese">話すテーマ</option>
+                                        <option value="american">MEMBER</option>
                                         <option value="chinese">ALL MEMBER</option>
+                                        <option value="japanese">話すテーマ決めて欲しいの？</option>
                                     </select>
                                 </div>
                             </div>
@@ -279,6 +296,17 @@ export default {
                                     @click="start()">スタート</button>
                                 <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-else
                                     @click="stop()">ストップ</button>
+                            </div>
+
+                            <div class="member_container">
+                                <div class="member">
+                                    <div v-for="user in allUsers" :key="user.id">
+                                        <input type="checkbox" :value="user.id" :id="user.id" v-model="selectedUsersIds">
+                                        <label :for="user.id">{{ user.name }}</label>
+                                    </div>
+                                </div>
+                                <button class="button is-warning is-medium inline_btn" v-if="selectedUsersIds.length > 3"
+                                    @click="getSelectedUsers()">メンバー決定</button>
                             </div>
                         </div>
                         <div class="roulette_cover roulette_on" v-if="displayRoulette">
@@ -420,6 +448,29 @@ export default {
                             .btn_right {
                                 display: block;
                                 margin-left: 10px;
+                            }
+                        }
+
+                        .member_container {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+
+
+                            .member {
+                                height: 280px;
+                                overflow-y: scroll;
+                                margin: 20px;
+                                border: 1px solid #554200;
+                                border-radius: 5px;
+                                padding: 10px;
+                                width: 180px;
+                            }
+
+                            .button {
+                                width: 150px;
+                                display: block;
+
                             }
                         }
                     }

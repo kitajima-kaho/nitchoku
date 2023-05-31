@@ -39,6 +39,7 @@ export default {
             recipeBeef: null,
             recipeSeafood: null,
             recipeVegetarian: null,
+            isLong: false,
 
         }
     },
@@ -124,13 +125,16 @@ export default {
                 return;
 
             } else if (this.recipeTarget === 'american') {
+                this.isLong = false;
                 this.SetRouletteRecipe(this.recipeAmerican);
 
             } else if (this.recipeTarget === 'japanese') {
+                this.isLong = true;
                 this.SetRouletteRecipe(this.recipeJapanese);
 
             } else if (this.recipeTarget === 'chinese') {
                 this.SetRouletteRecipe(this.recipeChinese);
+                this.isLong = false;
 
             } else if (this.recipeTarget === 'french') {
                 this.SetRouletteRecipe(this.recipeFrench);
@@ -272,16 +276,16 @@ export default {
                     </div>
                     <div class="roulette_cover roulette_on" v-if="displayRoulette">
                         <div class="target" :class="{ color_blue: rouletteRecipe[0].colorStatus }">
-                            <span>{{ rouletteRecipe[0].name }}</span>
+                            <span :class="{ long_format: isLong }">{{ rouletteRecipe[0].name }}</span>
                         </div>
                         <div class="target" :class="{ color_red: rouletteRecipe[1].colorStatus }">
-                            <span>{{ rouletteRecipe[1].name }}</span>
+                            <span :class="{ long_format: isLong }">{{ rouletteRecipe[1].name }}</span>
                         </div>
                         <div class="target" :class="{ color_green: rouletteRecipe[2].colorStatus }">
-                            <span>{{ rouletteRecipe[2].name }}</span>
+                            <span :class="{ long_format: isLong }">{{ rouletteRecipe[2].name }}</span>
                         </div>
                         <div class="target" :class="{ color_yellow: rouletteRecipe[3].colorStatus }">
-                            <span>{{ rouletteRecipe[3].name }}</span>
+                            <span :class="{ long_format: isLong }">{{ rouletteRecipe[3].name }}</span>
                         </div>
                     </div>
 
@@ -387,7 +391,6 @@ export default {
                         position: relative;
 
                         span {
-                            // imgと文字を重ねている。
                             position: absolute;
                             z-index: 1;
                         }
@@ -403,7 +406,7 @@ export default {
                             // .color_blue がついている時。
                             // すなわちルーレットがチカってしている時。
                             border-radius: 0 100% 0 0;
-                            border: solid 0.3em blue;
+                            border: solid 0.5em blue;
                             background-color: #bbdbf3;
 
                             span {
@@ -415,17 +418,24 @@ export default {
                             // 回っていない時もこれ。（セット時とセット前両方）
                             &:not(.color_blue) {
                                 border: none;
-                                background: linear-gradient(rgba(187, 219, 243), rgb(52, 78, 98));
+                                // background: linear-gradient(rgba(187, 219, 243), rgb(52, 78, 98));
 
                                 span {
-                                    bottom: 10px;
-                                    left: 10px;
-                                    right: 30px;
-                                    font-size: 16px;
-                                    font-weight: bold;
-                                    text-shadow: 1px 1px 5px #4aa5eb;
-                                    color: white;
+                                    bottom: 90px;
+                                    left: 55px;
+                                    right: 40px;
+                                    font-size: 20px;
+                                    // font-weight: bold;
+                                    // text-shadow: 1px 1px 5px #4aa5eb;
+                                    // color: white;
                                     opacity: 1;
+
+                                    &.long_format {
+                                        bottom: 90px;
+                                        left: 20px;
+                                        right: 50px;
+                                        font-size: 16px;
+                                    }
                                 }
                             }
                         }
@@ -435,7 +445,7 @@ export default {
                             bottom: 0px;
                             right: 0px;
                             border-radius: 0 0 100% 0;
-                            border: solid 0.3em red;
+                            border: solid 0.5em red;
                             background-color: #e3acae;
 
                             span {
@@ -444,17 +454,24 @@ export default {
 
                             &:not(.color_red) {
                                 border: none;
-                                background: linear-gradient(#732d30, #e3acae);
+                                // background: linear-gradient(#732d30, #e3acae);
 
                                 span {
+                                    font-size: 20px;
                                     opacity: 1;
-                                    color: white;
-                                    font-size: 16px;
-                                    font-weight: bold;
-                                    text-shadow: 1px 1px 5px #e26266;
-                                    top: 10px;
+                                    // color: white;
+                                    // font-weight: bold;
+                                    // text-shadow: 1px 1px 5px #e26266;
+                                    top: 90px;
                                     right: 30px;
-                                    left: 10px;
+                                    left: 55px;
+
+                                    &.long_format {
+                                        top: 90px;
+                                        right: 50px;
+                                        left: 20px;
+                                        font-size: 16px;
+                                    }
                                 }
                             }
                         }
@@ -464,7 +481,7 @@ export default {
                             bottom: 0px;
                             left: 0px;
                             border-radius: 0 0 0 100%;
-                            border: solid 0.3em green;
+                            border: solid 0.5em green;
                             background-color: #a3d6ce;
 
                             span {
@@ -473,17 +490,24 @@ export default {
 
                             &:not(.color_green) {
                                 border: none;
-                                background: linear-gradient(#2f6b62, #a3d6ce);
+                                // background: linear-gradient(#2f6b62, #a3d6ce);
 
                                 span {
+                                    font-size: 20px;
                                     opacity: 1;
-                                    color: white;
-                                    font-size: 16px;
-                                    font-weight: bold;
-                                    text-shadow: 1px 1px 5px #39e1c8;
-                                    top: 10px;
-                                    right: 40px;
-                                    margin-left: 10px;
+                                    // color: white;
+                                    // font-weight: bold;
+                                    // text-shadow: 1px 1px 5px #39e1c8;
+                                    top: 90px;
+                                    right: 50px;
+                                    margin-left: 40px;
+
+                                    &.long_format {
+                                        top: 90px;
+                                        right: 20px;
+                                        font-size: 16px;
+                                    }
+
                                 }
                             }
                         }
@@ -492,7 +516,7 @@ export default {
                             top: 0px;
                             left: 0px;
                             border-radius: 100% 0 0 0;
-                            border: solid 0.3em yellow;
+                            border: solid 0.5em yellow;
                             background-color: #ffedab;
 
                             span {
@@ -502,17 +526,23 @@ export default {
                             &:not(.color_yellow) {
                                 border: none;
                                 background-color: #ffedab;
-                                background: linear-gradient(#ffedab, #7e6c2c);
+                                // background: linear-gradient(#ffedab, #7e6c2c);
 
                                 span {
+                                    font-size: 20px;
                                     opacity: 1;
-                                    color: white;
-                                    font-size: 16px;
-                                    font-weight: bold;
-                                    text-shadow: 1px 1px 5px #f1b40c;
-                                    bottom: 10px;
-                                    right: 40px;
-                                    margin-left: 10px;
+                                    // color: white;
+                                    // font-weight: bold;
+                                    // text-shadow: 1px 1px 5px #f1b40c;
+                                    top: 105px;
+                                    right: 50px;
+                                    margin-left: 30px;
+
+                                    &.long_format {
+                                        bottom: 10px;
+                                        right: 20px;
+                                        font-size: 16px;
+                                    }
                                 }
                             }
                         }

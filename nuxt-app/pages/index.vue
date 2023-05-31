@@ -406,7 +406,7 @@ export default {
                 width: 1000px;
                 padding: 20px;
                 display: block;
-                margin: 20px auto;
+                margin: 5px auto;
 
                 .main_title {
                     padding: 0.5rem 0;

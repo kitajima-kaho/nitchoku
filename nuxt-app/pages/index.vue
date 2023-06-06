@@ -73,7 +73,7 @@ export default {
 
             // セットする前にスタートボタンが押された時
             if (this.clickNone) {
-                alert('メンバーかテーマを選択してください。')
+                alert('メンバーかテーマを選択してください。\n選択している場合は、「セット」ボタンを押してから、スタートを押してください。')
 
             } else {
                 this.status = 'start';

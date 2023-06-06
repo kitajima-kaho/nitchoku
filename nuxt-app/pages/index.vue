@@ -272,6 +272,11 @@ export default {
         </div>
         <div id="page">
             <div class="main_wrap">
+                <div class="btn_box">
+                    <button class="button btn_right is-warning is-rounded is-medium is-responsive"
+                        :class="{ click_none: clickNone, second_click_none: SecondClickNone }"
+                        @click="$router.push('filter')">メンバーを分ける</button>
+                </div>
                 <article class="box media roulette_box">
                     <h2 class="main_title">だれがなに話す〜？</h2>
                     <div class="content">
@@ -280,7 +285,7 @@ export default {
                                 <div class="select is-warning">
                                     <select v-model="recipeTarget">
                                         <option value="not">選択してください</option>
-                                        <option value="american">MEMBER</option>
+                                        <!-- <option value="american">MEMBER</option> -->
                                         <option value="chinese">ALL MEMBER</option>
                                         <option value="japanese">話すテーマ決めて欲しいの？</option>
                                     </select>
@@ -355,6 +360,10 @@ export default {
 
 .page_wrap {
     height: 100vh;
+    background-color: #FCF4EC;
+    overflow-y: auto;
+    overflow-x: hidden;
+
 
     .header {
         background: url(~/assets/image/tsumami.png) center / cover;
@@ -400,7 +409,7 @@ export default {
 
         .main_wrap {
             width: 100%;
-
+            height: 100%;
 
             .roulette_box {
                 // width: 80%;
@@ -653,6 +662,11 @@ export default {
 
 
 
+            }
+
+            .btn_box {
+                width: 1000px;
+                margin: 20px auto;
             }
         }
 

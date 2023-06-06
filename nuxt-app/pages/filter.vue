@@ -411,8 +411,8 @@ export default {
 .page_wrap {
   height: 100vh;
   background-color: #FCF4EC;
-  overflow-y: auto;
-  overflow-x: hidden;
+  // overflow-y: auto;
+  // overflow-x: hidden;
 
   .header {
     background: url(~/assets/image/tsumami.png) center / cover;
@@ -448,7 +448,7 @@ export default {
 
   #page {
     position: relative;
-    height: 80%;
+    // height: 80%;
     box-sizing: border-box;
     background-color: #FCF4EC;
     width: 100vw;

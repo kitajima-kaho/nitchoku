@@ -358,11 +358,17 @@ export default {
     color: #554200
 }
 
+html {
+    overflow-y: auto;
+    background-color: #FCF4EC;
+
+}
+
 .page_wrap {
     height: 100vh;
     background-color: #FCF4EC;
-    overflow-y: auto;
-    overflow-x: hidden;
+    // overflow-y: auto;
+    // overflow-x: hidden;
 
 
     .header {
@@ -399,7 +405,7 @@ export default {
 
     #page {
         position: relative;
-        height: 80%;
+        // height: 80%;
         box-sizing: border-box;
         background-color: #FCF4EC;
         width: 100vw;

@@ -8,6 +8,7 @@ export default {
 
     data() {
         return {
+            show: '1',
             users: users,
             allUsers: allUsers,
             themes: themes,
@@ -115,12 +116,13 @@ export default {
 
         // ルーレットセットする
         set() {
+
             // ルーレットが一度回って止めた後、すぐにルーレットを回さないようにするもの。
             // この時は、何回も押しても良いのでfalse
             this.SecondClickNone = false;
             this.rouletteRecipe = new Array();
 
-            if (this.recipeTarget === 'not') {
+            if (this.recipeTarget === 'not' && this.selectedUsersIds.length <= 3) {
                 alert('メンバーかテーマを選択してください。')
                 // ここではまだルーレットを出さない。（タイトルと写真を表示するもの）
                 this.displayRoulette = false;
@@ -129,14 +131,20 @@ export default {
                 return;
 
             } else if (this.recipeTarget === 'american') {
+                this.selectedUsersIds = []
+
                 this.isLong = false;
                 this.SetRouletteRecipe(this.users);
 
             } else if (this.recipeTarget === 'japanese') {
+                this.selectedUsersIds = []
+
                 this.isLong = true;
                 this.SetRouletteRecipe(this.themes);
 
             } else if (this.recipeTarget === 'chinese') {
+                this.selectedUsersIds = []
+
                 this.SetRouletteRecipe(this.allUsers);
                 this.isLong = false;
 
@@ -249,14 +257,33 @@ export default {
 
         getSelectedUsers() {
 
+            if (this.selectedUsersIds <= 3) {
+                alert('3人以上メンバーを選んでください！')
+                return
+            }
+
             // チェックボックスで選んだユーザーからランダムでルーレットに表示させるための準び。
             this.selectedUsers = this.allUsers.filter(user => this.selectedUsersIds.includes(user.id));
 
             // セレクトボックスを選ばなくても、セットできるようにする。
             this.recipeTarget = 'french';
             this.set();
-        }
+        },
 
+        // ルーレットタブの切り替え
+        select(num) {
+            this.show = num;
+            this.recipeTarget = 'not';
+        },
+
+        // 全選択
+        selectAll() {
+            this.selectedUsersIds = this.allUsers.map(user => user.id);
+        },
+
+        reset() {
+            this.selectedUsersIds = []
+        }
 
     }
 }
@@ -280,38 +307,75 @@ export default {
                 <article class="box media roulette_box">
                     <h2 class="main_title">だれがなに話す〜？</h2>
                     <div class="content">
-                        <div class="click_container">
-                            <div class="select_wrap">
-                                <div class="select is-warning">
-                                    <select v-model="recipeTarget">
-                                        <option value="not">選択してください</option>
-                                        <!-- <option value="american">MEMBER</option> -->
-                                        <option value="chinese">ALL MEMBER</option>
-                                        <option value="japanese">話すテーマ決めて欲しいの？</option>
-                                    </select>
+                        <div class="tabgroup">
+                            <ul class="tabnav">
+                                <li @click="select('1')" v-bind:class="{ 'active': show == '1' }">
+                                    メンバールーレット
+                                </li>
+                                <li @click="select('2')" v-bind:class="{ 'active': show == '2' }">
+                                    色々ルーレット
+                                </li>
+                            </ul>
+                            <div class="tabcontent">
+                                <div v-if="show == '1'" class="click_container">
+
+                                    <div class="btn_container">
+                                        <button class="button btn_left is-warning is-medium  is-responsive inline_btn"
+                                            @click="selectAll">全選択</button>
+                                        <button class="button btn_right is-warning is-medium is-responsive inline_btn"
+                                            @click="reset">リセット</button>
+                                    </div>
+
+                                    <div class="member_container">
+                                        <div class="member">
+                                            <div v-for="user in allUsers" :key="user.id">
+                                                <input type="checkbox" :value="user.id" :id="user.id"
+                                                    v-model="selectedUsersIds">
+                                                <label :for="user.id">{{ user.name }}</label>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="btn_container">
+                                            <button
+                                                class="button btn_left is-warning is-rounded is-medium is-responsive inline_btn"
+                                                :class="{ transparency: transparency }"
+                                                @click="getSelectedUsers()">セット</button>
+                                            <button class="button btn_right is-warning is-rounded is-medium is-responsive"
+                                                v-if="status !== 'start'"
+                                                :class="{ click_none: clickNone, second_click_none: SecondClickNone }"
+                                                @click="start()">スタート</button>
+                                            <button class="button btn_right is-warning is-rounded is-medium is-responsive"
+                                                v-else @click="stop()">ストップ</button>
+                                        </div>
+
+                                    </div>
+
                                 </div>
-                            </div>
-
-                            <div class="btn_container">
-                                <button class="button btn_left is-warning is-rounded is-medium is-responsive inline_btn"
-                                    :class="{ transparency: transparency }" @click="set()">セット</button>
-                                <button class="button btn_right is-warning is-rounded is-medium is-responsive"
-                                    v-if="status !== 'start'"
-                                    :class="{ click_none: clickNone, second_click_none: SecondClickNone }"
-                                    @click="start()">スタート</button>
-                                <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-else
-                                    @click="stop()">ストップ</button>
-                            </div>
-
-                            <div class="member_container">
-                                <div class="member">
-                                    <div v-for="user in allUsers" :key="user.id">
-                                        <input type="checkbox" :value="user.id" :id="user.id" v-model="selectedUsersIds">
-                                        <label :for="user.id">{{ user.name }}</label>
+                                <div v-else-if="show == '2'" class="click_container2">
+                                    <div class="select_wrap">
+                                        <div class="select is-warning">
+                                            <select v-model="recipeTarget">
+                                                <option value="not">選択してください</option>
+                                                <!-- <option value="american">MEMBER</option> -->
+                                                <!-- <option value="chinese">ALL MEMBER</option> -->
+                                                <option value="japanese">話すテーマ決めて欲しいの？</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="btn_container">
+                                        <button
+                                            class="button btn_left is-warning is-rounded is-medium is-responsive inline_btn"
+                                            :class="{ transparency: transparency }" @click="set()">セット</button>
+                                        <button class="button btn_right is-warning is-rounded is-medium is-responsive"
+                                            v-if="status !== 'start'"
+                                            :class="{ click_none: clickNone, second_click_none: SecondClickNone }"
+                                            @click="start()">スタート</button>
+                                        <button class="button btn_right is-warning is-rounded is-medium is-responsive"
+                                            v-else @click="stop()">ストップ</button>
                                     </div>
                                 </div>
-                                <button class="button is-warning is-medium inline_btn" v-if="selectedUsersIds.length > 3"
-                                    @click="getSelectedUsers()">メンバー決定</button>
                             </div>
                         </div>
                         <div class="roulette_cover roulette_on" v-if="displayRoulette">
@@ -437,59 +501,119 @@ html {
                     display: flex;
                     justify-content: space-between;
 
-                    .click_container {
-                        margin-bottom: 20px;
-                        margin-left: 20px;
+                    .tabnav {
+                        margin: auto;
+                        display: flex;
+                        list-style-type: none;
 
-                        .transparency {
-                            opacity: 0;
-                            pointer-events: none;
-                        }
+                        li {
+                            margin-top: 0;
+                            cursor: pointer;
+                            width: 50%;
+                            background: #FCF4EC;
+                            color: #554200;
+                            padding: 10px;
+                            text-decoration: none;
+                            border-radius: 10px 10px 0 0;
 
-                        .btn_container {
-                            display: flex;
-                            margin-top: 15px;
 
-                            .second_click_none {
-                                pointer-events: none;
+                            &:first-child {
+                                margin-right: 5px;
                             }
 
-                            .button {
-                                display: block;
-                                color: #554200;
-                                // font-family: 'Kaisei Decol', serif;
-                                font-weight: 500;
-                            }
 
-                            .btn_right {
-                                display: block;
-                                margin-left: 10px;
+                            &.active {
+                                background: #554200;
+                                color: #fff;
                             }
                         }
 
-                        .member_container {
+                    }
+
+                    .tabcontent {
+
+                        border: 2px solid #554200;
+
+                        .click_container2 {
+                            width: 330px;
+                            height: 514px;
                             display: flex;
                             flex-direction: column;
                             align-items: center;
 
-
-                            .member {
-                                height: 280px;
-                                overflow-y: scroll;
-                                margin: 20px;
-                                border: 1px solid #554200;
-                                border-radius: 5px;
-                                padding: 10px;
-                                width: 180px;
+                            .select_wrap {
+                                margin-top: 20px;
                             }
 
                             .button {
                                 width: 150px;
-                                display: block;
+                                margin-top: 20px;
+                            }
 
+                            .btn_right {
+                                margin-left: 10px;
+                            }
+                        }
+
+                        .click_container {
+                            margin-bottom: 15px;
+                            width: 330px;
+
+                            .transparency {
+                                opacity: 0;
+                                pointer-events: none;
+                            }
+
+                            .btn_container {
+                                display: flex;
+                                justify-content: center;
+                                margin-top: 15px;
+
+                                .second_click_none {
+                                    pointer-events: none;
+                                }
+
+                                .button {
+                                    display: block;
+                                    color: #554200;
+                                    // font-family: 'Kaisei Decol', serif;
+                                    font-weight: 500;
+                                    width: 140px;
+                                }
+
+                                .btn_right {
+                                    display: block;
+                                    margin-left: 10px;
+                                }
+                            }
+
+                            .member_container {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+
+
+
+                                .member {
+                                    height: 280px;
+                                    overflow-y: scroll;
+                                    margin: 20px;
+                                    border: 1px solid #554200;
+                                    border-radius: 5px;
+                                    padding: 10px;
+                                    width: 180px;
+                                }
+
+                                .button {
+                                    width: 150px;
+                                    display: block;
+
+                                }
                             }
                         }
                     }
+
+
 
                     // ルーレットここから　🌟いずれ消す
 
@@ -688,7 +812,7 @@ html {
 
 
 
-@media screen and (min-width:640px) and (max-width:900px) {
+@media screen and (min-width:640px) and (max-width:997px) {
     // html {
     //     width: 100%;
 

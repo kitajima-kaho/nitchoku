@@ -337,9 +337,9 @@ export default {
                   :class="{ click_none: clickNone, second_click_none: SecondClickNone }" @click="start()">スタート</button>
                 <button class="button btn_right is-warning is-rounded is-medium is-responsive" v-else
                   @click="stop()">ストップ</button> -->
-                <button class="button btn_left is-warning is-rounded  is-responsive inline_btn"
+                <button class="button btn_left is-warning is-medium  is-responsive inline_btn"
                   @click="selectAll">全選択</button>
-                <button class="button btn_right is-warning is-rounded is-responsive inline_btn"
+                <button class="button btn_right is-warning is-medium is-responsive inline_btn"
                   @click="reset">リセット</button>
               </div>
 
@@ -481,8 +481,10 @@ export default {
           // justify-content: space-between;
 
           .click_container {
-            margin-bottom: 20px;
-            margin-left: 20px;
+            margin-bottom: 15px;
+            // margin-left: 20px;
+            width: 330px;
+
 
             .transparency {
               opacity: 0;
@@ -502,6 +504,7 @@ export default {
                 color: #554200;
                 // font-family: 'Kaisei Decol', serif;
                 font-weight: 500;
+                width: 140px;
               }
 
               .btn_right {

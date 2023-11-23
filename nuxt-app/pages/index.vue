@@ -50,6 +50,7 @@ export default {
     },
 
     async created() {
+        // ITメンバー
         this.recipeAmerican = users
         this.recipeJapanese = themes
         this.recipeChinese = allUsers
@@ -134,6 +135,7 @@ export default {
                 this.selectedUsersIds = []
 
                 this.isLong = false;
+                // ITメンバー
                 this.SetRouletteRecipe(this.users);
 
             } else if (this.recipeTarget === 'japanese') {
@@ -361,6 +363,7 @@ export default {
                                                 <!-- <option value="american">MEMBER</option> -->
                                                 <!-- <option value="chinese">ALL MEMBER</option> -->
                                                 <option value="japanese">話すテーマ決めて欲しいの？</option>
+                                                <option value="american">ITメンバー</option>
                                             </select>
                                         </div>
                                     </div>

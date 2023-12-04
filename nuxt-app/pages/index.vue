@@ -1,8 +1,8 @@
 <script>
-import RakutenServise from '~/service/rakutenService'
 import users from '~/assets/user.json'
 import themes from '~/assets/theme.json'
 import allUsers from '~/assets/allusers.json'
+import hosyumen from '~/assets/hosyumen.json'
 
 export default {
 
@@ -12,6 +12,7 @@ export default {
             users: users,
             allUsers: allUsers,
             themes: themes,
+            hosyumen: hosyumen,
             selectedUsers: [],
             selectedUsersIds: [],
             recipeRankingList: [],
@@ -47,25 +48,6 @@ export default {
             isLong: false,
 
         }
-    },
-
-    async created() {
-        // ITメンバー
-        this.recipeAmerican = users
-        this.recipeJapanese = themes
-        this.recipeChinese = allUsers
-        // this.recipeFrench = dataFrench.data.value.meals
-
-        // this.recipeChicken = dataChicken.data.value.meals
-        // this.recipeBeef = dataBeef.data.value.meals
-        // this.recipeSeafood = dataSeafood.data.value.meals
-        // this.recipeVegetarian = dataVegetarian.data.value.meals
-
-        // 楽天レシピのデータ表示
-        const rakutenResponse = await RakutenServise.fetchRecipeRanking();
-        this.recipeRankingList = rakutenResponse
-
-
     },
 
     methods: {
@@ -156,8 +138,8 @@ export default {
                 this.isLong = false;
 
 
-                // } else if (this.recipeTarget === 'chicken') {
-                //     this.SetRouletteRecipe(this.recipeChicken);
+            } else if (this.recipeTarget === 'chicken') {
+                this.SetRouletteRecipe(this.hosyumen);
 
                 // } else if (this.recipeTarget === 'beef') {
                 //     this.SetRouletteRecipe(this.recipeBeef);
@@ -362,6 +344,7 @@ export default {
                                                 <option value="not">選択してください</option>
                                                 <!-- <option value="american">MEMBER</option> -->
                                                 <!-- <option value="chinese">ALL MEMBER</option> -->
+                                                <option value="chicken">保守メン</option>
                                                 <option value="japanese">話すテーマ決めて欲しいの？</option>
                                                 <option value="american">ITメンバー</option>
                                             </select>

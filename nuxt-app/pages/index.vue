@@ -66,7 +66,7 @@ export default {
                 // ルーレットが回っている間は「セット」ボタンを押せないようにする。
                 this.transparency = true;
 
-                //　ルーレットの途中でスタートボタンが押されたら、初めから回し始める。
+                // ルーレットの途中でスタートボタンが押されたら、初めから回し始める。
                 // colorStatusがtrueの場合は、枠が色づけされ、回っているように見せる。
                 this.rouletteRecipe.forEach(e => {
                     e.colorStatus = false
@@ -92,6 +92,17 @@ export default {
                     attentionIndex++
 
                 }, 50)
+
+                // 2秒から4.1秒のランダムな時間をミリ秒で計算
+                const randomDelay = Math.random() * (4100 - 1000) + 1000;
+
+                console.log(randomDelay)
+
+                // 計算した遅延時間後にstop関数を呼び出す
+                setTimeout(() => {
+                    this.stop();
+                }, randomDelay);
+
 
             }
 

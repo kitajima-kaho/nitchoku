@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.nakajitsu.owners",
+      "sha256_cert_fingerprints": [
+        "56:75:17:21:08:76:76:AB:7A:59:00:D4:B1:8A:E6:49:56:03:FB:EF:06:0C:E7:1C:22:C0:B2:EE:1F:89:84:75"
+      ]
+    }
+  }
+]

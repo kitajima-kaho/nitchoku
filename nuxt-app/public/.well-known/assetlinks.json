@@ -4,7 +4,7 @@
     "target": {
       "namespace": "android_app",
       "package_name": "com.nakajitsu.owners",
-      "sha256_cert_fingerprints": ["0D:A1:D8:01:85:8C:24:57:2F:9F:A0:CA:D7:0A:D0:2B:DD:A0:F3:57:68:5E:F8:C5:3F:26:57:46:A8:89:4D:62"]
+      "sha256_cert_fingerprints": ["AD:25:A7:C7:BC:12:77:A7:ED:C6:9D:07:81:89:E6:16:FF:52:D6:39:D3:BF:AB:FC:37:97:6F:CD:3E:73:7A:05"]
     }
   }
 ]

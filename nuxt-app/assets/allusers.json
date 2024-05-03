@@ -43,5 +43,10 @@
     "id": 9,
     "name": "太田さん",
     "colorStatus": false
+  },
+  {
+    "id": 10,
+    "name": "橋爪さん",
+    "colorStatus": false
   }
 ]
